@@ -3,6 +3,10 @@ deploy/*
 cnf/*
 setenv.*
 .env
+__pycache__/
+net/lecnam/__pycache__/
+net/lecnam/rcp103/__pycache__/
+*.log
 
 # Maven
 target/
