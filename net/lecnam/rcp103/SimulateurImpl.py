@@ -1,5 +1,7 @@
 #!/usr/bin/python3
 
+# PYTHONPATH=. python3 net/lecnam/rcp103/SimulateurImpl.py
+
 import os
 import platform
 import sys
@@ -55,7 +57,11 @@ class SimulateurImpl(ISimulateur):
             logger.debug(" x = " + str(x) + " y = " + str(y))
             systeme = platform.system()
             print("Système d'exploitation:" + systeme)
-                    
+
+            proba = [0.1, 0.2, 0.3, 0.4]
+            c=secrets.choice(proba)
+            print("+++ proba = " + str(c))
+
             # créer une instance de SystemRandom
             secure_rand = secrets.SystemRandom()
             nb = secure_rand.random() # secure_rand.randint(a=0, b=1)
