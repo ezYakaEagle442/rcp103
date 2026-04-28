@@ -8,6 +8,8 @@ class ISimulateur(ABC):
     def calcul(x: int, y: int):
         pass
 
+    '''
     @abstractmethod
     def foo(x: int, y: int):
-        pass    
+        pass
+    '''

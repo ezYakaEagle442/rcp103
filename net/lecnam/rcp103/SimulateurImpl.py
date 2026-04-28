@@ -2,6 +2,18 @@
 
 # PYTHONPATH=. python3 net/lecnam/rcp103/SimulateurImpl.py
 
+#####################################################################
+#
+# pre-req: in VSCode install extension 'Microsoft Python Environments Extension' ('Python Environment Manager' is deprecated)
+# https://scipy.org/install/: sudo apt-get install python3-scipy
+# test in shell with : pip list
+# 
+# To manually trigger a refresh in VSCode:
+# Open the Command Palette (Cmd+Shift+P or Ctrl+Shift+P)
+# Run Python Environments: Refresh All Environment Managers
+#
+# #####################################################################
+
 import os
 import platform
 import sys
@@ -13,6 +25,13 @@ import logging.config
 
 from net.lecnam.rcp103.ISimulateur import ISimulateur
 from net.lecnam.rcp103.SimulateurException import SimulateurException
+
+from scipy.stats import poisson
+# https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.poisson.html
+
+
+import scipy
+print(scipy.__version__) 
 
 # Always load logging_config.py from the same directory as this file
 config_path = os.path.join(os.path.dirname(__file__), "logging_config.cnf")
