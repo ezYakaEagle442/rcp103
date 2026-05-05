@@ -3,29 +3,23 @@
 from abc import ABC, abstractmethod
 import datetime
 
-from rcp103.net.lecnam.rcp103.tp2 import IEvent
-
+from .IEvent import IEvent
 
 class IScheduler(ABC):
-
     @abstractmethod
-    def getCurrentTime():
+    def add_event(self, event: IEvent):
         pass
 
     @abstractmethod
-    def getEvent():
+    def get_event(self):
         pass
 
     @abstractmethod
-    def setCurrentTime(src: datetime):
+    def get_current_time(self):
         pass
 
     @abstractmethod
-    def setEvent(evt: IEvent):
-        pass
-
-    @abstractmethod
-    def addEvent(evt: IEvent):
+    def has_events(self):
         pass
 
     '''

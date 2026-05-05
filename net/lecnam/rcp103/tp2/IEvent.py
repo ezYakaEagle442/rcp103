@@ -22,6 +22,10 @@ class IEvent(ABC):
     def set_event_type(evtType: string):
         pass
 
+    @abstractmethod
+    def print_event():
+        pass
+
     '''
     @abstractmethod
     def foo(x: int, y: int):

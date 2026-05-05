@@ -72,9 +72,9 @@ class EventImpl(IEvent):
     eventID: int
     message: IMessage
     eventType: string # EventType – SEND_MSG, RECV_MSG, MSG_DEPT
-    eventTime: datetime.datetime # horodatage de l'événement
+    eventTime: float # horodatage de l'événement
     
-    def __init__(self, eventID: int, message: IMessage, eventType: string, eventTime: datetime.datetime):
+    def __init__(self, eventID: int, message: IMessage, eventType: string, eventTime: float):
         self.eventID = eventID
         self.message = message
         self.eventType = eventType
@@ -100,4 +100,14 @@ class EventImpl(IEvent):
             logger.debug("+++ EventImpl : END setEventType ...")
         except KeyError:
             raise ValueError(f"Invalid event type: {type}. Must be one of: {[e.name for e in EventType]}")
+
+    def get_message(self) -> IMessage:
+        return self.message
     
+    def set_message(self, message: IMessage):
+        self.message = message
+        
+    def print_event(self):
+        msg = self.get_message().print_message()
+        logger.debug(f"+++ EventImpl : START print_event msg={msg}")
+        return(f"Event ID: {self.eventID}, Type: {self.eventType}, Time: {self.eventTime}, Message: {msg}\n")
