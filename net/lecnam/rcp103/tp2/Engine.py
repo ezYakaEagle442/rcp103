@@ -10,6 +10,20 @@ from net.lecnam.rcp103.tp2.EventImpl import EventImpl
 from net.lecnam.rcp103.tp2.SchedulerImpl import SchedulerImpl
 
 
+import logging
+import logging.config
+import os
+import platform
+import string
+import sys
+
+# Always load logging_config.py from the same directory as this file
+config_path = os.path.join(os.path.dirname(__file__), "logging_config.cnf")
+logging.config.fileConfig(config_path, defaults=None, disable_existing_loggers=True, encoding=None)
+
+logger = logging.getLogger(__name__)
+# https://docs.python.org/3/library/logging.html#logging-levels
+
 class Engine:
 
     nb_clients: int
@@ -17,7 +31,7 @@ class Engine:
     simulation_time: float
     clients: list
     scheduler: SchedulerImpl
-    
+
     def __init__(self):
         self.scheduler = SchedulerImpl()
         self.nb_clients = 0
@@ -91,12 +105,12 @@ class Engine:
         msg1 = MessageImpl(1, 1, 0, 0.0)
         msg2 = MessageImpl(2, 3, 0, 0.0)
 
-        e1 = EventImpl(1, "SEND_MSG", 1.202, msg1)
-        e2 = EventImpl(2, "RECV_MSG", 1.916, msg1)
-        e3 = EventImpl(3, "SEND_MSG", 2.320, msg2)
-        e4 = EventImpl(4, "RECV_MSG", 2.391, msg2)
-        e5 = EventImpl(5, "MSG_DEPT", 4.572, msg1)
-        e6 = EventImpl(6, "MSG_DEPT", 5.916, msg2)
+        e1 = EventImpl(1, msg1, "SEND_MSG", 1.202)
+        e2 = EventImpl(2, msg1, "RECV_MSG", 1.916)
+        e3 = EventImpl(3, msg2, "SEND_MSG", 2.320)
+        e4 = EventImpl(4, msg2, "RECV_MSG", 2.391)
+        e5 = EventImpl(5, msg1, "MSG_DEPT", 4.572)
+        e6 = EventImpl(6, msg2, "MSG_DEPT", 5.916)
 
         self.scheduler.add_event(e5)
         self.scheduler.add_event(e1)
@@ -106,6 +120,8 @@ class Engine:
         self.scheduler.add_event(e4)
 
         self.scheduler.print_scheduler()
+        logger.debug("+++ Engine : print_scheduler ...")
+        logger.info(self.scheduler.print_scheduler())        
 
     def run_tests(self):
         self.test_message()

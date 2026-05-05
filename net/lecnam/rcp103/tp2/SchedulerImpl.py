@@ -6,6 +6,10 @@ from net.lecnam.rcp103.tp2.IEvent import IEvent
 from net.lecnam.rcp103.tp2.IScheduler import IScheduler
 
 class SchedulerImpl(IScheduler):
+
+    events: list
+    current_time: float
+
     def __init__(self):
         self.events = []
         self.current_time = 0.0
@@ -13,7 +17,7 @@ class SchedulerImpl(IScheduler):
     def add_event(self, event):
         t = event.get_event_time()
         for i, e in enumerate(self.events):
-            if e.get_event_time() > t:
+            if (e.get_event_time() > t):
                 self.events.insert(i, event)
                 return
         self.events.append(event)

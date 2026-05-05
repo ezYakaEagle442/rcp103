@@ -1,0 +1,8 @@
+2026-05-05 22:42:14 DEBUG __main__: +++ Engine : print_scheduler ...
+2026-05-05 22:42:14 INFO __main__: Event ID: 1, Type: SEND_MSG, Time: 1.202
+Event ID: 2, Type: RECV_MSG, Time: 1.916
+Event ID: 3, Type: SEND_MSG, Time: 2.32
+Event ID: 4, Type: RECV_MSG, Time: 2.391
+Event ID: 5, Type: MSG_DEPT, Time: 4.572
+Event ID: 6, Type: MSG_DEPT, Time: 5.916
+
