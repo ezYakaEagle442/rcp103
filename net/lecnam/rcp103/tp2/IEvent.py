@@ -1,4 +1,3 @@
-
 # Interface
 from abc import ABC, abstractmethod
 import datetime
@@ -8,19 +7,19 @@ import string
 class IEvent(ABC):
 
     @abstractmethod
-    def getEventTime() ->  datetime.datetime:
+    def get_event_time() ->  datetime.datetime:
         pass
 
     @abstractmethod
-    def getEventType()  ->  string:
+    def get_event_type()  ->  string:
         pass
 
     @abstractmethod
-    def setEventTime(evtString: datetime):
+    def set_event_time(evtString: datetime):
         pass
 
     @abstractmethod
-    def setEventType(evtType: string):
+    def set_event_type(evtType: string):
         pass
 
     '''

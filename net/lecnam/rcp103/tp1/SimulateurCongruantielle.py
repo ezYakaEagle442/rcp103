@@ -88,8 +88,8 @@ class SimulateurCongruantielle():
             # Uniforme entière (20–40)": lambda n: rng.integers(20, 41, size=n)
             # Afficher a l’ecran n valeurs differentes pour : n = 10, n = 100, n = 1 000, n = 10 000
 
-            res = []
-            # res = rng.integers(20, 41, size=n)
+            # res = []
+            res = rng.integers(20, 41, size=n)
 
             # print("+++ res = " + str(res))
             logger.debug("+++ SimulateurCongruantielle : calculUniformDiscrete terminé.")

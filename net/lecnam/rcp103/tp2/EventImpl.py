@@ -1,4 +1,4 @@
-!/usr/bin/python3
+# !/usr/bin/python3
 
 # PYTHONPATH=. /usr/bin/python3 net/lecnam/rcp103/tp2/EventImpl.py
 
@@ -50,8 +50,11 @@ import matplotlib.pyplot as plt
 
 import scipy
 
-from rcp103.net.lecnam.rcp103.tp2 import EventType, IEvent, IMessage
-print(scipy.__version__) 
+from net.lecnam.rcp103.tp2.IEvent import IEvent
+from net.lecnam.rcp103.tp2.IMessage import IMessage
+from net.lecnam.rcp103.tp2.EventType import EventType
+
+# print(scipy.__version__) 
 
 # Always load logging_config.py from the same directory as this file
 config_path = os.path.join(os.path.dirname(__file__), "logging_config.cnf")
@@ -77,17 +80,24 @@ class EventImpl(IEvent):
         self.eventType = eventType
         self.eventTime = eventTime
 
-    def getEventTime(self) ->  datetime.datetime:
+    def get_event_time(self) ->  datetime.datetime:
         return self.eventTime
 
-    def getEventType(self) ->  string:
+    def get_event_type(self) ->  string:
         return self.eventType
 
-    def setEventTime(self, time: datetime):
+    def set_event_time(self, time: datetime):
         self.eventTime = time
 
-    def setEventType(self, type: string):
-        self.eventType = type
+    def set_event_type(self, type: string):
 
-    def getEventTime(self) ->  datetime.datetime:
-        return self.eventTime
+        try:
+            logger.debug("+++ EventImpl : START setEventType ...")
+            if type not in [e.name for e in EventType]:
+                raise ValueError(f"Invalid event type. Must be one of: {[e.name for e in EventType]}")
+            self.eventType = type
+            logger.debug("+++ EventImpl : evtType = " + str(type))
+            logger.debug("+++ EventImpl : END setEventType ...")
+        except KeyError:
+            raise ValueError(f"Invalid event type: {type}. Must be one of: {[e.name for e in EventType]}")
+    
