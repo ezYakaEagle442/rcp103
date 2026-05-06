@@ -77,8 +77,12 @@ class EventImpl(IEvent):
     def __init__(self, eventID: int, message: IMessage, eventType: string, eventTime: float):
         self.eventID = eventID
         self.message = message
-        self.eventType = eventType
         self.eventTime = eventTime
+
+        if eventType not in [e.name for e in EventType]:
+            logger.error(f"+++ EventImpl __init__  Invalid event type in Constructor: {eventType}. Must be one of: {[e.name for e in EventType]}")
+            raise ValueError(f"Invalid event type. Must be one of: {[e.name for e in EventType]}")
+        self.eventType = eventType
 
     def get_event_time(self) ->  datetime.datetime:
         return self.eventTime
@@ -94,6 +98,7 @@ class EventImpl(IEvent):
         try:
             logger.debug("+++ EventImpl : START setEventType ...")
             if type not in [e.name for e in EventType]:
+                logger.error(f"Invalid event type: {type}. Must be one of: {[e.name for e in EventType]}")
                 raise ValueError(f"Invalid event type. Must be one of: {[e.name for e in EventType]}")
             self.eventType = type
             logger.debug("+++ EventImpl : evtType = " + str(type))
