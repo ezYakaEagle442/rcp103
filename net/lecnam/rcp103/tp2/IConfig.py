@@ -2,6 +2,8 @@
 # Interface
 from abc import ABC, abstractmethod
 
+from net.lecnam.rcp103 import logging_config
+
 class IConfig(ABC):
 
     @abstractmethod
@@ -9,6 +11,9 @@ class IConfig(ABC):
         pass
     
     def get_output_dir() -> str:
+        pass
+    
+    def get_log_cfg_file_path() -> str:
         pass
     
     # --- Affichage ---

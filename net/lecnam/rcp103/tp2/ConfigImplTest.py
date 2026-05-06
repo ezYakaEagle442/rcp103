@@ -24,9 +24,11 @@ try:
     cfg = ConfigImpl()
     out_dir = cfg.get_output_dir()
     seed = cfg.get_seed()
+    log_path = cfg.get_log_cfg_file_path()
     conf = cfg.print_config()
     logger.info(f"+++ ConfigImplTest : seed= {seed}")
     logger.info(f"+++ ConfigImplTest : out_dir= {out_dir}")
+    logger.info(f"+++ ConfigImplTest : log_cfg_file_path= {log_path}")
     logger.info(f"+++ ConfigImplTest : Config created: {conf}")
     logger.debug(f"+++ ConfigImplTest : END")
 

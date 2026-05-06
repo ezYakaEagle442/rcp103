@@ -23,8 +23,9 @@ logger = logging.getLogger(__name__)
 # Class d'Implémentation
 class ConfigImpl(IConfig):
 
-    seed= 3 # correspond au Groupe 3
+    SEED= 3 # correspond au Groupe 3
     OUPUT_DIR = "RCP103_TP2_OUTPUTS"
+    LOG_CFG_FILE_PATH = "logging_config.cnf"
     
     def __init__(self):
         logger.debug(f"+++ ConfigImpl : START Constructor")
@@ -32,11 +33,14 @@ class ConfigImpl(IConfig):
         pass
 
     def get_seed(self) -> int:
-        return self.seed
+        return self.SEED
     
     def get_output_dir(self) -> str:
         return self.OUPUT_DIR
-    
+
+    def get_log_cfg_file_path(self) -> str:
+        return self.LOG_CFG_FILE_PATH
+
     # --- Affichage ---
     def print_config(self):
-        return(f"[Config] seed={self.seed} | output_dir={self.OUPUT_DIR}")
+        return(f"[Config] seed={self.SEED} | output_dir={self.OUPUT_DIR} | log_cfg_file_path={self.LOG_CFG_FILE_PATH}")
