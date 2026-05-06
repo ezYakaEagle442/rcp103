@@ -20,13 +20,19 @@ mock_sim = MagicMock(spec=EventImpl)
 
 # Example: set return value for calcul
 mock_sim.get_event_time.return_value = 1.42
+mock_sim.get_event_type.return_value = "SEND_MSG" # "Fake Foo Event"
+mock_sim.get_event_id.return_value = 42
 
 msg = MessageImpl(1, "Alice", "Bob", 1.64)
 
 # Use the mock in your test
-result = mock_sim.get_event_time()
+t = mock_sim.get_event_time()
+type = mock_sim.get_event_type()
+id = mock_sim.get_event_id()
 
-print("Mocked result:", result)  # Output: Mocked calcul result: 1,42
+print("Mocked id:", id)  # Output: Mocked calcul result: 1,42
+print("Mocked type:", type)
+print("Mocked t:", t)
 
 # You can also assert calls
 mock_sim.get_event_time.assert_called_with()

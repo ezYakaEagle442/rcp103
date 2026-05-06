@@ -112,6 +112,12 @@ class EventImpl(IEvent):
     def set_message(self, message: IMessage):
         self.message = message
         
+    def get_event_id(self) -> int:
+        return self.eventID
+    
+    def set_event_id(self, id: int):
+        self.eventID = id
+
     def print_event(self):
         msg = self.get_message().print_message()
         logger.debug(f"+++ EventImpl : START print_event msg={msg}")

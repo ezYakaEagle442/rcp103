@@ -23,6 +23,14 @@ class IEvent(ABC):
         pass
 
     @abstractmethod
+    def get_event_id() -> int:
+        pass
+
+    @abstractmethod
+    def set_event_id(id: int):
+        pass
+
+    @abstractmethod
     def print_event():
         pass
 

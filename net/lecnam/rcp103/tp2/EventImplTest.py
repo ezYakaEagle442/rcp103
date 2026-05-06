@@ -18,7 +18,7 @@ from net.lecnam.rcp103.tp2.EventType import EventType
 try:
     print("+++ START EventImpl fire")
     msg = MessageImpl(1, "Alice", "Bob", 1.13)
-    impl = EventImpl(1, msg, "SEND_MSG_ZZZ", 1.13)
+    impl = EventImpl(1, msg, "SEND_MSG", 1.13) # SEND_MSG_ZZZ will force test to fail
     horodatage = impl.get_event_time()
     print("+++ result = " + str(horodatage))
     res = impl.print_event()
