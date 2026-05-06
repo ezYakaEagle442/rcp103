@@ -1,0 +1,279 @@
+\documentclass{article}  
+\usepackage[utf8]{inputenc}  
+\usepackage[french]{babel}  
+\usepackage{listings}  
+\usepackage{xcolor}  
+\usepackage{graphicx}  
+\usepackage{amsmath}  
+\usepackage{hyperref}  
+\usepackage{float}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}  
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}  
+\definecolor{codepurple}{rgb}{0.58,0,0.82}  
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{  
+    backgroundcolor=\color{backcolour},  
+    commentstyle=\color{codegreen},  
+    keywordstyle=\color{magenta},  
+    numberstyle=\tiny\color{codegray},  
+    stringstyle=\color{codepurple},  
+    basicstyle=\ttfamily\footnotesize,  
+    breakatwhitespace=false,  
+    breaklines=true,  
+    captionpos=b,  
+    keepspaces=true,  
+    numbers=left,  
+    numbersep=5pt,  
+    showspaces=false,  
+    showstringspaces=false,  
+    showtabs=false,  
+    tabsize=2  
+}
+
+\lstset{style=mystyle}
+
+\title{Rapport d'analyse : Génération et visualisation de distributions statistiques}  
+\author{PINCAUD Steve, SAVIARD Matthieu et Henri Charonnet}  
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}  
+Ce rapport présente une implémentation en Python pour générer et visualiser les distributions statistiques suivantes : uniforme entière, uniforme réelle, normale, exponentielle et Poisson . L'objectif est d'analyser le comportement de ces distributions en fonction de la taille de l'échantillon, à l'aide d'histogrammes.  
+\end{abstract}
+
+\tableofcontents
+
+\section{Introduction}  
+Ce projet vise à modéliser et visualiser des distributions statistiques fondamentales en utilisant les bibliothèques \texttt{numpy} et \texttt{matplotlib}. L'implémentation repose sur une architecture orientée objet, avec une classe de base \texttt{Distribution} et des sous-classes pour chaque type de distribution. Les histogrammes générés permettent d'observer la convergence des échantillons vers les distributions théoriques lorsque la taille de l'échantillon augmente.
+
+\section{Prérequis}  
+Pour exécuter ce code, les éléments suivants sont nécessaires :  
+\begin{itemize}  
+    \item \textbf{Python 3.8+} : Langage de programmation utilisé.  
+    \item \textbf{Bibliothèques} :  
+    \begin{itemize}  
+        \item \texttt{numpy} : Pour la génération de nombres aléatoires et les opérations numériques.  
+        \item \texttt{matplotlib} : Pour la visualisation des histogrammes.  
+    \end{itemize}  
+    \item \textbf{Environnement} : Le code peut être exécuté dans n'importe quel environnement Python (Jupyter Notebook, IDE comme PyCharm ou VSCode, ou en ligne de commande).  
+\end{itemize}
+
+\section{Architecture du code}  
+\subsection{Classe de base : \texttt{Distribution}}  
+La classe \texttt{Distribution} est une classe abstraite qui définit l'interface commune à toutes les distributions. Elle contient :  
+\begin{itemize}  
+    \item Un attribut \texttt{name} pour identifier la distribution.  
+    \item Un générateur aléatoire \texttt{rng} de type \texttt{numpy.random.Generator}.  
+    \item Une méthode abstraite \texttt{generate(n)} qui doit être implémentée par chaque sous-classe pour générer un échantillon de taille \texttt{n}.  
+\end{itemize}
+
+\subsection{Sous-classes de distributions}  
+Chaque sous-classe hérite de \texttt{Distribution} et implémente la méthode \texttt{generate(n)} selon la distribution spécifique :
+
+\begin{itemize}  
+    \item \textbf{\texttt{UniformeEntiere}} : Distribution uniforme discrète sur l'intervalle \texttt{[low, high]}. Utilise \texttt{rng.integers}.  
+    \item \textbf{\texttt{UniformeReelle}} : Distribution uniforme continue sur l'intervalle \texttt{[low, high)}. Utilise \texttt{rng.uniform}.  
+    \item \textbf{\texttt{Normale}} : Distribution normale (gaussienne) avec moyenne \texttt{mu} et écart-type \texttt{sigma}. Utilise \texttt{rng.normal}.  
+    \item \textbf{\texttt{Exponentielle}} : Distribution exponentielle avec paramètre d'échelle \texttt{scale}. Utilise \texttt{rng.exponential}.  
+    \item \textbf{\texttt{Poisson}} : Distribution de Poisson avec paramètre \texttt{lam} (λ). Utilise \texttt{rng.poisson}.  
+\end{itemize}
+
+\subsection{Classe \texttt{HistogrammeVisualiser}}  
+Cette classe permet de générer et sauvegarder les histogrammes pour une liste de distributions et une liste de tailles d'échantillons \texttt{ns}. Elle propose une méthode \texttt{tracer()} qui :  
+\begin{itemize}  
+    \item Crée une figure avec un sous-graphe par taille d'échantillon.  
+    \item Génère un histogramme pour chaque distribution et chaque taille d'échantillon.  
+    \item Sauvegarde les figures au format PNG (optionnel).  
+    \item Affiche les figures à l'écran (optionnel).  
+\end{itemize}
+
+\section{Description du code}  
+Voici le code complet avec des commentaires détaillés :
+
+\begin{lstlisting}[language=Python, caption=Implémentation des distributions statistiques]  
+import numpy as np  
+import matplotlib.pyplot as plt
+
+class Distribution:  
+    """Classe de base représentant une distribution statistique."""
+
+```
+def __init__(self, name: str, rng: np.random.Generator):
+    self.name = name
+    self.rng = rng
+
+def generate(self, n: int) -> np.ndarray:
+    raise NotImplementedError("La méthode generate() doit être implémentée dans la sous-classe.")
+
+def __repr__(self):
+    return f"{self.__class__.__name__}(name={self.name!r})"
+```
+
+class UniformeEntiere(Distribution):  
+    """Distribution uniforme discrète sur [low, high]."""
+
+```
+def __init__(self, rng, low: int = 20, high: int = 40):
+    super().__init__(f"Uniforme entière ({low}–{high})", rng)
+    self.low = low
+    self.high = high
+
+def generate(self, n: int) -> np.ndarray:
+    return self.rng.integers(self.low, self.high + 1, size=n)
+```
+
+class UniformeReelle(Distribution):  
+    """Distribution uniforme continue sur [low, high)."""
+
+```
+def __init__(self, rng, low: float = 2.0, high: float = 3.0):
+    super().__init__(f"Uniforme réelle ({low}–{high})", rng)
+    self.low = low
+    self.high = high
+
+def generate(self, n: int) -> np.ndarray:
+    return self.rng.uniform(self.low, self.high, size=n)
+```
+
+class Normale(Distribution):  
+    """Distribution normale (gaussienne)."""
+
+```
+def __init__(self, rng, mu: float = 0, sigma: float = 0.5):
+    super().__init__(f"Normale (µ={mu}, σ={sigma})", rng)
+    self.mu = mu
+    self.sigma = sigma
+
+def generate(self, n: int) -> np.ndarray:
+    return self.rng.normal(self.mu, self.sigma, size=n)
+```
+
+class Exponentielle(Distribution):  
+    """Distribution exponentielle."""
+
+```
+def __init__(self, rng, scale: float = 4):
+    super().__init__(f"Exponentielle (moy={scale})", rng)
+    self.scale = scale
+
+def generate(self, n: int) -> np.ndarray:
+    return self.rng.exponential(self.scale, size=n)
+```
+
+class Poisson(Distribution):  
+    """Distribution de Poisson."""
+
+```
+def __init__(self, rng, lam: float = 1):
+    super().__init__(f"Poisson (λ={lam})", rng)
+    self.lam = lam
+
+def generate(self, n: int) -> np.ndarray:
+    return self.rng.poisson(self.lam, size=n)
+```
+
+class HistogrammeVisualiser:  
+    """Génère et sauvegarde les histogrammes pour une liste de distributions."""
+
+```
+def __init__(self, distributions: list[Distribution], ns: list[int]):
+    self.distributions = distributions
+    self.ns = ns
+
+def tracer(self, save: bool = True, show: bool = True):
+    for dist in self.distributions:
+        fig, axes = plt.subplots(1, len(self.ns), figsize=(16, 3))
+        fig.suptitle(dist.name, fontsize=13)
+
+        for ax, n in zip(axes, self.ns):
+            data = dist.generate(n)
+            ax.hist(data, bins='auto', edgecolor='white', linewidth=0.4)
+            ax.set_title(f"n = {n}")
+            ax.set_xlabel("Valeur")
+            ax.set_ylabel("Fréquence")
+
+        plt.tight_layout()
+
+        if save:
+            filename = f"hist_{dist.name[:10].strip()}.png"
+            plt.savefig(filename, dpi=150)
+
+        if show:
+            plt.show()
+
+        plt.close(fig)
+```
+
+if **name** == "**main**":  
+    rng = np.random.default_rng(seed=3)
+
+```
+distributions = [
+    UniformeEntiere(rng),
+    UniformeReelle(rng),
+    Normale(rng),
+    Exponentielle(rng),
+    Poisson(rng),
+]
+
+ns = [10, 100, 1000, 10000]
+
+visualiseur = HistogrammeVisualiser(distributions, ns)
+visualiseur.tracer(save=True, show=True)
+```
+
+\end{lstlisting}
+
+\section{Analyse des résultats}  
+\subsection{Comportement des distributions}  
+Les histogrammes générés pour chaque distribution et chaque taille d'échantillon \texttt{n} permettent d'observer les phénomènes suivants :
+
+\begin{itemize}  
+    \item \textbf{Uniforme entière} : Pour \texttt{n = 10}, l'histogramme est très irrégulier en raison du faible nombre d'échantillons. Lorsque \texttt{n} augmente (100, 1000, 10000), l'histogramme se rapproche d'une distribution uniforme discrète sur \texttt{[20, 40]}, avec une fréquence similaire pour chaque valeur entière.
+
+```
+\item \textbf{Uniforme réelle} : Pour \texttt{n = 10}, les valeurs sont dispersées. Avec \texttt{n = 10000}, l'histogramme devient presque plat sur l'intervalle \texttt{[2.0, 3.0)}, confirmant la nature uniforme de la distribution.
+
+\item \textbf{Normale} : Pour \texttt{n = 10}, la distribution semble aléatoire. À partir de \texttt{n = 1000}, la forme en cloche caractéristique de la distribution normale (centrée sur \texttt{mu = 0} avec un écart-type \texttt{sigma = 0.5}) devient visible. Avec \texttt{n = 10000}, la courbe est presque parfaite.
+
+\item \textbf{Exponentielle} : Pour \texttt{n = 10}, les valeurs sont très variables. Avec \texttt{n = 10000}, l'histogramme montre une décroissance exponentielle, typique de cette distribution (paramètre d'échelle \texttt{scale = 4}).
+
+\item \textbf{Poisson} : Pour \texttt{n = 10}, les valeurs sont peu représentatives. Avec \texttt{n = 10000}, l'histogramme montre une distribution discrète centrée autour de \texttt{lam = 1}, avec une décroissance rapide des fréquences pour les valeurs éloignées de la moyenne.
+```
+
+\end{itemize}
+
+\subsection{Interprétation}  
+\begin{itemize}  
+    \item \textbf{Convergence} : Plus \texttt{n} est grand, plus l'histogramme se rapproche de la distribution théorique. Cela illustre la \textbf{loi des grands nombres}, qui stipule que la moyenne empirique converge vers l'espérance théorique lorsque la taille de l'échantillon tend vers l'infini.  
+    \item \textbf{Biais d'échantillonnage} : Pour \texttt{n = 10}, les histogrammes sont très sensibles aux fluctuations aléatoires. Cela montre l'importance de choisir une taille d'échantillon suffisante pour obtenir des résultats fiables.  
+    \item \textbf{Visualisation} : Les histogrammes permettent de valider visuellement que les générateurs aléatoires de \texttt{numpy} produisent bien les distributions attendues.  
+\end{itemize}
+
+\subsection{Exemple de figures}  
+Les figures générées (ex: \texttt{histUniforme.png}, \texttt{histNormale.png}) montrent clairement l'évolution des histogrammes en fonction de \texttt{n}. Voici un exemple de ce à quoi ressemble l'histogramme pour la distribution normale avec \texttt{n = 10000} :
+
+\begin{figure}[H]  
+    \centering  
+    \includegraphics[width=0.8\textwidth]{hist_Normale.png}  
+    \caption{Histogramme de la distribution normale pour \texttt{n = 10000}.}  
+    \label{fig:normale}  
+\end{figure}
+
+\section{Conclusion}  
+Ce projet démontre comment modéliser et visualiser des distributions statistiques en Python à l'aide de \texttt{numpy} et \texttt{matplotlib}. Les résultats confirment que les générateurs aléatoires de \texttt{numpy} sont fiables et que les histogrammes convergent vers les distributions théoriques lorsque la taille de l'échantillon augmente.
+
+\subsection{Pistes d'amélioration}  
+\begin{itemize}  
+    \item \textbf{Tests statistiques} : Ajouter des tests (ex: test de Kolmogorov-Smirnov) pour valider quantitativement que les échantillons suivent bien les distributions théoriques.  
+    \item \textbf{Distributions supplémentaires} : Étendre le code pour inclure d'autres distributions (ex: binomiale, géométrique, etc.).  
+    \item \textbf{Optimisation} : Utiliser des méthodes de traçage plus efficaces pour les très grands échantillons (ex: \texttt{plt.hist} avec \texttt{density=True} pour comparer directement avec la densité théorique).  
+    \item \textbf{Interface utilisateur} : Créer une interface graphique (ex: avec \texttt{Tkinter} ou \texttt{Streamlit}) pour permettre à l'utilisateur de choisir interactivement les paramètres des distributions.  
+\end{itemize}
+
+## \end{document}

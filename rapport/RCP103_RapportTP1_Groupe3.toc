@@ -1,0 +1,26 @@
+\babel@toc {french}{}\relax 
+\contentsline {section}{\numberline {1}Introduction}{1}{section.1}%
+\contentsline {section}{\numberline {2}Prérequis}{1}{section.2}%
+\contentsline {section}{\numberline {3}Première phase du TP}{2}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Exercice 1}{2}{subsection.3.1}%
+\contentsline {subsubsection}{\numberline {3.1.1}Objectif}{2}{subsubsection.3.1.1}%
+\contentsline {subsubsection}{\numberline {3.1.2}Architecture du code}{2}{subsubsection.3.1.2}%
+\contentsline {subsubsection}{\numberline {3.1.3}Formules testées}{2}{subsubsection.3.1.3}%
+\contentsline {subsubsection}{\numberline {3.1.4}Visualisation}{3}{subsubsection.3.1.4}%
+\contentsline {subsubsection}{\numberline {3.1.5}Analyse et résultat}{3}{subsubsection.3.1.5}%
+\contentsline {subsection}{\numberline {3.2}Exercice 2}{3}{subsection.3.2}%
+\contentsline {subsubsection}{\numberline {3.2.1}Objectif}{3}{subsubsection.3.2.1}%
+\contentsline {subsubsection}{\numberline {3.2.2}Architecture du code}{3}{subsubsection.3.2.2}%
+\contentsline {subsubsection}{\numberline {3.2.3}Description du code}{4}{subsubsection.3.2.3}%
+\contentsline {subsubsection}{\numberline {3.2.4}Analyse des résultats}{4}{subsubsection.3.2.4}%
+\contentsline {section}{\numberline {4}Seconde phase du TP}{4}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Architecture du code}{4}{subsection.4.1}%
+\contentsline {paragraph}{Sous-classes de distributions}{5}{section*.4}%
+\contentsline {paragraph}{Classe \texttt {HistogrammeVisualiser}}{6}{section*.5}%
+\contentsline {subsection}{\numberline {4.2}Analyse des résultats}{7}{subsection.4.2}%
+\contentsline {subsubsection}{\numberline {4.2.1}Comportement des distributions}{7}{subsubsection.4.2.1}%
+\contentsline {subsubsection}{\numberline {4.2.2}Convergence et loi des grands nombres}{9}{subsubsection.4.2.2}%
+\contentsline {section}{\numberline {5}Annexes}{9}{section.5}%
+\contentsline {subsubsection}{\numberline {5.0.1}Exercice 1}{9}{subsubsection.5.0.1}%
+\contentsline {subsubsection}{\numberline {5.0.2}Exercice 2}{10}{subsubsection.5.0.2}%
+\contentsline {subsubsection}{\numberline {5.0.3}Phase de groupe}{10}{subsubsection.5.0.3}%
