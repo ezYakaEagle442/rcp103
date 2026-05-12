@@ -10,7 +10,7 @@ import logging.config
 import numpy as np
 
 from net.lecnam.rcp103.tp2.ConfigImpl import ConfigImpl
-from net.lecnam.rcp103.tp2 import Distribution
+from net.lecnam.rcp103.tp2.Distribution import Distribution
 
 cfg = ConfigImpl()
 log_path = cfg.get_log_cfg_file_path()
@@ -27,7 +27,7 @@ class Poisson(Distribution):
     def __init__(self, rng, lam: float):
         logger.debug(f"+++ Poisson __init__ : START")
         super().__init__(f"Poisson (λ={lam})", rng)
-        # self.lam = lam
+        self.lam = lam
         logger.debug(f"+++ Poisson __init__ : END")
 
     def generate(self, n: int) -> np.ndarray:

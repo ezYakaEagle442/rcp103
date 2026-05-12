@@ -15,6 +15,11 @@ from net.lecnam.rcp103.tp2.IQueue import IQueue
 from net.lecnam.rcp103.tp2.ServerImpl import ServerImpl
 from net.lecnam.rcp103.tp2.ClientImpl import ClientImpl
 from net.lecnam.rcp103.tp2.QueueImpl import QueueImpl
+from net.lecnam.rcp103.tp2.Poisson import Poisson
+from net.lecnam.rcp103.tp2.Poisson import Distribution
+from net.lecnam.rcp103.tp2.ConfigImpl import ConfigImpl
+
+import numpy as np
 
 import logging
 import logging.config
@@ -48,7 +53,7 @@ class Engine:
         self.nb_clients = 0
         self.nb_servers = 0
         self.service_rate = 8
-        lambda_arrival_rate = [4, 6, 8 , 12] # arrival rate (lambda) of the Poisson distribution
+        self.lambda_arrival_rate = [4, 6, 8 , 12] # arrival rate (lambda) of the Poisson distribution
         self.simulation_time = 10.0
         self.clients = []
         self.servers = []
@@ -72,12 +77,14 @@ class Engine:
     def create_servers(self, n):
         logger.debug("+++ Engine : START create_servers ...")
         self.nb_servers = n
+        logger.debug("+++ Engine : START about to create n servers, n=" + str(n))
         self.servers = []
         for i in range(1, n + 1):
             srv = ServerImpl(server_id=i, mu=self.service_rate, queue=self.queue)
             self.servers.append(srv)
+            pretty_srv = srv.print_server()
+            logger.debug("+++ Engine : Server created:" + str(pretty_srv))
 
-        logger.debug("+++ Engine : Servers créés :", self.servers)
         logger.debug("+++ Engine : END create_servers ...")
 
     def print_trace_header(self):
@@ -183,16 +190,20 @@ class Engine:
     def calcul_MM1_rate(self):
         logger.debug("+++ Engine : START calcul_MM1_rate ...")
         print("\n--- TRACE ---")
-        print(f"{'Lambda'} {'Rho'} {'L'} {'W'}")
+        print(f"{'Lambda'} \t \t {'Rho'} \t \t {'L'} \t \t {'W'}")
 
         # Iterate lambda_arrival_rate and calculate L, W, rho for each lambda and print the results 
         for lam in self.lambda_arrival_rate:
             rho = lam / self.service_rate
-            L = self.rho / (1 - self.rho)
-            W = 1 / (self.service_rate - lam)
-            print(f"{lam:<8.3f} {rho:<8.3f} {L:<8.3f} {W:<8.3f}")
+            try:
+                # self.lambda_arrival_rate = [4, 6, 8 , 12] 
+                L = rho / (1 - rho)
+                W = 1 / (self.service_rate - lam)
+                print(f"{lam:<8.3f} \t {rho:<8.3f} \t {L:<8.3f} \t{W:<8.3f}")
+            except ZeroDivisionError as e:
+                print(f"{lam:<8.3f} \t {rho:<8.3f} \t {"INFINI"} \t {"INFINI"}")
+                logger.error("Division by zero error in calcul_MM1_rate")
         print("-" * 45)
-
         logger.debug("+++ Engine : END calcul_MM1_rate ...")
 
 if __name__ == "__main__":
@@ -200,8 +211,12 @@ if __name__ == "__main__":
     engine.create_servers(2)
     engine.create_clients(1)
 
-    engine.calcul_MM1_rate()
+    cfg = ConfigImpl()
+    seed = cfg.get_seed()
+    rng = np.random.default_rng(seed=seed)
     
+    engine.calcul_MM1_rate()
+
     # Loop on each client to send a message to the server
     i=1
     ts = 0.0
@@ -209,6 +224,11 @@ if __name__ == "__main__":
         # MessageImpl(self, message_id, source, destination, timestamp=0.0)
         msg = MessageImpl(i, client.get_client_id(), client.get_destination(), ts+0.10)
         msg.print_message()
+        fish = Poisson(rng=rng, lam=client.get_arrival_rate())
+        for _ in range(5):
+            inter_arrival_time = fish.generate(1)[0] / 1000.0 # Convert ms to seconds
+            ts += inter_arrival_time
+            msg.set_timestamp(ts)
         client.send_message(msg)
         i+=1
 

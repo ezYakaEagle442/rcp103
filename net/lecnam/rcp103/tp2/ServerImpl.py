@@ -54,6 +54,19 @@ class ServerImpl(IServer):
 
         logger.debug(f"+++ ServerImpl : END Constructor")
 
+    
+    def get_queue(self) -> IQueue:
+        return self.queue
+
+    def set_queue(self, queue: IQueue):
+        self.queue = queue
+
+    def get_server_id(self):
+        return self.server_id
+
+    def set_server_id(self, server_id: int):
+        self.server_id = server_id
+
     def listen(self):
         logger.debug(f"+++ ServerImpl : START listen")
 

@@ -18,12 +18,11 @@ import traceback
 import logging
 import logging.config
 
-from scipy.stats import poisson
+# from scipy.stats import poisson
 # https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.poisson.html
 
 import numpy as np
 import matplotlib.pyplot as plt
-import scipy
 
 from net.lecnam.rcp103.tp2.IEvent import IEvent
 from net.lecnam.rcp103.tp2.IMessage import IMessage
@@ -60,10 +59,9 @@ class ClientImpl(IClient):
         logger.debug(f"+++ ClientImpl : START Constructor")
 
         seed = cfg.get_seed()
-        rng = np.random.default_rng(seed=seed)
-
-        fish = Poisson(rng=rng, lam=self.arrival_rate)
-        impl = QueueImpl(lam=fish)
+        logger.debug(f"+++ ClientImpl : seed={seed}")
+        
+        impl = QueueImpl()
         
         logger.debug(f"+++ ClientImpl : END Constructor")
 
@@ -75,7 +73,6 @@ class ClientImpl(IClient):
     def set_client_id(self, id: int):
         self.client_id = id
 
-    @abstractmethod
     def get_client_id(self):
         return self.client_id
     
@@ -92,11 +89,9 @@ class ClientImpl(IClient):
     def set_arrival_rate(self, rate: int):
         self.arrival_rate = rate
 
-    @abstractmethod
     def set_message(self, msg: IMessage):
         self.message = msg
 
-    @abstractmethod
     def get_message(self, msg: IMessage):
         return self.message
 

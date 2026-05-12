@@ -42,7 +42,7 @@ logger.debug(f"+++ QueueImpl : Test before class")
 class QueueImpl(IQueue):
  
     queue_size = -1 # If maxsize is <= 0, the queue size is infinite.
-    queue: np.array[IMessage]
+    queue: list[IMessage]
     # mu: int # service rate (mu) of the M/M/1 queue
     # lam: int # arrival rate (lambda) of the Poisson distribution
             
