@@ -71,8 +71,11 @@ class Engine:
             client.set_client_id(i)
             client.set_destination(self.servers[0])
             self.clients.append(client)
+            pretty_client = client.print_client()
+            logger.debug("+++ Engine : Clients créés :" + str(pretty_client))
 
-        logger.debug("+++ Engine : Clients créés :", self.clients)
+
+
         logger.debug("+++ Engine : END create_clients ...")
         
     def create_servers(self, n):
