@@ -10,6 +10,7 @@ from abc import abstractmethod
 import datetime
 import os
 import platform
+import queue
 import string
 import sys
 import secrets
@@ -101,5 +102,14 @@ class ClientImpl(IClient):
     def print_client(self):
         logger.debug(f"+++ ClientImpl : START print_client")
         
+        # msg = self.message.print_message()
+        if not self.queue.is_empty():
+            q = self.queue.print_queue()
+        else:
+            q = "Empty"
+
+        srv = self.destination.print_server()
+        client  = f"ClientID={self.client_id} | ArrivalRate={self.arrival_rate} | Queue={q} | Destination={srv}"     
+        logger.debug(f"+++ ClientImpl : Client " + str(client)) 
         logger.debug(f"+++ ClientImpl : END print_client")        
-        return(f"TODO")
+        return(f"client")
