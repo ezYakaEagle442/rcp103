@@ -36,8 +36,6 @@ logging.config.fileConfig(config_path, defaults=None, disable_existing_loggers=F
 logger = logging.getLogger(__name__)
 # https://docs.python.org/3/library/logging.html#logging-levels
 
-logger.debug(f"+++ QueueImpl : Test before class")
-
 # Class d'Implémentation
 class QueueImpl(IQueue):
  
@@ -85,9 +83,14 @@ class QueueImpl(IQueue):
     def print_messages(self):
         logger.debug(f"+++ QueueImpl : START print_messages")
 
-        for msg in self.queue:
-            all_messages += msg.print_message()
-            
-        logger.info(all_messages)
+        if not self.is_empty():
+            for msg in self.queue:
+                all_messages += msg.print_message()
+                
+            logger.info(all_messages)
+            return all_messages
+        else:
+            logger.info(f"+++ QueueImpl : No messages in the queue to print.")
+            return None
         logger.debug(f"+++ QueueImpl : END print_messages")
-        return all_messages
+        
