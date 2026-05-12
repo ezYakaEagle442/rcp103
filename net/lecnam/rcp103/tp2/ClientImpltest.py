@@ -12,6 +12,8 @@ import os
 
 from net.lecnam.rcp103.tp2.ConfigImpl import ConfigImpl
 from net.lecnam.rcp103.tp2.ClientImpl import ClientImpl
+from net.lecnam.rcp103.tp2.ServerImpl import ServerImpl
+from net.lecnam.rcp103.tp2.QueueImpl import QueueImpl
 
 try:
     cfg = ConfigImpl()
@@ -25,10 +27,15 @@ try:
     # https://docs.python.org/3/library/logging.html#logging-levels
 
     logger.debug(f"+++ ClientImplTest : START")
-    impl = ClientImpl()
-    xxx = impl.getXXXX()
+    impl = ClientImpl(6)
+    queue = QueueImpl()
+    srv = ServerImpl(server_id=21, mu=8, queue=queue)
+    
+    impl.set_client_id(42)
+    impl.set_destination(srv)    
+    pretty_print = impl.print_client()
 
-    logger.info(f"+++ ClientImplTest : xxx = {xxx}")
+    logger.info(f"+++ ClientImplTest : client = {pretty_print}")
 
     logger.debug(f"+++ ClientImplTest : END")
 
