@@ -36,8 +36,8 @@ try:
     rng = np.random.default_rng(seed=seed)
 
     #fish = Poisson(rng=secrets.SystemRandom(), lam=4)
-    impl = QueueImpl(lam=4, mu=8)
-    q = impl.print_queue()
+    impl = QueueImpl()
+    q = impl.print_messages()
 
     logger.info(f"+++ QueueImplTest : q = {q}")
 
