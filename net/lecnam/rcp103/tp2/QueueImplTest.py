@@ -6,12 +6,18 @@
 # sous Windows/PowerShell: python QueueImplTest.py
 
 from datetime import datetime
+import secrets
 import traceback
 import logging
 import os
 
 from net.lecnam.rcp103.tp2.ConfigImpl import ConfigImpl
 from net.lecnam.rcp103.tp2.QueueImpl import QueueImpl
+# from net.lecnam.rcp103.tp2.Poisson import Poisson
+from net.lecnam.rcp103.tp2 import Distribution
+
+import numpy as np
+
 
 try:
     cfg = ConfigImpl()
@@ -25,10 +31,15 @@ try:
     # https://docs.python.org/3/library/logging.html#logging-levels
 
     logger.debug(f"+++ QueueImplTest : START")
-    impl = QueueImpl()
-    xxx = impl.print_queue()
 
-    logger.info(f"+++ QueueImplTest : xxx = {xxx}")
+    seed = cfg.get_seed()
+    rng = np.random.default_rng(seed=seed)
+
+    #fish = Poisson(rng=secrets.SystemRandom(), lam=4)
+    impl = QueueImpl(lam=4, mu=8)
+    q = impl.print_queue()
+
+    logger.info(f"+++ QueueImplTest : q = {q}")
 
     logger.debug(f"+++ QueueImplTest : END")
 

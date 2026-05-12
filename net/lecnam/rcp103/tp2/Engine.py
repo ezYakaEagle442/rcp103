@@ -8,7 +8,13 @@
 from net.lecnam.rcp103.tp2.MessageImpl import MessageImpl
 from net.lecnam.rcp103.tp2.EventImpl import EventImpl
 from net.lecnam.rcp103.tp2.SchedulerImpl import SchedulerImpl
-
+from net.lecnam.rcp103.tp2.IScheduler import IScheduler
+from net.lecnam.rcp103.tp2.IServer import IServer
+from net.lecnam.rcp103.tp2.IClient import IClient
+from net.lecnam.rcp103.tp2.IQueue import IQueue
+from net.lecnam.rcp103.tp2.ServerImpl import ServerImpl
+from net.lecnam.rcp103.tp2.ClientImpl import ClientImpl
+from net.lecnam.rcp103.tp2.QueueImpl import QueueImpl
 
 import logging
 import logging.config
@@ -28,25 +34,51 @@ class Engine:
 
     nb_clients: int
     nb_servers: int
+    lambda_arrival_rate: list
+    service_rate: int
     simulation_time: float
     clients: list
-    scheduler: SchedulerImpl
+    servers: list[IServer]
+    scheduler: IScheduler
+    queue: IQueue
 
     def __init__(self):
+        logger.debug("+++ Engine : START __init__ ...")
         self.scheduler = SchedulerImpl()
         self.nb_clients = 0
-        self.nb_servers = 1
+        self.nb_servers = 0
+        self.service_rate = 8
+        lambda_arrival_rate = [4, 6, 8 , 12] # arrival rate (lambda) of the Poisson distribution
         self.simulation_time = 10.0
         self.clients = []
+        self.servers = []
+        self.queue = QueueImpl()
+
+        logger.debug("+++ Engine : START __init__ ...")
 
     def create_clients(self, n):
+        logger.debug("+++ Engine : START create_clients ...")
         self.nb_clients = n
         self.clients = []
 
         for i in range(1, n + 1):
-            self.clients.append(i)
+            client = ClientImpl(arrival_rate=self.lambda_arrival_rate[i])
+            client.set_destination(self.servers[0])
+            self.clients.append(client)
 
-        print("Clients créés :", self.clients)
+        logger.debug("+++ Engine : Clients créés :", self.clients)
+        logger.debug("+++ Engine : END create_clients ...")
+        
+    def create_servers(self, n):
+        logger.debug("+++ Engine : START create_servers ...")
+        self.nb_servers = n
+        self.servers = []
+        for i in range(1, n + 1):
+            srv = ServerImpl(server_id=i, mu=self.service_rate, queue=self.queue)
+            self.servers.append(srv)
+
+        logger.debug("+++ Engine : Servers créés :", self.servers)
+        logger.debug("+++ Engine : END create_servers ...")
 
     def print_trace_header(self):
         print("\n--- TRACE ---")
@@ -124,15 +156,60 @@ class Engine:
         logger.info(self.scheduler.print_scheduler())        
 
     def run_tests(self):
-        self.test_message()
-        self.test_event()
-        self.test_scheduler()
-
+        logger.debug("+++ Engine : START run_tests ...")
+        # self.test_message()
+        # self.test_event()
+        # self.test_scheduler()
+        self.run_simulationMM1()
+        
         print("\n--- RUN SIMULATION ---")
-        self.run()
+        #self.run()
+        logger.debug("+++ Engine : END run_tests ...")
 
+    def run_simulationMM1(self):
+        logger.debug("+++ Engine : START run_simulationMM1 ...")
+        # dans l'Engine
+
+        L: float
+        W: float
+        rho: float
+
+        # Iterate on servers and trigget listen() method to process messages in the queue
+        for server in self.servers:
+            server.listen()
+
+        logger.debug("+++ Engine : END run_simulationMM1 ...")
+
+    def calcul_MM1_rate(self):
+        logger.debug("+++ Engine : START calcul_MM1_rate ...")
+        print("\n--- TRACE ---")
+        print(f"{'Lambda'} {'Rho'} {'L'} {'W'}")
+
+        # Iterate lambda_arrival_rate and calculate L, W, rho for each lambda and print the results 
+        for lam in self.lambda_arrival_rate:
+            rho = lam / self.service_rate
+            L = self.rho / (1 - self.rho)
+            W = 1 / (self.service_rate - lam)
+            print(f"{lam:<8.3f} {rho:<8.3f} {L:<8.3f} {W:<8.3f}")
+        print("-" * 45)
+
+        logger.debug("+++ Engine : END calcul_MM1_rate ...")
 
 if __name__ == "__main__":
     engine = Engine()
-    engine.create_clients(3)
+    engine.create_servers(2)
+    engine.create_clients(1)
+
+    engine.calcul_MM1_rate()
+    
+    # Loop on each client to send a message to the server
+    i=1
+    ts = 0.0
+    for client in engine.clients:
+        # MessageImpl(self, message_id, source, destination, timestamp=0.0)
+        msg = MessageImpl(i, client.get_client_id(), client.get_destination(), ts+0.10)
+        msg.print_message()
+        client.send_message(msg)
+        i+=1
+
     engine.run_tests()

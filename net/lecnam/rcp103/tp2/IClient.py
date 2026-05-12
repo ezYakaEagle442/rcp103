@@ -2,34 +2,51 @@
 # Interface
 from abc import ABC, abstractmethod
 
-class IClient(ABC):
+from net.lecnam.rcp103.tp2.IMessage import IMessage
+from net.lecnam.rcp103.tp2.IServer import IServer
 
-    @abstractmethod
-    def get_source():
-        pass
+
+class IClient(ABC):
 
     @abstractmethod
     def get_destination():
         pass
 
+    # Set Queue name
     @abstractmethod
-    def get_message_id():
+    def set_destination(dst: IServer):
         pass
 
     @abstractmethod
-    def set_source(src: str):
+    def get_arrival_rate():
         pass
 
     @abstractmethod
-    def set_destination(dst: str):
+    def set_arrival_rate(rate: int):
         pass
 
     @abstractmethod
-    def set_message_id(msg_id: int):
+    def send_message(msg: IMessage):
         pass
 
     @abstractmethod
-    def print_message():
+    def print_client():
+        pass
+
+    @abstractmethod
+    def set_message(msg: IMessage):
+        pass
+
+    @abstractmethod
+    def get_message(msg: IMessage):
+        pass
+
+    @abstractmethod
+    def set_client_id(id: int):
+        pass
+
+    @abstractmethod
+    def get_client_id():
         pass
 
     '''

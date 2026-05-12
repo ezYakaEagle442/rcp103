@@ -17,6 +17,8 @@ import traceback
 import logging
 import logging.config
 
+import numpy as np
+
 from net.lecnam.rcp103.tp2.IEvent import IEvent
 from net.lecnam.rcp103.tp2.IMessage import IMessage
 from net.lecnam.rcp103.tp2.EventType import EventType
@@ -38,16 +40,46 @@ logger = logging.getLogger(__name__)
 # Class d'Implémentation
 class ServerImpl(IServer):
 
-    eventID: int
-    message: IMessage
-    eventType: string # EventType – SEND_MSG, RECV_MSG, MSG_DEPT
-    eventTime: float # horodatage de l'événement
+    mu: int # service rate (mu) of the M/M/1 queue
+    server_id: int
+
+    queue: IQueue # np.array # queue.Queue    
     
-    def __init__(self):
+    def __init__(self, mu: int, server_id: int, queue: IQueue):
         logger.debug(f"+++ ServerImpl : START Constructor")
+
+        self.mu = mu
+        self.server_id = server_id
+        self.queue = queue
+
         logger.debug(f"+++ ServerImpl : END Constructor")
-        pass
+
+    def listen(self):
+        logger.debug(f"+++ ServerImpl : START listen")
+
+        # Loop on Queue messages to dequeue and process them
+        while True:
+            if not self.queue.is_empty():
+                msg = self.queue.dequeue()
+                logger.info(f"+++ ServerImpl : Message dequeued : {msg.print_message()}")
+                # Process the message (e.g., simulate service time, send response, etc.)
+                # For simplicity, we just print the message here
+            else:
+                logger.debug(f"+++ ServerImpl : Queue is empty, waiting for messages...")
+                # Optionally, add a sleep here to avoid busy waiting
+                # time.sleep(0.1)
+
+        logger.debug(f"+++ ServerImpl : END listen")
+
+        def get_server_id():
+            return self.server_id
+    
+        def set_server_id(self, server_id: int):
+            self.server_id = server_id
 
     # --- Affichage ---
     def print_server(self):
-        return(f"TODO")
+        logger.debug(f"+++ ServerImpl : START listen")
+        srv = f"[server_id] ID={self.server_id} | Mu={self.mu} "     
+        logger.debug(f"+++ ServerImpl : END listen")        
+        return(srv)
