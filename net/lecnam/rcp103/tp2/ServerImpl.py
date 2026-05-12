@@ -17,6 +17,8 @@ import traceback
 import logging
 import logging.config
 
+from time import time, sleep
+
 import numpy as np
 
 from net.lecnam.rcp103.tp2.IEvent import IEvent
@@ -28,15 +30,23 @@ from net.lecnam.rcp103.tp2.IServer import IServer
 from net.lecnam.rcp103.tp2.ConfigImpl import ConfigImpl
 from net.lecnam.rcp103.SimulateurException import SimulateurException
 
-cfg = ConfigImpl()
-log_path = cfg.get_log_cfg_file_path()
+try:
+    cfg = ConfigImpl()
+    log_path = cfg.get_log_cfg_file_path()
 
-# Always load logging_config.py from the same directory as this file
-config_path = os.path.join(os.path.dirname(__file__), log_path)
-logging.config.fileConfig(config_path, defaults=None, disable_existing_loggers=True, encoding=None)
+    # Always load logging_config.py from the same directory as this file
+    config_path = os.path.join(os.path.dirname(__file__), log_path)
+    logging.config.fileConfig(config_path, defaults=None, disable_existing_loggers=False, encoding=None)
 
-logger = logging.getLogger(__name__)
-# https://docs.python.org/3/library/logging.html#logging-levels
+    logger = logging.getLogger(__name__)
+    # https://docs.python.org/3/library/logging.html#logging-levels
+
+except Exception as e:
+    # Fallback to basic logging if config file fails
+    logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    logger = logging.getLogger(__name__)
+    logger.error(f"Failed to load logging config from {config_path}: {e}")
+
 # Class d'Implémentation
 class ServerImpl(IServer):
 
@@ -78,9 +88,9 @@ class ServerImpl(IServer):
                 # Process the message (e.g., simulate service time, send response, etc.)
                 # For simplicity, we just print the message here
             else:
-                logger.debug(f"+++ ServerImpl : Queue is empty, waiting for messages...")
+                # logger.debug(f"+++ ServerImpl : Queue is empty, waiting for messages...")
                 # Optionally, add a sleep here to avoid busy waiting
-                # time.sleep(0.1)
+                sleep(0.1)
 
         logger.debug(f"+++ ServerImpl : END listen")
 

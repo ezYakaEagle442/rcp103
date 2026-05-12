@@ -31,7 +31,7 @@ log_path = cfg.get_log_cfg_file_path()
 
 # Always load logging_config.py from the same directory as this file
 config_path = os.path.join(os.path.dirname(__file__), log_path)
-logging.config.fileConfig(config_path, defaults=None, disable_existing_loggers=True, encoding=None)
+logging.config.fileConfig(config_path, defaults=None, disable_existing_loggers=False, encoding=None)
 
 logger = logging.getLogger(__name__)
 # https://docs.python.org/3/library/logging.html#logging-levels
@@ -74,6 +74,12 @@ class QueueImpl(IQueue):
         logger.debug(f"+++ QueueImpl : END count_messages")
         return nb_msg
 
+    def is_empty(self):
+        #logger.debug(f"+++ QueueImpl : START is_empty")
+        empty = len(self.queue) == 0
+        #logger.debug(f"+++ QueueImpl : is_empty = {empty}")
+        #logger.debug(f"+++ QueueImpl : END is_empty")
+        return empty
 
     """ --- Affichage de TOUS les messages --- """
     def print_messages(self):

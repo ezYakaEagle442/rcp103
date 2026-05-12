@@ -7,6 +7,10 @@ from net.lecnam.rcp103.tp2 import IMessage
 class IQueue(ABC):
 
     @abstractmethod
+    def is_empty(self) -> bool:
+        pass
+
+    @abstractmethod
     def enqueue(msg: IMessage):
         pass
 

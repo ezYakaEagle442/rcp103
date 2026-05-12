@@ -30,7 +30,7 @@ import sys
 
 # Always load logging_config.py from the same directory as this file
 config_path = os.path.join(os.path.dirname(__file__), "logging_config.cnf")
-logging.config.fileConfig(config_path, defaults=None, disable_existing_loggers=True, encoding=None)
+logging.config.fileConfig(config_path, defaults=None, disable_existing_loggers=False, encoding=None)
 
 logger = logging.getLogger(__name__)
 # https://docs.python.org/3/library/logging.html#logging-levels
@@ -68,6 +68,7 @@ class Engine:
 
         for i in range(1, n + 1):
             client = ClientImpl(arrival_rate=self.lambda_arrival_rate[i])
+            client.set_client_id(i)
             client.set_destination(self.servers[0])
             self.clients.append(client)
 
@@ -229,7 +230,7 @@ if __name__ == "__main__":
             inter_arrival_time = fish.generate(1)[0] / 1000.0 # Convert ms to seconds
             ts += inter_arrival_time
             msg.set_timestamp(ts)
-        client.send_message(msg)
-        i+=1
+            client.send_message(msg)
+            i+=1
 
     engine.run_tests()

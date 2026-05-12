@@ -6,6 +6,7 @@
 # sous Windows/PowerShell: python ServerImplTest.py
 
 from datetime import datetime
+
 import traceback
 import logging
 import os
@@ -13,22 +14,33 @@ import os
 from net.lecnam.rcp103.tp2.ConfigImpl import ConfigImpl
 from net.lecnam.rcp103.tp2.ServerImpl import ServerImpl
 
+from net.lecnam.rcp103.tp2.MessageImpl import MessageImpl
+from net.lecnam.rcp103.tp2.IServer import IServer
+from net.lecnam.rcp103.tp2.IQueue import IQueue
+from net.lecnam.rcp103.tp2.ServerImpl import ServerImpl
+from net.lecnam.rcp103.tp2.QueueImpl import QueueImpl
+from net.lecnam.rcp103.tp2.Poisson import Poisson
+from net.lecnam.rcp103.tp2.Poisson import Distribution
+
 try:
     cfg = ConfigImpl()
     log_path = cfg.get_log_cfg_file_path()
 
     # Always load logging_config.py from the same directory as this file
     config_path = os.path.join(os.path.dirname(__file__), log_path)
-    logging.config.fileConfig(config_path, defaults=None, disable_existing_loggers=True, encoding=None)
+    logging.config.fileConfig(config_path, defaults=None, disable_existing_loggers=False, encoding=None)
 
     logger = logging.getLogger(__name__)
     # https://docs.python.org/3/library/logging.html#logging-levels
 
     logger.debug(f"+++ ServerImplTest : START")
-    impl = ServerImpl()
-    xxx = impl.getXXXX()
+    queue = QueueImpl()
+    impl = ServerImpl(8, 1, queue)
 
-    logger.info(f"+++ ServerImplTest : xxx = {xxx}")
+    pretty_srv = impl.print_server()
+    logger.debug("+++ ServerImplTest : Server created:" + str(pretty_srv))
+
+    impl.listen()
 
     logger.debug(f"+++ ServerImplTest : END")
 

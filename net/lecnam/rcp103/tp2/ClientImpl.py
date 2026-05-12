@@ -41,7 +41,7 @@ log_path = cfg.get_log_cfg_file_path()
 
 # Always load logging_config.py from the same directory as this file
 config_path = os.path.join(os.path.dirname(__file__), log_path)
-logging.config.fileConfig(config_path, defaults=None, disable_existing_loggers=True, encoding=None)
+logging.config.fileConfig(config_path, defaults=None, disable_existing_loggers=False, encoding=None)
 
 logger = logging.getLogger(__name__)
 # https://docs.python.org/3/library/logging.html#logging-levels
@@ -60,8 +60,10 @@ class ClientImpl(IClient):
 
         seed = cfg.get_seed()
         logger.debug(f"+++ ClientImpl : seed={seed}")
-        
-        impl = QueueImpl()
+        logger.debug(f"+++ ClientImpl : arrival_rate={arrival_rate}")
+        self.arrival_rate = arrival_rate
+
+        self.queue = QueueImpl()
         
         logger.debug(f"+++ ClientImpl : END Constructor")
 

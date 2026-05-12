@@ -58,7 +58,7 @@ from net.lecnam.rcp103.tp2.EventType import EventType
 
 # Always load logging_config.py from the same directory as this file
 config_path = os.path.join(os.path.dirname(__file__), "logging_config.cnf")
-logging.config.fileConfig(config_path, defaults=None, disable_existing_loggers=True, encoding=None)
+logging.config.fileConfig(config_path, defaults=None, disable_existing_loggers=False, encoding=None)
 
 logger = logging.getLogger(__name__)
 # https://docs.python.org/3/library/logging.html#logging-levels

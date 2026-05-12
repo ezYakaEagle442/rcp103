@@ -15,7 +15,7 @@ from net.lecnam.rcp103.tp2.Distribution import Distribution
 cfg = ConfigImpl()
 log_path = cfg.get_log_cfg_file_path()
 config_path = os.path.join(os.path.dirname(__file__), log_path)
-logging.config.fileConfig(config_path, defaults=None, disable_existing_loggers=True, encoding=None)
+logging.config.fileConfig(config_path, defaults=None, disable_existing_loggers=False, encoding=None)
 logger = logging.getLogger(__name__)
 
 class Poisson(Distribution):
