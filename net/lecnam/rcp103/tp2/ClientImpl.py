@@ -111,4 +111,4 @@ class ClientImpl(IClient):
         client  = f"ClientID={self.client_id} | ArrivalRate={self.arrival_rate} | Queue={q} | Destination={srv}"     
         logger.debug(f"+++ ClientImpl : Client " + str(client)) 
         logger.debug(f"+++ ClientImpl : END print_client")        
-        return(f"client")
+        return(client)
