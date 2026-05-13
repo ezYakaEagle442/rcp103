@@ -23,6 +23,10 @@ class IServer(ABC):
     def set_server_id(server_id: int):
         pass
 
+    @abstractmethod 
+    def print_server():
+        pass
+    
     @abstractmethod
     def listen():
         pass
