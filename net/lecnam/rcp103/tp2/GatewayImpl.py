@@ -63,9 +63,9 @@ class GatewayImpl(IGateway):
     # --- Affichage ---
     def print_gateway(self):
         logger.debug(f"+++ GatewayImpl : START print_gateway")
-        msg = self.get_queue().print_queue()
-        logger.debug(f"+++ EventImpl : START print_gateway msg={msg}")
-        return(f"Event ID: {selfGatewayImpl.eventID}, Type: {self.eventType}, Time: {self.eventTime}, Message: {msg}\n")
-            
+        all_msg = self.get_queue().print_messages()
+        logger.debug(f"+++ GatewayImpl : Queue messages = {all_msg}")
+        srv = self.server.print_server()
+        logger.debug(f"+++ GatewayImpl : SERVER = {srv}")
         logger.debug(f"+++ GatewayImpl : END print_gateway")
-        return(f"TODO")
+        return(f"Server: {srv}, ALL Messages: {all_msg}\n")
