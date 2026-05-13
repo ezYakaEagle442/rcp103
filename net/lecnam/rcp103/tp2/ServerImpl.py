@@ -102,6 +102,7 @@ class ServerImpl(IServer):
     # --- Affichage ---
     def print_server(self):
         logger.debug(f"+++ ServerImpl : START listen")
-        srv = f"[server_id] ID={self.server_id} | Mu={self.mu} "     
+        # q = self.queue.print_messages()
+        srv = f"[SERVER] ID={self.server_id} | Mu={self.mu}"  
         logger.debug(f"+++ ServerImpl : END listen")        
         return(srv)
