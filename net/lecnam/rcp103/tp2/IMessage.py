@@ -2,6 +2,8 @@
 # Interface
 from abc import ABC, abstractmethod
 
+from net.lecnam.rcp103.tp2.IServer import IServer
+
 class IMessage(ABC):
 
     @abstractmethod
@@ -21,7 +23,7 @@ class IMessage(ABC):
         pass
 
     @abstractmethod
-    def set_destination(dst: str):
+    def set_destination(dst: IServer):
         pass
 
     @abstractmethod

@@ -1,11 +1,12 @@
 from .IMessage import IMessage
+from net.lecnam.rcp103.tp2.IServer import IServer
 
 class MessageImpl(IMessage):
     """ Message envoyé vers la passerelle"""
 
     message_id: int
     source: str
-    destination: str
+    destination: IServer
     timestamp: float
 
     def __init__(self, message_id, source, destination, timestamp=0.0):
@@ -43,4 +44,4 @@ class MessageImpl(IMessage):
     # --- Affichage ---
     def print_message(self):
         return(f"[Message] ID={self._message_id} | src={self._source} "
-              f"| dst={self._destination} | timestamp={self._timestamp:.4f}")
+              f"| dst={self._destination.print_server()} | timestamp={self._timestamp:.4f}")
