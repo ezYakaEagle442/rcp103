@@ -66,13 +66,17 @@ class Engine:
         self.nb_clients = n
         self.clients = []
 
+        logger.info(f"+++ Engine : n=" + str(n))
+        i=0
         for i in range(1, n + 1):
-            client = ClientImpl(arrival_rate=self.lambda_arrival_rate[i], q=self.queue)
+            logger.info(f"+++ Engine : i=" + str(i))
+            client = ClientImpl(arrival_rate=self.lambda_arrival_rate[i-1], q=self.queue)
             client.set_client_id(i)
             client.set_destination(self.servers[0])
             self.clients.append(client)
             pretty_client = client.print_client()
             logger.info("+++ Engine : Clients créés :" + str(pretty_client))
+            i+=1
 
         logger.debug("+++ Engine : END create_clients ...")
         
@@ -208,7 +212,7 @@ class Engine:
 if __name__ == "__main__":
     engine = Engine()
     engine.create_servers(2)
-    engine.create_clients(1)
+    engine.create_clients(4)
 
     cfg = ConfigImpl()
     seed = cfg.get_seed()
