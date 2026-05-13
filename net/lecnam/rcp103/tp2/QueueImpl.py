@@ -54,7 +54,7 @@ class QueueImpl(IQueue):
         self.queue.append(msg)
         logger.debug(f"+++ QueueImpl : END enqueue")    
 
-    def dequeue(self, msg: IMessage):
+    def dequeue(self):
         logger.debug(f"+++ QueueImpl : START dequeue")
         if len(self.queue) == 0:
             logger.error(f"+++ QueueImpl : dequeue called on an empty queue")

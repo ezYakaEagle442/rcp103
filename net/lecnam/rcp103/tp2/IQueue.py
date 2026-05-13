@@ -15,7 +15,7 @@ class IQueue(ABC):
         pass
 
     @abstractmethod
-    def dequeue(msg: IMessage):
+    def dequeue():
         pass
 
     @abstractmethod
