@@ -61,7 +61,7 @@ class QueueImpl(IQueue):
             return None
         else:
             msg = self.queue.pop(0) # [1, 2, 3, 4] -> pop(0) -> 1
-            logger.debug(f"+++ QueueImpl : Dequeued message with id={msg.get_message_id()}")
+            logger.info(f"+++ QueueImpl : Dequeued message with id={msg.get_message_id()}")
             logger.debug(f"+++ QueueImpl : END dequeue")
             return msg
         
