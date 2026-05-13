@@ -53,7 +53,7 @@ class ServerImpl(IServer):
     mu: int # service rate (mu) of the M/M/1 queue
     server_id: int
 
-    queue: IQueue # np.array # queue.Queue    
+    queue: IQueue
     
     def __init__(self, mu: int, server_id: int, queue: IQueue):
         logger.debug(f"+++ ServerImpl : START Constructor")
@@ -63,7 +63,6 @@ class ServerImpl(IServer):
         self.queue = queue
 
         logger.debug(f"+++ ServerImpl : END Constructor")
-
     
     def get_queue(self) -> IQueue:
         return self.queue
@@ -88,7 +87,7 @@ class ServerImpl(IServer):
                 # Process the message (e.g., simulate service time, send response, etc.)
                 # For simplicity, we just print the message here
             else:
-                # logger.debug(f"+++ ServerImpl : Queue is empty, waiting for messages...")
+                #logger.debug(f"+++ ServerImpl : Queue is empty, waiting for messages...")
                 # Optionally, add a sleep here to avoid busy waiting
                 sleep(0.1)
 
