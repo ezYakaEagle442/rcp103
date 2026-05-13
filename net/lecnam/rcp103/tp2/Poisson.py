@@ -26,6 +26,7 @@ class Poisson(Distribution):
 
     def __init__(self, rng, lam: float):
         logger.debug(f"+++ Poisson __init__ : START")
+        logger.info(f"+++ Poisson __init__ seed={self.seed}, lam={lam}")
         super().__init__(f"Poisson (λ={lam})", rng)
         self.lam = lam
         logger.debug(f"+++ Poisson __init__ : END")
