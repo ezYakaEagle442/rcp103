@@ -56,7 +56,7 @@ class ClientImpl(IClient):
     client_id: int
     destination: IServer
 
-    def __init__(self, arrival_rate: int):
+    def __init__(self, arrival_rate: int, q:IQueue):
         logger.debug(f"+++ ClientImpl : START Constructor")
 
         seed = cfg.get_seed()
@@ -64,7 +64,7 @@ class ClientImpl(IClient):
         logger.debug(f"+++ ClientImpl : arrival_rate={arrival_rate}")
         self.arrival_rate = arrival_rate
 
-        self.queue = QueueImpl()
+        self.queue = q
         
         logger.debug(f"+++ ClientImpl : END Constructor")
 
@@ -82,7 +82,6 @@ class ClientImpl(IClient):
     def get_destination(self):
         return self.destination
 
-    # Set Queue name
     def set_destination(self, dst: IServer):
         self.destination = dst
 

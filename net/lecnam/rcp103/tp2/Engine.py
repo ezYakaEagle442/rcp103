@@ -67,14 +67,12 @@ class Engine:
         self.clients = []
 
         for i in range(1, n + 1):
-            client = ClientImpl(arrival_rate=self.lambda_arrival_rate[i])
+            client = ClientImpl(arrival_rate=self.lambda_arrival_rate[i], q=self.queue)
             client.set_client_id(i)
             client.set_destination(self.servers[0])
             self.clients.append(client)
             pretty_client = client.print_client()
-            logger.debug("+++ Engine : Clients créés :" + str(pretty_client))
-
-
+            logger.info("+++ Engine : Clients créés :" + str(pretty_client))
 
         logger.debug("+++ Engine : END create_clients ...")
         
@@ -87,7 +85,7 @@ class Engine:
             srv = ServerImpl(server_id=i, mu=self.service_rate, queue=self.queue)
             self.servers.append(srv)
             pretty_srv = srv.print_server()
-            logger.debug("+++ Engine : Server created:" + str(pretty_srv))
+            logger.info("+++ Engine : Server created:" + str(pretty_srv))
 
         logger.debug("+++ Engine : END create_servers ...")
 
@@ -179,14 +177,11 @@ class Engine:
 
     def run_simulationMM1(self):
         logger.debug("+++ Engine : START run_simulationMM1 ...")
-        # dans l'Engine
-
-        L: float
-        W: float
-        rho: float
 
         # Iterate on servers and trigget listen() method to process messages in the queue
         for server in self.servers:
+            pretty_srv = server.print_server()
+            logger.info("+++ Engine run_simulationMM1: server about to start listening:" + str(pretty_srv))            
             server.listen()
 
         logger.debug("+++ Engine : END run_simulationMM1 ...")
