@@ -69,7 +69,7 @@ class Engine:
         logger.info(f"+++ Engine : n=" + str(n))
         i=0
         for i in range(1, n + 1):
-            logger.info(f"+++ Engine : i=" + str(i))
+            logger.debug(f"+++ Engine : i=" + str(i))
             client = ClientImpl(arrival_rate=self.lambda_arrival_rate[i-1], q=self.queue)
             client.set_client_id(i)
             client.set_destination(self.servers[0])
@@ -210,6 +210,7 @@ class Engine:
         logger.debug("+++ Engine : END calcul_MM1_rate ...")
 
 if __name__ == "__main__":
+    logger.debug("+++ Engine : Main START ...")
     engine = Engine()
     engine.create_servers(2)
     engine.create_clients(4)
@@ -224,11 +225,12 @@ if __name__ == "__main__":
     i=1
     ts = 0.0
     for client in engine.clients:
-        # MessageImpl(self, message_id, source, destination, timestamp=0.0)
-        msg = MessageImpl(i, client.get_client_id(), client.get_destination(), ts+0.10)
-        msg.print_message()
         fish = Poisson(rng=rng, lam=client.get_arrival_rate())
         for _ in range(5):
+            logger.debug("+++ Engine : i=" + str(i))
+            msg = MessageImpl(i, client.get_client_id(), client.get_destination(), ts+0.10)
+            message = msg.print_message()
+            logger.debug("+++ Engine : message = " , {message})
             inter_arrival_time = fish.generate(1)[0] / 1000.0 # Convert ms to seconds
             ts += inter_arrival_time
             msg.set_timestamp(ts)
@@ -236,3 +238,4 @@ if __name__ == "__main__":
             i+=1
 
     engine.run_tests()
+    logger.debug("+++ Engine : Main END ...")
