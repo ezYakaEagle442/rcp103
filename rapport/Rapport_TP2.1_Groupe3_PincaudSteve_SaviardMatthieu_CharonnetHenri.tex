@@ -1,0 +1,1534 @@
+\UseRawInputEncoding
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{float}
+\usepackage{xurl}
+\usepackage{microtype}
+\usepackage{enumitem}
+\usepackage{parskip}
+\usepackage{subcaption}
+\usepackage{geometry}
+
+\geometry{margin=2.3cm}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+\title{
+Rapport de TP -- Simulateur à événements discrets\\
+\large Séance 1/3 : architecture, messages, événements, ordonnanceur et traces
+}
+
+\author{
+Groupe 3 \\ \\
+PINCAUD Steve, SAVIARD Matthieu et CHARONNET Henri
+}
+
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Ce rapport présente le travail réalisé lors de la première séance du TP consacré à la conception d’un simulateur à événements discrets dans le cadre de l’évaluation des performances des systèmes informatiques. Cette première séance ne vise pas encore à simuler complètement une file d’attente, mais à construire les fondations logicielles indispensables : interfaces, messages, événements, ordonnanceur, moteur principal, tests et traces.
+
+L’objectif principal est de préparer progressivement un simulateur orienté objet capable, lors des séances suivantes, de modéliser des systèmes de files d’attente de type M/M/1, M/M/1/K et M/M/c/K. Le rapport analyse en détail les choix de conception, les conventions de nommage, les méthodes de chaque classe, la stratégie de test et la configuration du fichier de log \texttt{tp2.log}. Une attention particulière est portée aux fichiers \texttt{*Impl.py} et au fichier \texttt{Engine.py}, car ils constituent le cœur observable de l’implémentation.
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+\section{Introduction}
+La simulation à événements discrets est une méthode fondamentale pour étudier le comportement dynamique de systèmes informatiques. Elle est particulièrement adaptée à l’évaluation de performances, car elle permet de représenter l’évolution d’un système uniquement aux instants où un changement d’état se produit.
+
+Contrairement à une simulation à pas de temps fixe, dans laquelle le temps avance régulièrement même lorsque rien ne se passe, une simulation à événements discrets saute directement d’un événement au suivant. Cette approche est donc plus efficace et plus naturelle pour représenter des systèmes tels que :
+\begin{itemize}[leftmargin=*]
+    \item des files d’attente ;
+    \item des serveurs de traitement ;
+    \item des passerelles IoT ;
+    \item des systèmes client--serveur ;
+    \item des réseaux de communication.
+\end{itemize}
+
+Dans le cadre du TP, le système étudié repose sur un modèle progressivement construit autour d’un client, d’une passerelle, d’une file d’attente et d’un ou plusieurs serveurs. La séance 1 se concentre sur les composants fondamentaux du simulateur :
+\begin{itemize}[leftmargin=*]
+    \item la classe \texttt{MessageImpl}, qui représente un message échangé dans le système ;
+    \item la classe \texttt{EventImpl}, qui représente un événement discret associé à un instant donné ;
+    \item la classe \texttt{SchedulerImpl}, qui maintient la liste des événements futurs dans l’ordre chronologique ;
+    \item le fichier \texttt{Engine.py}, qui jouera le rôle de moteur principal ;
+    \item les fichiers de test permettant de vérifier chaque composant ;
+    \item le système de journalisation permettant de produire une trace d’exécution.
+\end{itemize}
+
+Les événements manipulés à cette étape sont :
+\begin{itemize}[leftmargin=*]
+    \item \texttt{SEND\_MSG} : un client envoie un message ;
+    \item \texttt{RECV\_MSG} : la passerelle reçoit le message ;
+    \item \texttt{MSG\_DEPT} : le message quitte le système après traitement.
+\end{itemize}
+
+Cette première séance est donc essentiellement une séance d’architecture et de préparation. Elle pose les bases nécessaires pour les séances suivantes, qui introduiront les clients, les files, les serveurs, la passerelle et les métriques de performance.
+
+\section{Objectifs de la séance 1}
+D’après le sujet du TP, la séance 1 a pour objectif de construire les premiers composants du simulateur. Elle se concentre sur :
+\begin{itemize}[leftmargin=*]
+    \item le \texttt{Main} et le moteur d’exécution ;
+    \item la génération de traces ;
+    \item les méthodes de test ;
+    \item la classe \texttt{Message} ;
+    \item la classe \texttt{Event} ;
+    \item la classe \texttt{Scheduler}.
+\end{itemize}
+
+L’objectif n’est donc pas encore d’obtenir des métriques de performance complètes, mais de valider les briques techniques qui permettront ensuite de produire ces métriques.
+
+\subsection{Travail attendu}
+
+Le travail attendu pendant cette séance peut se résumer en quatre axes.
+
+\paragraph{Premier axe : modélisation des données.}
+Il faut représenter les messages et les événements à l’aide de classes dédiées. Ces classes doivent contenir les informations nécessaires au suivi temporel du système.
+
+\paragraph{Deuxième axe : organisation temporelle.}
+Il faut créer un ordonnanceur capable de stocker les événements futurs et de les restituer dans l’ordre chronologique.
+
+\paragraph{Troisième axe : testabilité.}
+Chaque classe doit pouvoir être testée indépendamment. Cette approche correspond à une méthodologie incrémentale : on valide une brique avant de construire la suivante.
+
+\paragraph{Quatrième axe : traçabilité.}
+Le simulateur doit produire des traces permettant de vérifier l’ordre des événements, de déboguer le code et, plus tard, de calculer des métriques a posteriori.
+
+\section{Prérequis et environnement d’exécution}
+\subsection{Langage utilisé}
+
+Le TP est développé en Python 3. Le choix de Python est adapté à ce type de TP pour plusieurs raisons :
+\begin{itemize}[leftmargin=*]
+    \item syntaxe concise ;
+    \item facilité de prototypage ;
+    \item disponibilité de bibliothèques scientifiques ;
+    \item compatibilité avec les tests unitaires ;
+    \item bonne lisibilité du code orienté objet.
+\end{itemize}
+
+\subsection{Organisation du projet}
+
+Le projet est organisé dans l’arborescence suivante :
+
+\begin{verbatim}
+rcp103/
+|-- tp2.log
+|-- net/
+    |-- lecnam/
+        |-- rcp103/
+            |-- tp2/
+                |-- Engine.py
+                |-- EventImpl.py
+                |-- EventImplMockTest.py
+                |-- EventImplTest.py
+                |-- EventType.py
+                |-- IEvent.py
+                |-- IMessage.py
+                |-- IScheduler.py
+                |-- Message.py
+                |-- MessageImpl.py
+                |-- MessageImplTest.py
+                |-- SchedulerImpl.py
+                |-- logging_config.cnf
+\end{verbatim}
+
+Cette organisation sous forme de packages Python permet d’utiliser des imports absolus du type :
+
+\begin{lstlisting}[language=Python, caption=Exemple d'import absolu]
+from net.lecnam.rcp103.tp2.MessageImpl import MessageImpl
+\end{lstlisting}
+
+\subsection{Commandes d’exécution}
+
+Les fichiers de test peuvent être lancés depuis la racine du projet. Par exemple :
+
+\begin{lstlisting}[language=bash, caption=Exécution des tests sous Linux/WSL]
+PYTHONPATH=. python3 net/lecnam/rcp103/tp2/MessageImplTest.py
+PYTHONPATH=. python3 net/lecnam/rcp103/tp2/EventImplTest.py
+PYTHONPATH=. python3 net/lecnam/rcp103/tp2/EventImplMockTest.py
+PYTHONPATH=. python3 net/lecnam/rcp103/tp2/Engine.py
+\end{lstlisting}
+
+Il est également possible d’utiliser l’option \texttt{-m} de Python :
+
+\begin{lstlisting}[language=bash, caption=Exécution sous forme de module]
+python3 -m net.lecnam.rcp103.tp2.MessageImplTest
+python3 -m net.lecnam.rcp103.tp2.EventImplTest
+python3 -m net.lecnam.rcp103.tp2.Engine
+\end{lstlisting}
+
+Sous Windows, les fichiers peuvent être exécutés depuis PowerShell avec :
+
+\begin{lstlisting}[language=bash, caption=Exécution sous Windows]
+python MessageImplTest.py
+python EventImplTest.py
+python Engine.py
+\end{lstlisting}
+
+\subsection{Installation des bibliothèques}
+
+Le fichier \texttt{EventImpl.py} contient plusieurs commentaires rappelant les prérequis d’installation. Même si toutes les bibliothèques ne sont pas encore pleinement exploitées pendant la séance 1, elles préparent les séances suivantes.
+
+Les bibliothèques standards utilisées sont notamment :
+\begin{itemize}[leftmargin=*]
+    \item \texttt{os}, pour la manipulation des chemins ;
+    \item \texttt{sys}, pour l’environnement d’exécution ;
+    \item \texttt{logging} et \texttt{logging.config}, pour la journalisation ;
+    \item \texttt{traceback}, pour l’affichage détaillé des erreurs ;
+    \item \texttt{datetime}, pour la manipulation éventuelle d’horodatages ;
+    \item \texttt{enum}, pour la définition des types d’événements.
+\end{itemize}
+
+Les bibliothèques scientifiques importées sont :
+\begin{itemize}[leftmargin=*]
+    \item \texttt{numpy} ;
+    \item \texttt{scipy} ;
+    \item \texttt{matplotlib}.
+\end{itemize}
+
+Sous Linux ou WSL, les commandes suivantes peuvent être utilisées :
+
+\begin{lstlisting}[language=bash, caption=Installation des bibliothèques sous Linux/WSL]
+sudo apt update
+sudo apt upgrade
+sudo apt install python3-pip
+sudo apt install python3-scipy
+sudo apt install python3-matplotlib
+
+python3 -m pip install -U pip
+python3 -m pip install -U numpy
+python3 -m pip install -U scipy
+python3 -m pip install -U matplotlib
+\end{lstlisting}
+
+Sous Windows, si Python est installé dans \texttt{c:\textbackslash python314}, les commandes peuvent être :
+
+\begin{lstlisting}[language=bash, caption=Installation des bibliothèques sous Windows]
+c:\python314\python.exe -m pip install -U pip
+c:\python314\python.exe -m pip install numpy
+c:\python314\python.exe -m pip install scipy
+c:\python314\python.exe -m pip install matplotlib
+\end{lstlisting}
+
+Pour vérifier les bibliothèques installées :
+
+\begin{lstlisting}[language=bash, caption=Vérification des bibliothèques]
+pip list
+\end{lstlisting}
+
+Dans Visual Studio Code, il est conseillé d’utiliser l’extension \textit{Microsoft Python Environments Extension}. En cas de problème de détection d’environnement, il est possible d’exécuter depuis la palette de commandes :
+
+\begin{verbatim}
+Python Environments: Refresh All Environment Managers
+\end{verbatim}
+
+\section{Conventions de nommage}
+
+\subsection{Conventions générales}
+
+Le projet suit plusieurs conventions de nommage importantes. Ces conventions permettent de rendre le code plus lisible et de clarifier le rôle de chaque fichier.
+
+\subsection{Interfaces : préfixe \texttt{I}}
+
+Les fichiers commençant par \texttt{I} représentent des interfaces abstraites :
+\begin{itemize}[leftmargin=*]
+    \item \texttt{IMessage.py} ;
+    \item \texttt{IEvent.py} ;
+    \item \texttt{IScheduler.py}.
+\end{itemize}
+
+Cette convention est classique dans les architectures orientées objet. Elle indique que le fichier ne contient pas nécessairement une logique métier complète, mais plutôt un contrat que les classes concrètes devront respecter.
+
+\subsection{Implémentations : suffixe \texttt{Impl}}
+
+Les fichiers suffixés par \texttt{Impl} représentent les implémentations concrètes :
+\begin{itemize}[leftmargin=*]
+    \item \texttt{MessageImpl.py} ;
+    \item \texttt{EventImpl.py} ;
+    \item \texttt{SchedulerImpl.py}.
+\end{itemize}
+
+Ces fichiers sont particulièrement importants, car ils constituent le cœur fonctionnel de la séance 1. Ce sont eux que l’enseignant est susceptible d’examiner prioritairement pour vérifier :
+\begin{itemize}[leftmargin=*]
+    \item la cohérence avec les interfaces ;
+    \item la qualité de l’encapsulation ;
+    \item la lisibilité du code ;
+    \item la présence des méthodes attendues ;
+    \item la conformité avec le sujet.
+\end{itemize}
+
+\subsection{Tests : suffixe \texttt{Test}}
+
+Les fichiers terminés par \texttt{Test.py} contiennent les tests associés :
+\begin{itemize}[leftmargin=*]
+    \item \texttt{MessageImplTest.py} ;
+    \item \texttt{EventImplTest.py} ;
+    \item \texttt{EventImplMockTest.py}.
+\end{itemize}
+
+Cette convention permet d’associer facilement chaque classe à son test. Elle s’inscrit dans une démarche de développement incrémental.
+
+\subsection{Moteur principal : \texttt{Engine.py}}
+
+Le fichier \texttt{Engine.py} correspond au point d’entrée du programme. Il contient notamment le bloc :
+
+\begin{lstlisting}[language=Python, caption=Point d'entrée Python]
+if __name__ == "__main__":
+    engine = Engine()
+    engine.create_clients(3)
+    engine.run_tests()
+\end{lstlisting}
+
+Ce fichier sera amené à devenir le moteur principal du simulateur. Même si son rôle est encore limité en séance 1, il est essentiel pour structurer les futures simulations.
+
+\section{Architecture générale du simulateur}
+
+\subsection{Principe d’un simulateur à événements discrets}
+
+Un simulateur à événements discrets fonctionne autour d’une liste d’événements futurs. Chaque événement possède un temps d’occurrence. Le simulateur répète ensuite les étapes suivantes :
+\begin{enumerate}[leftmargin=*]
+    \item extraire l’événement le plus proche dans le temps ;
+    \item avancer le temps courant jusqu’au temps de cet événement ;
+    \item traiter l’événement ;
+    \item modifier l’état du système ;
+    \item programmer éventuellement de nouveaux événements ;
+    \item enregistrer une trace.
+\end{enumerate}
+
+Cette logique permet d’éviter de simuler les périodes durant lesquelles aucun changement ne se produit.
+
+\subsection{Responsabilités des composants}
+
+L’architecture de la séance 1 peut être résumée ainsi :
+
+\begin{itemize}[leftmargin=*]
+    \item \textbf{\texttt{MessageImpl}} : représente les messages transportés dans le système ;
+    \item \textbf{\texttt{EventImpl}} : représente les événements horodatés ;
+    \item \textbf{\texttt{EventType}} : définit les types d’événements possibles ;
+    \item \textbf{\texttt{SchedulerImpl}} : maintient les événements dans l’ordre chronologique ;
+    \item \textbf{\texttt{Engine}} : orchestre les tests et prépare la future boucle de simulation ;
+    \item \textbf{\texttt{logging\_config.cnf}} : configure les traces d’exécution.
+\end{itemize}
+
+\subsection{Intérêt de la séparation interface / implémentation}
+
+La séparation entre interfaces et implémentations présente plusieurs avantages :
+\begin{itemize}[leftmargin=*]
+    \item elle clarifie les responsabilités ;
+    \item elle facilite le remplacement d’une implémentation ;
+    \item elle rend le code plus testable ;
+    \item elle prépare l’utilisation de mocks ;
+    \item elle rapproche le projet d’une architecture logicielle industrielle.
+\end{itemize}
+
+D’un point de vue conception, cette séparation s’inscrit dans les principes SOLID, notamment le principe d’inversion de dépendance : les composants doivent dépendre d’abstractions plutôt que de classes concrètes.
+
+\section{Analyse des interfaces}
+
+\subsection{Interface \texttt{IMessage}}
+
+L’interface \texttt{IMessage} représente le contrat minimal d’un message. Un message doit pouvoir fournir :
+\begin{itemize}[leftmargin=*]
+    \item son identifiant ;
+    \item sa source ;
+    \item sa destination ;
+    \item son timestamp ;
+    \item une représentation textuelle.
+\end{itemize}
+
+Même si le fichier transmis est minimal, son existence structure l’architecture : toute classe représentant un message doit respecter ce contrat.
+
+\subsection{Interface \texttt{IEvent}}
+
+L’interface \texttt{IEvent} représente le contrat d’un événement. Un événement doit contenir un horodatage, un type et un message associé. Il doit aussi être affichable pour permettre la génération de traces.
+
+\subsection{Interface \texttt{IScheduler}}
+
+L’interface \texttt{IScheduler} contient au minimum la méthode \texttt{add\_event}. Cette méthode définit la responsabilité principale de l’ordonnanceur : ajouter un événement à la liste des événements futurs.
+
+\begin{lstlisting}[language=Python, caption=Extrait de IScheduler]
+class IScheduler(ABC):
+    @abstractmethod
+    def add_event(self, event: IEvent):
+        pass
+\end{lstlisting}
+
+Cette interface sera complétée naturellement par des méthodes comme :
+\begin{itemize}[leftmargin=*]
+    \item \texttt{get\_event()} ;
+    \item \texttt{get\_current\_time()} ;
+    \item \texttt{has\_events()} ;
+    \item \texttt{print\_scheduler()}.
+\end{itemize}
+
+\section{Analyse détaillée de \texttt{MessageImpl}}
+
+\subsection{Rôle de la classe}
+
+La classe \texttt{MessageImpl} représente un message envoyé vers la passerelle. Elle est une brique fondamentale, car tous les événements \texttt{SEND\_MSG}, \texttt{RECV\_MSG} et \texttt{MSG\_DEPT} manipulent un message.
+
+Un message contient :
+\begin{itemize}[leftmargin=*]
+    \item \texttt{message\_id} : identifiant unique ;
+    \item \texttt{source} : entité émettrice ;
+    \item \texttt{destination} : entité destinataire ;
+    \item \texttt{timestamp} : temps de création.
+\end{itemize}
+
+Le timestamp est essentiel pour calculer ultérieurement le temps de séjour :
+\[
+W_{\text{système}} = t_{\text{départ}} - t_{\text{création}}
+\]
+
+\subsection{Constructeur}
+
+\begin{lstlisting}[language=Python, caption=Constructeur de MessageImpl]
+def __init__(self, message_id, source, destination, timestamp=0.0):
+    self._message_id = message_id
+    self._source = source
+    self._destination = destination
+    self._timestamp = timestamp
+\end{lstlisting}
+
+Le constructeur initialise les quatre informations fondamentales du message.
+
+\paragraph{Analyse.}
+La valeur par défaut \texttt{timestamp=0.0} permet de créer un message même lorsque le temps courant n’a pas encore été explicitement défini. Dans une simulation complète, il serait préférable d’affecter systématiquement le timestamp au temps courant du scheduler.
+
+\subsection{Méthode \texttt{get\_message\_id}}
+
+\begin{lstlisting}[language=Python]
+def get_message_id(self):
+    return self._message_id
+\end{lstlisting}
+
+Cette méthode retourne l’identifiant du message. Cet identifiant est nécessaire pour suivre un message dans les traces et vérifier la cohérence entre événements.
+
+\subsection{Méthode \texttt{get\_source}}
+
+\begin{lstlisting}[language=Python]
+def get_source(self):
+    return self._source
+\end{lstlisting}
+
+Cette méthode retourne la source du message. Elle sera utile pour identifier le client émetteur.
+
+\subsection{Méthode \texttt{get\_destination}}
+
+\begin{lstlisting}[language=Python]
+def get_destination(self):
+    return self._destination
+\end{lstlisting}
+
+Cette méthode retourne la destination du message. Dans le modèle cible, il s’agira généralement de la passerelle.
+
+\subsection{Méthode \texttt{get\_timestamp}}
+
+\begin{lstlisting}[language=Python]
+def get_timestamp(self):
+    return self._timestamp
+\end{lstlisting}
+
+Cette méthode retourne le temps de création du message. Elle sera essentielle pour les calculs de performance.
+
+\subsection{Setters}
+
+Les setters permettent de modifier les attributs après construction :
+
+\begin{lstlisting}[language=Python, caption=Setters de MessageImpl]
+def set_message_id(self, message_id):
+    self._message_id = message_id
+
+def set_source(self, source):
+    self._source = source
+
+def set_destination(self, destination):
+    self._destination = destination
+
+def set_timestamp(self, temps):
+    self._timestamp = temps
+\end{lstlisting}
+
+\paragraph{Analyse critique.}
+Pour un TP pédagogique, ces setters facilitent les tests. Dans une version industrielle, l’identifiant du message pourrait être rendu immuable afin d’éviter des incohérences dans les traces.
+
+\subsection{Méthode \texttt{print\_message}}
+
+\begin{lstlisting}[language=Python]
+def print_message(self):
+    return(f"[Message] ID={self._message_id} "
+           f"src={self._source} "
+           f"dst={self._destination} "
+           f"timestamp={self._timestamp:.4f}")
+\end{lstlisting}
+
+Cette méthode retourne une représentation textuelle du message. Le timestamp est affiché avec quatre décimales, ce qui convient bien à une simulation probabiliste manipulant des temps flottants.
+
+\section{Analyse de \texttt{EventType}}
+
+\subsection{Rôle}
+
+\texttt{EventType} est une énumération qui définit les types d’événements manipulés par le simulateur :
+
+\begin{lstlisting}[language=Python, caption=EventType.py]
+from enum import Enum
+
+class EventType(Enum):
+    SEND_MSG = 1
+    RECV_MSG = 2
+    MSG_DEPT = 3
+\end{lstlisting}
+
+\subsection{Analyse des événements}
+
+\paragraph{\texttt{SEND\_MSG}.}
+Cet événement représente l’émission d’un message par un client. Il marque l’entrée logique d’un message dans le scénario simulé.
+
+\paragraph{\texttt{RECV\_MSG}.}
+Cet événement représente la réception du message par la passerelle. À partir de cet instant, le message peut être traité immédiatement ou placé en file d’attente.
+
+\paragraph{\texttt{MSG\_DEPT}.}
+Cet événement représente la fin du traitement d’un message. Il permettra de calculer le temps de séjour et de libérer éventuellement le serveur.
+
+\subsection{Intérêt de l’énumération}
+
+L’utilisation d’une énumération est préférable à l’utilisation de chaînes de caractères libres. Elle permet :
+\begin{itemize}[leftmargin=*]
+    \item d’éviter les fautes de frappe ;
+    \item de centraliser les types d’événements ;
+    \item d’améliorer la lisibilité ;
+    \item de rendre le code plus robuste.
+\end{itemize}
+
+Une amélioration possible serait d’utiliser partout :
+
+\begin{lstlisting}[language=Python]
+EventType.SEND_MSG
+\end{lstlisting}
+
+au lieu de :
+
+\begin{lstlisting}[language=Python]
+"SEND_MSG"
+\end{lstlisting}
+
+\section{Analyse détaillée de \texttt{EventImpl}}
+
+\subsection{Rôle de la classe}
+
+La classe \texttt{EventImpl} représente un événement discret du simulateur. Elle relie trois dimensions :
+\begin{itemize}[leftmargin=*]
+    \item une dimension temporelle : le temps de l’événement ;
+    \item une dimension fonctionnelle : le type d’événement ;
+    \item une dimension métier : le message associé.
+\end{itemize}
+
+Un événement est donc un objet central dans la simulation. Le scheduler ne manipule pas directement des messages, mais des événements contenant ces messages.
+
+\subsection{En-tête et documentation technique}
+
+Le fichier \texttt{EventImpl.py} contient un en-tête indiquant :
+\begin{itemize}[leftmargin=*]
+    \item la commande d’exécution avec \texttt{PYTHONPATH=.} ;
+    \item les prérequis liés à Visual Studio Code ;
+    \item les commandes d’installation de bibliothèques ;
+    \item les liens vers \texttt{scipy} et \texttt{matplotlib}.
+\end{itemize}
+
+Cet en-tête est utile, car il documente directement l’environnement nécessaire au projet.
+
+\subsection{Imports standards}
+
+\begin{lstlisting}[language=Python, caption=Imports standards de EventImpl]
+import datetime
+import os
+import platform
+import string
+import sys
+import secrets
+import traceback
+import logging
+import logging.config
+\end{lstlisting}
+
+Ces imports permettent de gérer :
+\begin{itemize}[leftmargin=*]
+    \item les chemins de fichiers ;
+    \item la configuration des logs ;
+    \item l’affichage d’erreurs ;
+    \item l’environnement d’exécution.
+\end{itemize}
+
+\subsection{Imports scientifiques}
+
+\begin{lstlisting}[language=Python, caption=Imports scientifiques]
+from scipy.stats import poisson
+import numpy as np
+import matplotlib.pyplot as plt
+import scipy
+\end{lstlisting}
+
+Ces imports sont surtout préparatoires. Ils seront utiles dans les séances suivantes pour générer des variables aléatoires, manipuler des distributions ou tracer des résultats.
+
+\subsection{Imports internes au projet}
+
+\begin{lstlisting}[language=Python, caption=Imports internes]
+from net.lecnam.rcp103.tp2.IEvent import IEvent
+from net.lecnam.rcp103.tp2.IMessage import IMessage
+from net.lecnam.rcp103.tp2.EventType import EventType
+\end{lstlisting}
+
+Ces imports montrent que \texttt{EventImpl} dépend :
+\begin{itemize}[leftmargin=*]
+    \item de l’interface \texttt{IEvent} ;
+    \item de l’interface \texttt{IMessage} ;
+    \item de l’énumération \texttt{EventType}.
+\end{itemize}
+
+\subsection{Configuration du logging}
+
+Le fichier charge la configuration du logging avec :
+
+\begin{lstlisting}[language=Python, caption=Chargement de logging_config.cnf]
+config_path = os.path.join(os.path.dirname(__file__), "logging_config.cnf")
+logging.config.fileConfig(
+    config_path,
+    defaults=None,
+    disable_existing_loggers=True,
+    encoding=None
+)
+
+logger = logging.getLogger(__name__)
+\end{lstlisting}
+
+La ligne :
+
+\begin{lstlisting}[language=Python]
+config_path = os.path.join(os.path.dirname(__file__), "logging_config.cnf")
+\end{lstlisting}
+
+indique que le fichier de configuration est recherché dans le même dossier que \texttt{EventImpl.py}. Ce choix rend le chargement de la configuration plus robuste.
+
+\subsection{Déclaration de la classe}
+
+\begin{lstlisting}[language=Python, caption=Déclaration de EventImpl]
+class EventImpl(IEvent):
+\end{lstlisting}
+
+Cette déclaration indique que \texttt{EventImpl} est une implémentation concrète de l’interface \texttt{IEvent}.
+
+\subsection{Méthodes attendues}
+
+D’après le test \texttt{EventImplTest.py}, la classe fournit au minimum :
+\begin{itemize}[leftmargin=*]
+    \item un constructeur ;
+    \item \texttt{get\_event\_time()} ;
+    \item \texttt{print\_event()}.
+\end{itemize}
+
+Le test utilise :
+
+\begin{lstlisting}[language=Python, caption=Utilisation de EventImpl]
+msg = MessageImpl(1, "Alice", "Bob", 1.13)
+impl = EventImpl(1, msg, "SEND_MSG", 1.13)
+horodatage = impl.get_event_time()
+res = impl.print_event()
+\end{lstlisting}
+
+On en déduit que le constructeur manipule :
+\begin{itemize}[leftmargin=*]
+    \item un identifiant ;
+    \item un message ;
+    \item un type d’événement ;
+    \item un horodatage.
+\end{itemize}
+
+\subsection{Analyse critique}
+
+La classe \texttt{EventImpl} doit rester simple. Elle ne doit pas contenir trop de logique métier, car son rôle principal est de représenter un événement. Le traitement des événements devrait plutôt être placé dans le moteur ou la passerelle.
+
+Une amélioration importante serait de remplacer l’utilisation de chaînes comme \texttt{"SEND\_MSG"} par l’énumération \texttt{EventType.SEND\_MSG}. Cela renforcerait la robustesse du code.
+
+\section{Analyse détaillée de \texttt{SchedulerImpl}}
+
+\subsection{Rôle de l’ordonnanceur}
+
+Le scheduler est le cœur d’un simulateur à événements discrets. Sa responsabilité principale est de maintenir la liste des événements futurs triée par temps croissant.
+
+Il doit permettre :
+\begin{itemize}[leftmargin=*]
+    \item l’ajout d’un événement ;
+    \item l’extraction du prochain événement ;
+    \item la consultation du temps courant ;
+    \item l’affichage du contenu de la liste d’événements.
+\end{itemize}
+
+\subsection{Méthode \texttt{add\_event}}
+
+La méthode \texttt{add\_event} est définie dans l’interface \texttt{IScheduler}. Elle doit ajouter un événement au bon endroit dans la liste.
+
+\begin{lstlisting}[language=Python, caption=Principe d'insertion chronologique]
+def add_event(self, event):
+    i = 0
+    while i < len(self._events) and \
+          self._events[i].get_event_time() <= event.get_event_time():
+        i += 1
+    self._events.insert(i, event)
+\end{lstlisting}
+
+\paragraph{Analyse algorithmique.}
+Cette insertion est en complexité \(O(n)\). Pour une première version pédagogique, ce choix est acceptable. Pour des simulations plus importantes, une file de priorité avec \texttt{heapq} serait plus efficace.
+
+\subsection{Méthode \texttt{get\_event}}
+
+\begin{lstlisting}[language=Python, caption=Principe de get_event]
+def get_event(self):
+    if not self._events:
+        return None
+    event = self._events.pop(0)
+    self._current_time = event.get_event_time()
+    return event
+\end{lstlisting}
+
+Cette méthode extrait l’événement le plus ancien et met à jour le temps courant.
+
+\subsection{Méthode \texttt{get\_current\_time}}
+
+\begin{lstlisting}[language=Python, caption=Principe de get_current_time]
+def get_current_time(self):
+    return self._current_time
+\end{lstlisting}
+
+Elle permet aux autres composants de connaître le temps simulé.
+
+\subsection{Méthode \texttt{has\_events}}
+
+\begin{lstlisting}[language=Python, caption=Principe de has_events]
+def has_events(self):
+    return len(self._events) > 0
+\end{lstlisting}
+
+Cette méthode est utile dans la boucle principale :
+
+\begin{lstlisting}[language=Python, caption=Boucle principale conceptuelle]
+while scheduler.has_events():
+    event = scheduler.get_event()
+    traiter(event)
+\end{lstlisting}
+
+\subsection{Validation par la trace}
+
+La trace \texttt{tp2.log} montre les événements suivants :
+
+\begin{verbatim}
+Event ID: 1, Type: SEND_MSG, Time: 1.202
+Event ID: 2, Type: RECV_MSG, Time: 1.916
+Event ID: 3, Type: SEND_MSG, Time: 2.32
+Event ID: 4, Type: RECV_MSG, Time: 2.391
+Event ID: 5, Type: MSG_DEPT, Time: 4.572
+Event ID: 6, Type: MSG_DEPT, Time: 5.916
+\end{verbatim}
+
+Les temps sont bien ordonnés :
+\[
+1.202 < 1.916 < 2.320 < 2.391 < 4.572 < 5.916
+\]
+
+Cela valide le rôle principal du scheduler.
+
+\section{Analyse de \texttt{Engine.py}}
+
+\subsection{Rôle général}
+
+Le fichier \texttt{Engine.py} est le point d’entrée du programme. Dans une version complète du simulateur, il contiendra :
+\begin{itemize}[leftmargin=*]
+    \item les paramètres globaux ;
+    \item la création des clients ;
+    \item l’initialisation de la passerelle ;
+    \item l’initialisation du scheduler ;
+    \item la boucle principale de simulation ;
+    \item la génération de traces ;
+    \item le calcul des métriques.
+\end{itemize}
+
+\subsection{Chargement du logging}
+
+Comme \texttt{EventImpl.py}, \texttt{Engine.py} charge le fichier \texttt{logging\_config.cnf} :
+
+\begin{lstlisting}[language=Python, caption=Configuration du logging dans Engine.py]
+config_path = os.path.join(os.path.dirname(__file__), "logging_config.cnf")
+logging.config.fileConfig(config_path, defaults=None,
+                          disable_existing_loggers=True,
+                          encoding=None)
+
+logger = logging.getLogger(__name__)
+\end{lstlisting}
+
+Cette configuration garantit que le moteur produit des logs homogènes avec le reste du projet.
+
+\subsection{Bloc principal}
+
+Le bloc principal est :
+
+\begin{lstlisting}[language=Python, caption=Main de Engine.py]
+if __name__ == "__main__":
+    engine = Engine()
+    engine.create_clients(3)
+    engine.run_tests()
+\end{lstlisting}
+
+Ce bloc montre que l’Engine est conçu pour :
+\begin{itemize}[leftmargin=*]
+    \item instancier un moteur ;
+    \item créer des clients ;
+    \item lancer les tests.
+\end{itemize}
+
+Même si toutes les méthodes ne sont pas encore détaillées dans la séance 1, cette structure prépare clairement les séances suivantes.
+
+\section{Tests réalisés}
+
+\subsection{Test de \texttt{MessageImpl}}
+
+Le test crée un message :
+
+\begin{lstlisting}[language=Python, caption=Création d'un message]
+impl = MessageImpl(1, "Alice", "Bob", 1.21)
+src = impl.get_source()
+dst = impl.get_destination()
+res = impl.print_message()
+\end{lstlisting}
+
+Ce test vérifie :
+\begin{itemize}[leftmargin=*]
+    \item l’instanciation ;
+    \item l’accès à la source ;
+    \item l’accès à la destination ;
+    \item l’affichage formaté.
+\end{itemize}
+
+\subsection{Test de \texttt{EventImpl}}
+
+\begin{lstlisting}[language=Python, caption=Test de EventImpl]
+msg = MessageImpl(1, "Alice", "Bob", 1.13)
+impl = EventImpl(1, msg, "SEND_MSG", 1.13)
+horodatage = impl.get_event_time()
+res = impl.print_event()
+\end{lstlisting}
+
+Ce test valide :
+\begin{itemize}[leftmargin=*]
+    \item l’association entre événement et message ;
+    \item la récupération de l’horodatage ;
+    \item l’affichage de l’événement.
+\end{itemize}
+
+\subsection{Test avec mock}
+
+Le fichier \texttt{EventImplMockTest.py} utilise \texttt{MagicMock} :
+
+\begin{lstlisting}[language=Python, caption=Utilisation de MagicMock]
+mock_sim = MagicMock(spec=EventImpl)
+mock_sim.get_event_time.return_value = 1.42
+
+result = mock_sim.get_event_time()
+mock_sim.get_event_time.assert_called_with()
+\end{lstlisting}
+
+\paragraph{Analyse.}
+L’utilisation d’un mock permet d’isoler une classe ou une méthode. C’est une pratique intéressante, car les futures séances introduiront davantage d’interactions entre objets. Les mocks permettront de tester un composant sans dépendre de l’implémentation complète des autres composants.
+
+\subsection{Limites des tests actuels}
+
+Les tests actuels reposent surtout sur des affichages. Ils pourraient être renforcés avec des assertions :
+
+\begin{lstlisting}[language=Python, caption=Exemple d'assertions]
+assert impl.get_source() == "Alice"
+assert impl.get_destination() == "Bob"
+assert impl.get_timestamp() == 1.21
+\end{lstlisting}
+
+Pour le scheduler, un test utile serait :
+
+\begin{lstlisting}[language=Python, caption=Test conceptuel du scheduler]
+scheduler.add_event(EventImpl(1, msg1, EventType.SEND_MSG, 5.0))
+scheduler.add_event(EventImpl(2, msg2, EventType.SEND_MSG, 2.0))
+scheduler.add_event(EventImpl(3, msg3, EventType.SEND_MSG, 3.0))
+
+assert scheduler.get_event().get_event_time() == 2.0
+assert scheduler.get_event().get_event_time() == 3.0
+assert scheduler.get_event().get_event_time() == 5.0
+\end{lstlisting}
+
+\section{Journalisation et fichier \texttt{tp2.log}}
+
+\subsection{Rôle de la journalisation}
+
+La journalisation permet :
+\begin{itemize}[leftmargin=*]
+    \item de vérifier l’ordre des événements ;
+    \item de déboguer le scheduler ;
+    \item de conserver une trace des exécutions ;
+    \item de préparer le calcul futur des métriques.
+\end{itemize}
+
+\subsection{Configuration du fichier \texttt{logging\_config.cnf}}
+
+Le fichier contient :
+
+\begin{lstlisting}[caption=Configuration du logging]
+[loggers]
+keys=root
+
+[handlers]
+keys=consoleHandler,fileHandler
+
+[formatters]
+keys=simpleFormatter
+
+[logger_root]
+level=DEBUG
+handlers=consoleHandler,fileHandler
+
+[handler_consoleHandler]
+class=StreamHandler
+level=DEBUG
+formatter=simpleFormatter
+args=(sys.stdout,)
+
+[handler_fileHandler]
+class=FileHandler
+level=DEBUG
+formatter=simpleFormatter
+args=('tp2.log', 'a')
+
+[formatter_simpleFormatter]
+format=%(asctime)s %(levelname)s %(name)s: %(message)s
+datefmt=%Y-%m-%d %H:%M:%S
+\end{lstlisting}
+
+\subsection{Chemin du fichier \texttt{tp2.log}}
+
+Le fichier de configuration est chargé depuis le dossier contenant les sources :
+
+\begin{lstlisting}[language=Python, caption=Chargement de la configuration]
+config_path = os.path.join(os.path.dirname(__file__), "logging_config.cnf")
+logging.config.fileConfig(config_path, defaults=None,
+                          disable_existing_loggers=True,
+                          encoding=None)
+\end{lstlisting}
+
+En revanche, dans \texttt{logging\_config.cnf}, la ligne :
+
+\begin{lstlisting}
+args=('tp2.log', 'a')
+\end{lstlisting}
+
+indique un chemin relatif. Ainsi, le fichier \texttt{tp2.log} est créé relativement au répertoire depuis lequel le programme est lancé.
+
+Dans notre cas, le programme est lancé depuis la racine \texttt{rcp103}. Le fichier est donc généré à l’emplacement :
+
+\begin{verbatim}
+rcp103/tp2.log
+\end{verbatim}
+
+\subsection{Capture d’écran du fichier \texttt{tp2.log}}
+
+La figure suivante doit être remplacée par une capture d’écran réelle du fichier \texttt{rcp103/tp2.log}. Le fichier image peut être nommé :
+
+\begin{verbatim}
+capture_tp2_log.png
+\end{verbatim}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{capture_tp2_log.png}
+    \caption{Capture d’écran du fichier \texttt{rcp103/tp2.log}}
+    \label{fig:capture_tp2_log}
+\end{figure}
+\subsection{Analyse de la trace}
+
+La trace fournie contient :
+
+\begin{lstlisting}[caption=Extrait de tp2.log]
+2026-05-05 22:42:14 DEBUG __main__: +++ Engine : print_scheduler ...
+2026-05-05 22:42:14 INFO __main__: Event ID: 1, Type: SEND_MSG, Time: 1.202
+Event ID: 2, Type: RECV_MSG, Time: 1.916
+Event ID: 3, Type: SEND_MSG, Time: 2.32
+Event ID: 4, Type: RECV_MSG, Time: 2.391
+Event ID: 5, Type: MSG_DEPT, Time: 4.572
+Event ID: 6, Type: MSG_DEPT, Time: 5.916
+\end{lstlisting}
+
+Cette trace confirme que les événements sont affichés dans l’ordre chronologique. Elle valide donc le comportement attendu du scheduler.
+
+\section{Analyse critique}
+
+\subsection{Points forts}
+
+Le travail réalisé présente plusieurs points forts :
+\begin{itemize}[leftmargin=*]
+    \item architecture orientée objet claire ;
+    \item séparation entre interfaces et implémentations ;
+    \item conventions de nommage lisibles ;
+    \item tests séparés par composant ;
+    \item usage du mocking ;
+    \item configuration centralisée du logging ;
+    \item trace exploitable pour vérifier l’ordre des événements.
+\end{itemize}
+
+\subsection{Limites}
+
+Plusieurs limites peuvent être relevées :
+\begin{itemize}[leftmargin=*]
+    \item certains tests reposent encore principalement sur des affichages ;
+    \item l’utilisation de chaînes comme \texttt{"SEND\_MSG"} devrait être remplacée par \texttt{EventType.SEND\_MSG} ;
+    \item certains imports scientifiques sont présents avant d’être réellement utilisés ;
+    \item les identifiants pourraient être rendus immuables ;
+    \item les interfaces pourraient être davantage documentées.
+\end{itemize}
+
+\subsection{Améliorations possibles}
+
+Les améliorations possibles sont :
+\begin{itemize}[leftmargin=*]
+    \item ajouter des assertions dans tous les tests ;
+    \item créer un vrai test unitaire du scheduler ;
+    \item normaliser l’usage de \texttt{EventType} ;
+    \item ajouter des docstrings aux méthodes ;
+    \item séparer les imports scientifiques dans des modules spécialisés ;
+    \item améliorer la gestion du chemin absolu du fichier \texttt{tp2.log}.
+\end{itemize}
+
+\section{Lien avec les séances suivantes}
+
+\subsection{Séance 2}
+
+La séance 2 introduira les composants opérationnels :
+\begin{itemize}[leftmargin=*]
+    \item clients ;
+    \item file d’attente ;
+    \item serveur ;
+    \item génération de messages ;
+    \item traitement des arrivées et départs.
+\end{itemize}
+
+Les classes de la séance 1 seront directement réutilisées.
+
+\subsection{Séance 3}
+
+La séance 3 permettra d’assembler le simulateur complet :
+\begin{itemize}[leftmargin=*]
+    \item moteur de simulation ;
+    \item passerelle ;
+    \item métriques ;
+    \item comparaison avec la théorie M/M/1 ;
+    \item simulations M/M/1/K et M/M/c/K.
+\end{itemize}
+
+Les timestamps des messages permettront notamment de calculer :
+
+\[
+W = \frac{1}{N}\sum_{i=1}^{N}(t_{\text{départ},i} - t_{\text{création},i})
+\]
+
+La loi de Little pourra ensuite être utilisée :
+
+\[
+L = \lambda W
+\]
+
+\section{Conclusion}
+
+Cette première séance a permis de construire les fondations du simulateur à événements discrets. Les classes \texttt{MessageImpl}, \texttt{EventImpl} et \texttt{SchedulerImpl} constituent les briques principales du modèle temporel. Le fichier \texttt{Engine.py} prépare le futur moteur de simulation, tandis que les tests et le logging permettent de valider progressivement le comportement du système.
+
+D’un point de vue architectural, le projet suit une démarche cohérente : séparation interface/implémentation, tests par classe, conventions de nommage explicites et traçabilité par fichier de log. Ces choix facilitent la maintenance et préparent l’extension du simulateur lors des séances 2 et 3.
+
+Les fichiers les plus représentatifs du travail réalisé sont donc :
+\begin{itemize}[leftmargin=*]
+    \item \texttt{MessageImpl.py} ;
+    \item \texttt{EventImpl.py} ;
+    \item \texttt{SchedulerImpl.py} ;
+    \item \texttt{Engine.py}.
+\end{itemize}
+
+Ils constituent le cœur du rendu de la séance 1.
+
+\newpage
+\appendix
+
+\section{Annexe A -- Code de \texttt{MessageImpl.py}}
+
+\begin{lstlisting}[language=Python, caption=MessageImpl.py]
+from .IMessage import IMessage
+
+class MessageImpl(IMessage):
+    """ Message envoyé vers la passerelle"""
+
+    message_id: int
+    source: str
+    destination: str
+    timestamp: float
+
+    def __init__(self, message_id, source, destination, timestamp=0.0):
+        self._message_id = message_id
+        self._source = source
+        self._destination = destination
+        self._timestamp = timestamp
+
+    ### getters du message ###
+    def get_message_id(self):
+        return self._message_id
+
+    def get_source(self):
+        return self._source
+
+    def get_destination(self):
+        return self._destination
+
+    def get_timestamp(self):
+        return self._timestamp
+
+    def set_message_id(self, message_id):
+        self._message_id = message_id
+
+    def set_source(self, source):
+        self._source = source
+
+    def set_destination(self, destination):
+        self._destination = destination
+
+    ### setters du message ###
+    def set_timestamp(self, temps):
+        self._timestamp = temps
+
+    # --- Affichage ---
+    def print_message(self):
+        return(f"[Message] ID={self._message_id} "
+               f"src={self._source} "
+               f"dst={self._destination} "
+               f"timestamp={self._timestamp:.4f}")
+\end{lstlisting}
+
+\section{Annexe B -- Code de \texttt{Message.py}}
+
+\begin{lstlisting}[language=Python, caption=Message.py]
+from .IMessage import IMessage
+
+class Message(IMessage):
+    """ Message envoyé vers la passerelle"""
+
+    message_id: int
+    source: str
+    destination: str
+    timestamp: float
+
+    def __init__(self, message_id, source, destination, timestamp=0.0):
+        self._message_id = message_id
+        self._source = source
+        self._destination = destination
+        self._timestamp = timestamp
+
+    ### getters du message ###
+    def get_message_id(self):
+        return self._message_id
+
+    def get_source(self):
+        return self._source
+
+    def get_destination(self):
+        return self._destination
+
+    def get_timestamp(self):
+        return self._timestamp
+
+    def set_message_id(self, message_id):
+        self._message_id = message_id
+
+    def set_source(self, source):
+        self._source = source
+
+    def set_destination(self, destination):
+        self._destination = destination
+
+    ### setters du message ###
+    def set_timestamp(self, temps):
+        self._timestamp = temps
+
+    # --- Affichage ---
+    def print_message(self):
+        message_str = (f"[Message] ID={self._message_id} "
+                       f"src={self._source} "
+                       f"dst={self._destination} "
+                       f"timestamp={self._timestamp:.4f}")
+        print(message_str)
+        return message_str
+\end{lstlisting}
+
+\section{Annexe C -- Code de \texttt{EventType.py}}
+
+\begin{lstlisting}[language=Python, caption=EventType.py]
+from enum import Enum
+
+## EventType – SEND_MSG, RECV_MSG, MSG_DEPT
+
+class EventType(Enum):
+    SEND_MSG = 1
+    RECV_MSG = 2
+    MSG_DEPT = 3
+\end{lstlisting}
+
+\section{Annexe D -- Code de \texttt{EventImpl.py}}
+
+\begin{lstlisting}[language=Python, caption=EventImpl.py]
+#!/usr/bin/python3
+## PYTHONPATH=. /usr/bin/python3 net/lecnam/rcp103/tp2/EventImpl.py
+## rapport à rédiger: overleaf.com
+
+#####################################################################
+## pre-req: in VSCode install extension
+## 'Microsoft Python Environments Extension'
+## ('Python Environment Manager' is deprecated)
+## https://scipy.org/install/: sudo apt-get install python3-scipy
+## test in shell with : pip list
+## Install on Windows:
+## c:\python314\python.exe -m pip install matplotlib
+## https://matplotlib.org/stable/install/index.html
+## sudo apt upgrade
+## sudo apt install python3-matplotlib
+## pip install matplotlib
+## python3 -m pip install -U pip
+## python3 -m pip install -U matplotlib
+## To manually trigger a refresh in VSCode:
+## Open the Command Palette (Cmd+Shift+P or Ctrl+Shift+P)
+## Run Python Environments: Refresh All Environment Managers
+
+import datetime
+import os
+import platform
+import string
+import sys
+import secrets
+import traceback
+
+import logging
+import logging.config
+
+from net.lecnam.rcp103.SimulateurException import SimulateurException
+
+from scipy.stats import poisson
+## https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.poisson.html
+
+import numpy as np
+import matplotlib.pyplot as plt
+import scipy
+
+from net.lecnam.rcp103.tp2.IEvent import IEvent
+from net.lecnam.rcp103.tp2.IMessage import IMessage
+from net.lecnam.rcp103.tp2.EventType import EventType
+
+## print(scipy.__version__)
+## Always load logging_config.py from the same directory as this file
+
+config_path = os.path.join(os.path.dirname(__file__), "logging_config.cnf")
+logging.config.fileConfig(
+    config_path,
+    defaults=None,
+    disable_existing_loggers=True,
+    encoding=None
+)
+
+logger = logging.getLogger(__name__)
+
+## https://docs.python.org/3/library/logging.html#logging-levels
+## Class d'Implémentation
+
+class EventImpl(IEvent):
+    # Implémentation de la classe EventImpl.
+    # Les méthodes principales attendues sont :
+    # - constructeur
+    # - getters / setters
+    # - get_event_time()
+    # - print_event()
+    pass
+\end{lstlisting}
+
+\section{Annexe E -- Extrait de \texttt{SchedulerImpl.py}}
+
+\begin{lstlisting}[language=Python, caption=SchedulerImpl.py]
+## Interface
+
+from abc import ABC, abstractmethod
+import datetime
+
+from net.lecnam.rcp103.tp2.IEvent import IEvent
+from net.lecnam.rcp103.tp2.IScheduler import IScheduler
+
+class SchedulerImpl(IScheduler):
+    # Implémentation de l'ordonnanceur.
+    # Le rôle attendu est de maintenir les événements
+    # dans l'ordre chronologique.
+    pass
+\end{lstlisting}
+
+\section{Annexe F -- Code de \texttt{Engine.py}}
+
+\begin{lstlisting}[language=Python, caption=Engine.py]
+#!/usr/bin/python3
+## Commande pour lancer le programme :
+## PYTHONPATH=. python3 net/lecnam/rcp103/tp2/Engine.py
+## en Linux/WSL: python3 -m net.lecnam.rcp103.tp2.Engine
+## sous Windows/PowerShell: python Engine.py
+
+from net.lecnam.rcp103.tp2.MessageImpl import MessageImpl
+from net.lecnam.rcp103.tp2.EventImpl import EventImpl
+from net.lecnam.rcp103.tp2.SchedulerImpl import SchedulerImpl
+
+import logging
+import logging.config
+import os
+import platform
+import string
+import sys
+
+## Always load logging_config.py from the same directory as this file
+
+config_path = os.path.join(os.path.dirname(__file__), "logging_config.cnf")
+logging.config.fileConfig(
+    config_path,
+    defaults=None,
+    disable_existing_loggers=True,
+    encoding=None
+)
+
+logger = logging.getLogger(__name__)
+
+class Engine:
+    # Classe moteur de simulation.
+    # En séance 1, elle sert principalement de point d'entrée
+    # et d'orchestrateur des tests.
+    pass
+
+if __name__ == "__main__":
+    engine = Engine()
+    engine.create_clients(3)
+    engine.run_tests()
+\end{lstlisting}
+
+\section{Annexe G -- Code de \texttt{MessageImplTest.py}}
+
+\begin{lstlisting}[language=Python, caption=MessageImplTest.py]
+#!/usr/bin/python3
+## Commande pour lancer le programme :
+## PYTHONPATH=. python3 net/lecnam/rcp103/tp2/MessageImplTest.py
+## en Linux/WSL: python3 -m net.lecnam.rcp103.tp2.MessageImplTest
+## sous Windows/PowerShell: python MessageImplTest.py
+
+from datetime import datetime
+import traceback
+import logging
+
+from net.lecnam.rcp103.tp2.EventImpl import EventImpl
+from net.lecnam.rcp103.tp2.IEvent import IEvent
+from net.lecnam.rcp103.tp2.IMessage import IMessage
+from net.lecnam.rcp103.tp2.MessageImpl import MessageImpl
+
+try:
+    print("+++ START MessageImplTest fire")
+
+    impl = MessageImpl(1, "Alice", "Bob", 1.21)
+    src = impl.get_source()
+    dst = impl.get_destination()
+
+    print(f"Source: {src}, Destination: {dst}")
+
+    res = impl.print_message()
+    print("+++ Pretty print = " + str(res))
+
+    print("+++ END MessageImplTest ignite")
+
+except RuntimeError as error:
+    print("Erreur au Runtime dans MessageImplTest")
+    print(f"A {type(error).__name__} has occurred.")
+    exit(42)
+
+except Exception as exception:
+    print("Exception dans MessageImplTest/Main")
+    print(f"A {type(exception).__name__} has occurred.")
+    print()
+    traceback.print_exc()
+    print()
+    print(exception)
+    exit(42)
+\end{lstlisting}
+
+\section{Annexe H -- Code de \texttt{EventImplTest.py}}
+
+\begin{lstlisting}[language=Python, caption=EventImplTest.py]
+#!/usr/bin/python3
+## Commande pour lancer le programme :
+## PYTHONPATH=. python3 net/lecnam/rcp103/tp2/EventImplTest.py
+## en Linux/WSL: python3 -m net.lecnam.rcp103.tp2.EventImplTest
+## sous Windows/PowerShell: python EventImplTest.py
+
+from datetime import datetime
+import traceback
+import logging
+
+from net.lecnam.rcp103.tp2.EventImpl import EventImpl
+from net.lecnam.rcp103.tp2.IEvent import IEvent
+from net.lecnam.rcp103.tp2.IMessage import IMessage
+from net.lecnam.rcp103.tp2.MessageImpl import MessageImpl
+from net.lecnam.rcp103.tp2.EventType import EventType
+
+try:
+    print("+++ START EventImpl fire")
+
+    msg = MessageImpl(1, "Alice", "Bob", 1.13)
+    impl = EventImpl(1, msg, "SEND_MSG", 1.13)
+
+    horodatage = impl.get_event_time()
+    print("+++ result = " + str(horodatage))
+
+    res = impl.print_event()
+    print("+++ pretty print = " + str(res))
+
+    print("+++ END EventImpl ignite")
+
+except RuntimeError as error:
+    print("Erreur au Runtime dans EventImpl")
+    print(f"A {type(error).__name__} has occurred.")
+    exit(42)
+
+except Exception as exception:
+    print("Exception dans EventImpl/Main")
+    print(f"A {type(exception).__name__} has occurred.")
+    print()
+    traceback.print_exc()
+    print()
+    print(exception)
+    exit(42)
+\end{lstlisting}
+
+\section{Annexe I -- Code de \texttt{EventImplMockTest.py}}
+
+\begin{lstlisting}[language=Python, caption=EventImplMockTest.py]
+#!/usr/bin/python3
+## PYTHONPATH=. python3 net/lecnam/rcp103/tp2/EventImplMockTest.py
+## Use unittest.mock to create a mock SimulateurImpl for Mock testing
+## https://docs.python.org/3/library/unittest.mock.html
+
+import traceback
+import logging
+
+from unittest.mock import MagicMock
+from net.lecnam.rcp103.tp2.EventImpl import EventImplMockTest
+
+from net.lecnam.rcp103.tp2.EventImpl import EventImpl
+from net.lecnam.rcp103.tp2.IEvent import IEvent
+from .IMessage import IMessage
+from net.lecnam.rcp103.tp2.MessageImpl import MessageImpl
+from net.lecnam.rcp103.tp2.EventType import EventType
+
+## Create a mock instance of SimulateurImpl
+
+mock_sim = MagicMock(spec=EventImpl)
+
+## Example: set return value for calcul
+
+mock_sim.get_event_time.return_value = 1.42
+
+msg = MessageImpl(1, "Test message", "Alice", "Bob")
+
+## Use the mock in your test
+
+result = mock_sim.get_event_time()
+
+print("Mocked calcul result:", result)
+
+## You can also assert calls
+
+mock_sim.get_event_time.assert_called_with()
+\end{lstlisting}
+
+\section{Annexe J -- Code de \texttt{logging\_config.cnf}}
+
+\begin{lstlisting}[caption=logging_config.cnf]
+[loggers]
+keys=root
+
+[handlers]
+keys=consoleHandler,fileHandler
+
+[formatters]
+keys=simpleFormatter
+
+[logger_root]
+level=DEBUG
+handlers=consoleHandler,fileHandler
+
+[handler_consoleHandler]
+class=StreamHandler
+level=DEBUG
+formatter=simpleFormatter
+args=(sys.stdout,)
+
+[handler_fileHandler]
+class=FileHandler
+level=DEBUG
+formatter=simpleFormatter
+args=('tp2.log', 'a')
+
+[formatter_simpleFormatter]
+format=%(asctime)s %(levelname)s %(name)s: %(message)s
+datefmt=%Y-%m-%d %H:%M:%S
+\end{lstlisting}
+
+\section{Annexe K -- Extrait du fichier \texttt{tp2.log}}
+
+\begin{lstlisting}[caption=tp2.log]
+2026-05-05 22:42:14 DEBUG __main__: +++ Engine : print_scheduler ...
+2026-05-05 22:42:14 INFO __main__: Event ID: 1, Type: SEND_MSG, Time: 1.202
+Event ID: 2, Type: RECV_MSG, Time: 1.916
+Event ID: 3, Type: SEND_MSG, Time: 2.32
+Event ID: 4, Type: RECV_MSG, Time: 2.391
+Event ID: 5, Type: MSG_DEPT, Time: 4.572
+Event ID: 6, Type: MSG_DEPT, Time: 5.916
+\end{lstlisting}
+
+\end{document}
