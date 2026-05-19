@@ -3,7 +3,7 @@
 # Commande pour lancer le programme : 
 # PYTHONPATH=. python3 net/lecnam/rcp103/tp2/Engine.py
 # en Linux/WSL: python3 -m net.lecnam.rcp103.tp2.Engine
-# sous Windows/PowerShell: python Engine.py
+# sous Windows/PowerShell: $env:PYTHONPATH="."; python net/lecnam/rcp103/tp2/Engine.py
 
 from net.lecnam.rcp103.tp2.MessageImpl import MessageImpl
 from net.lecnam.rcp103.tp2.EventImpl import EventImpl
@@ -177,7 +177,7 @@ class Engine:
         self.run_simulationMM1()
         
         print("\n--- RUN SIMULATION ---")
-        #self.run()
+        self.run()
         logger.debug("+++ Engine : END run_tests ...")
 
     def run_simulationMM1(self):
@@ -190,7 +190,7 @@ class Engine:
             logger.info("+++ Engine run_simulationMM1: server about to start listening:" + str(pretty_srv))            
 
             # Create and start a thread for each server's listen method
-            thread = threading.Thread(target=server.listen())
+            thread = threading.Thread(target=server.listen(), daemon=True)
             thread.start()
             threads.append(thread)  # Keep track of the thread
         
