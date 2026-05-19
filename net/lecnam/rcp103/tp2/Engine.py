@@ -31,8 +31,6 @@ GATEWAY_ID: int = 0
 
 class Engine:
 
-    
-
     nb_clients: int
     nb_servers: int
     lambda_arrival_rate: list

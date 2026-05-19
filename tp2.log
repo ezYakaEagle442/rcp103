@@ -1387,3 +1387,66 @@
 2026-05-19 21:38:48 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : START Constructor
 2026-05-19 21:38:48 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : END Constructor
 2026-05-19 21:38:48 DEBUG __main__: +++ Engine : Main START ...
+2026-05-19 23:18:57 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : START Constructor
+2026-05-19 23:18:57 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : END Constructor
+2026-05-19 23:18:57 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : START Constructor
+2026-05-19 23:18:57 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : END Constructor
+2026-05-19 23:18:57 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : START Constructor
+2026-05-19 23:18:57 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : END Constructor
+2026-05-19 23:18:57 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : START Constructor
+2026-05-19 23:18:57 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : END Constructor
+2026-05-19 23:18:57 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : START Constructor
+2026-05-19 23:18:57 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : END Constructor
+2026-05-19 23:18:57 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : START Constructor
+2026-05-19 23:18:57 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : END Constructor
+2026-05-19 23:18:57 DEBUG __main__: +++ Engine : Main START
+2026-05-19 23:19:02 DEBUG __main__: +++ Engine : nb_clients=4, nb_servers=3
+2026-05-19 23:19:02 DEBUG __main__: +++ Engine : START __init__
+2026-05-19 23:19:02 DEBUG __main__: +++ Engine : END __init__
+2026-05-19 23:19:02 DEBUG __main__: +++ Engine : START create_servers
+2026-05-19 23:19:02 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START Constructor
+2026-05-19 23:19:02 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START Constructor
+2026-05-19 23:19:02 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END Constructor
+2026-05-19 23:19:02 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : server_id=1, mu=8
+2026-05-19 23:19:02 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END Constructor
+2026-05-19 23:19:02 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 23:19:02 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 23:19:02 INFO __main__: +++ Engine : Server created: [SERVER] ID=1 | Mu=8
+2026-05-19 23:19:02 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START Constructor
+2026-05-19 23:19:02 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START Constructor
+2026-05-19 23:19:02 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END Constructor
+2026-05-19 23:19:02 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : server_id=2, mu=8
+2026-05-19 23:19:02 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END Constructor
+2026-05-19 23:19:02 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 23:19:02 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 23:19:02 INFO __main__: +++ Engine : Server created: [SERVER] ID=2 | Mu=8
+2026-05-19 23:19:02 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START Constructor
+2026-05-19 23:19:02 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START Constructor
+2026-05-19 23:19:02 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END Constructor
+2026-05-19 23:19:02 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : server_id=3, mu=8
+2026-05-19 23:19:02 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END Constructor
+2026-05-19 23:19:02 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 23:19:02 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 23:19:02 INFO __main__: +++ Engine : Server created: [SERVER] ID=3 | Mu=8
+2026-05-19 23:19:02 DEBUG __main__: +++ Engine : END create_servers
+2026-05-19 23:19:02 DEBUG __main__: +++ Engine : START create_gateway
+2026-05-19 23:19:02 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START Constructor
+2026-05-19 23:19:02 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END Constructor
+2026-05-19 23:19:02 DEBUG net.lecnam.rcp103.tp2.GatewayImpl: +++ GatewayImpl : START Constructor
+2026-05-19 23:19:02 DEBUG net.lecnam.rcp103.tp2.GatewayImpl: +++ GatewayImpl : 3 server(s) enregistré(s)
+2026-05-19 23:19:02 DEBUG net.lecnam.rcp103.tp2.GatewayImpl: +++ GatewayImpl : END Constructor
+2026-05-19 23:19:02 DEBUG net.lecnam.rcp103.tp2.GatewayImpl: +++ GatewayImpl : START print_gateway
+2026-05-19 23:19:02 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START count_messages
+2026-05-19 23:19:02 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : count_messages = 0
+2026-05-19 23:19:02 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END count_messages
+2026-05-19 23:19:02 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 23:19:02 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 23:19:02 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 23:19:02 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 23:19:02 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 23:19:02 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 23:19:02 DEBUG net.lecnam.rcp103.tp2.GatewayImpl: +++ GatewayImpl : [GATEWAY] ID=0 | Queue size=0 | Servers=[[SERVER] ID=1 | Mu=8, [SERVER] ID=2 | Mu=8, [SERVER] ID=3 | Mu=8]
+2026-05-19 23:19:02 DEBUG net.lecnam.rcp103.tp2.GatewayImpl: +++ GatewayImpl : END print_gateway
+2026-05-19 23:19:02 INFO __main__: +++ Engine : Gateway created: [GATEWAY] ID=0 | Queue size=0 | Servers=[[SERVER] ID=1 | Mu=8, [SERVER] ID=2 | Mu=8, [SERVER] ID=3 | Mu=8]
+2026-05-19 23:19:02 DEBUG __main__: +++ Engine : END create_gateway
+2026-05-19 23:19:02 DEBUG __main__: +++ Engine : START create_clients
