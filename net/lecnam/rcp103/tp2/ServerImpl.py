@@ -79,6 +79,8 @@ class ServerImpl(IServer):
     def listen(self):
         logger.debug(f"+++ ServerImpl : START listen")
 
+        # TODO: check if the server is busy or idle before processing messages
+
         # Loop on Queue messages to dequeue and process them
         while True:
             if not self.queue.is_empty():

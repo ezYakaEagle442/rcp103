@@ -19,6 +19,7 @@ from net.lecnam.rcp103.tp2.Poisson import Poisson
 from net.lecnam.rcp103.tp2.Poisson import Distribution
 from net.lecnam.rcp103.tp2.ConfigImpl import ConfigImpl
 
+import threading
 import numpy as np
 
 import logging
@@ -59,7 +60,7 @@ class Engine:
         self.servers = []
         self.queue = QueueImpl()
 
-        logger.debug("+++ Engine : START __init__ ...")
+        logger.debug("+++ Engine : END __init__ ...")
 
     def create_clients(self, n):
         logger.debug("+++ Engine : START create_clients ...")
@@ -182,11 +183,18 @@ class Engine:
     def run_simulationMM1(self):
         logger.debug("+++ Engine : START run_simulationMM1 ...")
 
+        threads = []
         # Iterate on servers and trigget listen() method to process messages in the queue
         for server in self.servers:
             pretty_srv = server.print_server()
             logger.info("+++ Engine run_simulationMM1: server about to start listening:" + str(pretty_srv))            
-            server.listen()
+
+            # Create and start a thread for each server's listen method
+            thread = threading.Thread(target=server.listen())
+            thread.start()
+            threads.append(thread)  # Keep track of the thread
+        
+            # server.listen()
 
         logger.debug("+++ Engine : END run_simulationMM1 ...")
 
@@ -211,9 +219,20 @@ class Engine:
 
 if __name__ == "__main__":
     logger.debug("+++ Engine : Main START ...")
+
+    # Slide 16
+    # src = client
+    # dst = 0 (gateway), 
+    # node = composant de l'archi: client=1, gateway=0, server=1, server2=2, etc.
+    nb_clients = int(input("Nombre de clients : ").strip())
+    nb_servers = int(input("Nombre de servers : ").strip())
+
+    logger.debug("+++ Engine : nb_clients=" + str(nb_clients))
+    logger.debug("+++ Engine : nb_servers=" + str(nb_servers))
+
     engine = Engine()
-    engine.create_servers(2)
-    engine.create_clients(4)
+    engine.create_servers(nb_servers)
+    engine.create_clients(nb_clients)
 
     cfg = ConfigImpl()
     seed = cfg.get_seed()
