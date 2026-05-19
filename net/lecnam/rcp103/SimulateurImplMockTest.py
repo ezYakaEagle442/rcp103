@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-# PYTHONPATH=. python3 net/lecnam/rcp103/SimulateurMockImplTest.py
+
+# PYTHONPATH=. python3 net.lecnam.rcp103.SimulateurImplMockTest
+# en Linux/WSL: python3 -m net.lecnam.rcp103.SimulateurImplMockTest
 # Use unittest.mock to create a mock SimulateurImpl for Mock testing
 # https://docs.python.org/3/library/unittest.mock.html
 
