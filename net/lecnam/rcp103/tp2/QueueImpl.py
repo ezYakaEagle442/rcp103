@@ -13,6 +13,7 @@ import string
 import sys
 import secrets
 import traceback
+import threading  # ← ajout
 
 import logging
 import logging.config
@@ -44,53 +45,61 @@ class QueueImpl(IQueue):
     # mu: int # service rate (mu) of the M/M/1 queue
     # lam: int # arrival rate (lambda) of the Poisson distribution
             
-    def __init__(self):
+    def __init__(self,  max_size: int = -1):
         logger.debug(f"+++ QueueImpl : START Constructor")
         self.queue = []
+        self._lock = threading.Lock()  # ← ajout
+        self.max_size = max_size  # -1 = infini
+        self.dropped_messages = 0
         logger.debug(f"+++ QueueImpl : END Constructor")
 
     def enqueue(self, msg: IMessage):
-        logger.debug(f"+++ QueueImpl : START enqueue")
-        self.queue.append(msg)
-        logger.debug(f"+++ QueueImpl : END enqueue")    
+        logger.debug("+++ QueueImpl : START enqueue")
+        with self._lock:
+            if self.max_size > 0 and len(self.queue) >= self.max_size:
+                self.dropped_messages += 1
+                logger.warning(f"+++ QueueImpl : msg {msg.get_message_id()} DROPPED (queue pleine, taille={self.max_size})")
+                return False  # message droppé
+            self.queue.append(msg)
+        logger.debug("+++ QueueImpl : END enqueue")
+        return True     
 
     def dequeue(self):
         logger.debug(f"+++ QueueImpl : START dequeue")
-        if len(self.queue) == 0:
-            logger.error(f"+++ QueueImpl : dequeue called on an empty queue")
-            return None
-        else:
-            msg = self.queue.pop(0) # [1, 2, 3, 4] -> pop(0) -> 1
+        with self._lock:  # ← ajout
+            if len(self.queue) == 0:
+                logger.error(f"+++ QueueImpl : dequeue called on an empty queue")
+                return None
+            msg = self.queue.pop(0)
             logger.info(f"+++ QueueImpl : Dequeued message with id={msg.get_message_id()}")
-            logger.debug(f"+++ QueueImpl : END dequeue")
-            return msg
-        
+        logger.debug(f"+++ QueueImpl : END dequeue")
+        return msg
+    
+    def get_dropped_messages(self):
+        return self.dropped_messages
+
     def count_messages(self):
         logger.debug(f"+++ QueueImpl : START count_messages")
-        nb_msg = len(self.queue)
+        with self._lock:  # ← ajout
+            nb_msg = len(self.queue)
         logger.debug(f"+++ QueueImpl : count_messages = {nb_msg}")
         logger.debug(f"+++ QueueImpl : END count_messages")
         return nb_msg
 
     def is_empty(self):
-        #logger.debug(f"+++ QueueImpl : START is_empty")
-        empty = len(self.queue) == 0
-        #logger.debug(f"+++ QueueImpl : is_empty = {empty}")
-        #logger.debug(f"+++ QueueImpl : END is_empty")
-        return empty
+        with self._lock:  # ← ajout
+            return len(self.queue) == 0
 
     """ --- Affichage de TOUS les messages --- """
     def print_messages(self):
         logger.debug(f"+++ QueueImpl : START print_messages")
-
-        if not self.is_empty():
+        with self._lock:  # ← ajout
+            if len(self.queue) == 0:
+                logger.info(f"+++ QueueImpl : No messages in the queue to print.")
+                return None
+            all_messages = ""
             for msg in self.queue:
                 all_messages += msg.print_message()
-                
-            logger.info(all_messages)
-            return all_messages
-        else:
-            logger.info(f"+++ QueueImpl : No messages in the queue to print.")
-            return None
+        logger.info(all_messages)
         logger.debug(f"+++ QueueImpl : END print_messages")
-        
+        return all_messages
