@@ -52,6 +52,7 @@ class ClientImpl(IClient):
     client_id: int
     destination_id: int # toujours 0 = gateway
 
+    # TODO:  q:IQueue should be removed
     def __init__(self, arrival_rate: int, q:IQueue):
         logger.debug(f"+++ ClientImpl : START Constructor")
 
