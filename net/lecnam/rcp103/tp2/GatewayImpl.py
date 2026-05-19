@@ -54,6 +54,7 @@ class GatewayImpl(IGateway):
     def set_server(self, server: IServer):
         self.server = server
 
+    # TODO:  server as list of servers
     def __init__(self, queue: IQueue, server: IServer):
         logger.debug(f"+++ GatewayImpl : START Constructor")
         self.queue = queue

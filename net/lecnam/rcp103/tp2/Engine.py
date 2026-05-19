@@ -231,7 +231,7 @@ if __name__ == "__main__":
     logger.debug("+++ Engine : nb_servers=" + str(nb_servers))
 
     engine = Engine()
-    engine.create_servers(nb_servers)
+    engine.create_servers(nb_servers) # TODO: servers as list of servers should be created in GatewayImpl
     engine.create_clients(nb_clients)
 
     cfg = ConfigImpl()
