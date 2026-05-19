@@ -23,6 +23,8 @@ import logging
 import logging.config
 import os
 
+from net.lecnam.rcp103.tp2.IGateway import IGateway
+
 config_path = os.path.join(os.path.dirname(__file__), "logging_config.cnf")
 logging.config.fileConfig(config_path, defaults=None, disable_existing_loggers=False, encoding=None)
 logger = logging.getLogger(__name__)
@@ -38,7 +40,7 @@ class Engine:
     simulation_time: float
     clients: list[IClient]
     servers: list[IServer]
-    gateway: GatewayImpl
+    gateway: IGateway
     scheduler: IScheduler
 
     def __init__(self):
@@ -138,7 +140,7 @@ class Engine:
             event_name = event_type
             dst = msg.get_destination()
 
-        logger.info(
+        print(
             f"{t:<8.4f} "
             f"{node:<5} "
             f"{event_name:<6} "

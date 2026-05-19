@@ -25,6 +25,7 @@ from net.lecnam.rcp103.tp2.Poisson import Poisson
 from net.lecnam.rcp103.tp2.Poisson import Distribution
 from net.lecnam.rcp103.tp2.QueueImpl import QueueImpl
 from net.lecnam.rcp103.tp2.IServer import IServer
+from net.lecnam.rcp103.tp2.IGateway import IGateway
 
 cfg = ConfigImpl()
 log_path = cfg.get_log_cfg_file_path()
@@ -51,9 +52,9 @@ class ClientImpl(IClient):
     queue: IQueue
     client_id: int
     destination_id: int # toujours 0 = gateway
+    gateway: IGateway
 
-    # TODO:  q:IQueue should be removed
-    def __init__(self, arrival_rate: int, q:IQueue):
+    def __init__(self, arrival_rate: int, gateway: IGateway):
         logger.debug(f"+++ ClientImpl : START Constructor")
 
         seed = cfg.get_seed()
@@ -61,7 +62,7 @@ class ClientImpl(IClient):
         logger.debug(f"+++ ClientImpl : arrival_rate={arrival_rate}")
         self.arrival_rate = arrival_rate
         self.gateway = gateway
-        self.destination_id = 0  # gateway id
+        self.destination_id = self.GATEWAY_ID  # gateway id
         logger.debug(f"+++ ClientImpl : arrival_rate={arrival_rate}, destination=gateway(0)")
         logger.debug("+++ ClientImpl : END Constructor")
 
@@ -91,6 +92,7 @@ class ClientImpl(IClient):
             # Si on passe un objet gateway, on stocke la référence
             self.gateway = dst
             self.destination_id = self.GATEWAY_ID
+
     def get_arrival_rate(self):
         return self.arrival_rate
 

@@ -75,6 +75,7 @@ class ServerImpl(IServer):
         return self.mu
 
     def listen(self):
+        logger.debug(f"+++ ServerImpl : START listen")
         """
         Boucle de traitement : défile et traite les messages
         reçus depuis la gateway.
@@ -93,12 +94,14 @@ class ServerImpl(IServer):
                 # sleep(service_time)
             else:
                 sleep(0.01)  # évite le busy-wait
+        
         logger.debug(f"+++ ServerImpl [{self.server_id}] : END listen")
+        logger.debug(f"+++ ServerImpl : END listen")
 
     # --- Affichage ---
     def print_server(self):
-        logger.debug(f"+++ ServerImpl : START listen")
+        logger.debug(f"+++ ServerImpl : START print_server")
         # q = self.queue.print_messages()
         srv = f"[SERVER] ID={self.server_id} | Mu={self.mu}"  
-        logger.debug(f"+++ ServerImpl : END listen")        
+        logger.debug(f"+++ ServerImpl : END print_server")        
         return(srv)
