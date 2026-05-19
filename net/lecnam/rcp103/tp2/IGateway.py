@@ -13,19 +13,33 @@ class IGateway(ABC):
         pass
 
     @abstractmethod
-    def get_queue() -> IQueue:
+    def get_queue(self):
         pass
 
     @abstractmethod
-    def set_queue(q: IQueue):
+    def set_queue(self, q):
         pass
 
     @abstractmethod
-    def get_server() -> IServer:
+    def get_servers(self) -> list:
         pass
-    
+
     @abstractmethod
-    def set_server(server: IServer):
+    def set_servers(self, servers: list):
+        pass
+
+    @abstractmethod
+    def receive_message(self, msg) -> None:
+        """Reçoit un message d'un client, l'enfile et dispatche."""
+        pass
+
+    @abstractmethod
+    def dispatch(self) -> None:
+        """Défile un message et l'envoie au prochain serveur disponible."""
+        pass
+
+    @abstractmethod
+    def print_gateway(self) -> str:
         pass
 
     '''
