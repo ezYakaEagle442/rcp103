@@ -26,6 +26,7 @@ from net.lecnam.rcp103.tp2.IServer import IServer
 from net.lecnam.rcp103.tp2.IGateway import IGateway
 from net.lecnam.rcp103.tp2.ConfigImpl import ConfigImpl
 from net.lecnam.rcp103.SimulateurException import SimulateurException
+from net.lecnam.rcp103.tp2.ServerImpl import ServerImpl
 
 cfg = ConfigImpl()
 log_path = cfg.get_log_cfg_file_path()
@@ -49,14 +50,17 @@ class GatewayImpl(IGateway):
 
     queue: IQueue
     servers: list[IServer]
+    service_rate: int
     _rr_index: int # index round-robin
 
-    def __init__(self, queue: IQueue, servers: list):
+    def __init__(self, queue: IQueue, nb_servers: int):
         logger.debug("+++ GatewayImpl : START Constructor")
-        self.queue = queue
-        self.servers = servers
         self._rr_index = 0
-        logger.debug(f"+++ GatewayImpl : {len(servers)} server(s) enregistré(s)")
+        self.service_rate = 8
+        self.queue = queue
+        # self.servers = servers
+        self.create_servers(nb_servers)
+        logger.debug(f"+++ GatewayImpl : {len(self.servers)} server(s) enregistré(s)")
         logger.debug("+++ GatewayImpl : END Constructor")
 
     # --- Accesseurs queue ---
@@ -72,6 +76,17 @@ class GatewayImpl(IGateway):
 
     def set_servers(self, servers: list):
         self.servers = servers
+
+    def create_servers(self, n):
+        """Crée n serveurs (id de 1 à n), chacun lisant dans la même Queue."""
+        logger.debug("+++ GatewayImpl : START create_servers")
+        self.nb_servers = n
+        self.servers = []
+        for i in range(1, n + 1):
+            srv = ServerImpl(server_id=i, mu=self.service_rate)
+            self.servers.append(srv)
+            logger.info(f"+++ GatewayImpl : Server created: {srv.print_server()}")
+        logger.debug("+++ GatewayImpl : END create_servers")
 
     # Compatibilité ancienne interface (un seul serveur)
 

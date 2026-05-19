@@ -63,24 +63,11 @@ class Engine:
         self.last_event_time = 0.0       # temps du dernier événement
         self.send_times = {}             # timestamp d'envoi par msgID
         logger.debug("+++ Engine : END __init__")
-        
 
-    def create_servers(self, n):
-        """Crée n serveurs (id de 1 à n), chacun avec sa propre queue."""
-        logger.debug("+++ Engine : START create_servers")
-        self.nb_servers = n
-        self.servers = []
-        for i in range(1, n + 1):
-            # Chaque serveur a sa propre queue (pas de queue partagée)
-            srv = ServerImpl(server_id=i, mu=self.service_rate)
-            self.servers.append(srv)
-            logger.info(f"+++ Engine : Server created: {srv.print_server()}")
-        logger.debug("+++ Engine : END create_servers")
-
-    def create_gateway(self, max_queue_size: int = -1):
+    def create_gateway(self, max_queue_size: int = -1, nb_servers: int = 4):
         logger.debug("+++ Engine : START create_gateway")
         gateway_queue = QueueImpl(max_size=max_queue_size)
-        self.gateway = GatewayImpl(queue=gateway_queue, servers=self.servers)
+        self.gateway = GatewayImpl(queue=gateway_queue, nb_servers=nb_servers)
         logger.info(f"+++ Engine : Gateway created: {self.gateway.print_gateway()}")
         logger.debug("+++ Engine : END create_gateway")
 
@@ -140,6 +127,12 @@ class Engine:
             event_name = event_type
             dst = msg.get_destination()
 
+        ''' 
+        # Slide 16
+        # src = client
+        # dst = 0 (gateway),
+        # node = composant de l'archi: client=1, gateway=0, server=1, server2=2, etc.
+        # '''
         print(
             f"{t:<8.4f} "
             f"{node:<5} "
@@ -212,18 +205,16 @@ if __name__ == "__main__":
 
     nb_clients = int(input("Nombre de clients : ").strip())
     nb_servers = int(input("Nombre de serveurs : ").strip())
-
     logger.debug(f"+++ Engine : nb_clients={nb_clients}, nb_servers={nb_servers}")
 
     engine = Engine()
-    engine.create_servers(nb_servers)   # serveurs créés en premier (la gateway en a besoin)
-    #engine.create_gateway()             # gateway créée après les serveurs
 
     ### SI ON VEUT UNE QUEUE A FILE LIMITEE : 
-    engine.create_gateway(max_queue_size=4)             # gateway créée après les serveurs
     # M/M/1/4 — file limitée à 4
-    #engine.create_gateway(max_queue_size=4)
     # M/M/1/8 — file limitée à 8
+    mm1k = int(input("Pécisez 4|8 pour M/M/1/K, M/M/1/4 — file limitée à 4 | M/M/1/8 — file limitée à 8: ").strip())
+    logger.debug(f"+++ Engine : M/M/1/K={mm1k}")
+    engine.create_gateway(max_queue_size=mm1k, nb_servers=nb_servers)
     #engine.create_gateway(max_queue_size=8)
     engine.create_clients(nb_clients)   # clients pointent vers la gateway
 
