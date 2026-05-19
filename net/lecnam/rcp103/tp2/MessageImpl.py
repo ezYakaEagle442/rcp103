@@ -2,18 +2,18 @@ from .IMessage import IMessage
 from net.lecnam.rcp103.tp2.IServer import IServer
 
 class MessageImpl(IMessage):
-    """ Message envoyé vers la passerelle"""
+    """ Message envoyé vers la passerelle (gateway id=0) """
 
     message_id: int
-    source: str
-    destination: IServer
+    source: int      # node id du client (>= 1)
+    destination: int # node id de la destination : 0 = gateway
     timestamp: float
 
-    def __init__(self, message_id, source, destination, timestamp=0.0):
+    def __init__(self, message_id, source, destination: int = 0, timestamp=0.0):
         self._message_id = message_id
         self._source = source
-        self._destination = destination
-        self._timestamp = timestamp 
+        self._destination = destination  # 0 = gateway par défaut
+        self._timestamp = timestamp
 
     ### getters du message ###
     def get_message_id(self):
@@ -34,7 +34,7 @@ class MessageImpl(IMessage):
     def set_source(self, source):
         self._source = source
 
-    def set_destination(self, destination):
+    def set_destination(self, destination: int):
         self._destination = destination
 
     ### setters du message ###
@@ -43,5 +43,6 @@ class MessageImpl(IMessage):
 
     # --- Affichage ---
     def print_message(self):
+        dst_label = "gateway" if self._destination == 0 else f"server-{self._destination}"
         return(f"[Message] ID={self._message_id} | src={self._source} "
-              f"| dst={self._destination.print_server()} | timestamp={self._timestamp:.4f}")
+               f"| dst={self._destination} ({dst_label}) | timestamp={self._timestamp:.4f}")
