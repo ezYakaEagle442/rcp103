@@ -1,0 +1,98 @@
+\babel@toc {french}{}\relax 
+\contentsline {section}{\numberline {1}Introduction}{2}{section.1}%
+\contentsline {section}{\numberline {2}Objectifs de la séance 1}{2}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Travail attendu}{2}{subsection.2.1}%
+\contentsline {paragraph}{Premier axe : modélisation des données.}{2}{section*.2}%
+\contentsline {paragraph}{Deuxième axe : organisation temporelle.}{3}{section*.3}%
+\contentsline {paragraph}{Troisième axe : testabilité.}{3}{section*.4}%
+\contentsline {paragraph}{Quatrième axe : traçabilité.}{3}{section*.5}%
+\contentsline {section}{\numberline {3}Prérequis et environnement d’exécution}{3}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Langage utilisé}{3}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Organisation du projet}{3}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Commandes d’exécution}{3}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Installation des bibliothèques}{4}{subsection.3.4}%
+\contentsline {section}{\numberline {4}Conventions de nommage}{5}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Conventions générales}{5}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Interfaces : préfixe \texttt {I}}{5}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Implémentations : suffixe \texttt {Impl}}{5}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Tests : suffixe \texttt {Test}}{5}{subsection.4.4}%
+\contentsline {subsection}{\numberline {4.5}Moteur principal : \texttt {Engine.py}}{6}{subsection.4.5}%
+\contentsline {section}{\numberline {5}Architecture générale du simulateur}{6}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Principe d’un simulateur à événements discrets}{6}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Responsabilités des composants}{6}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Intérêt de la séparation interface / implémentation}{6}{subsection.5.3}%
+\contentsline {section}{\numberline {6}Analyse des interfaces}{7}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Interface \texttt {IMessage}}{7}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Interface \texttt {IEvent}}{7}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}Interface \texttt {IScheduler}}{7}{subsection.6.3}%
+\contentsline {section}{\numberline {7}Analyse détaillée de \texttt {MessageImpl}}{7}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Rôle de la classe}{7}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Constructeur}{8}{subsection.7.2}%
+\contentsline {paragraph}{Analyse.}{8}{section*.6}%
+\contentsline {subsection}{\numberline {7.3}Méthode \texttt {get\_message\_id}}{8}{subsection.7.3}%
+\contentsline {subsection}{\numberline {7.4}Méthode \texttt {get\_source}}{8}{subsection.7.4}%
+\contentsline {subsection}{\numberline {7.5}Méthode \texttt {get\_destination}}{8}{subsection.7.5}%
+\contentsline {subsection}{\numberline {7.6}Méthode \texttt {get\_timestamp}}{8}{subsection.7.6}%
+\contentsline {subsection}{\numberline {7.7}Setters}{8}{subsection.7.7}%
+\contentsline {paragraph}{Analyse critique.}{9}{section*.7}%
+\contentsline {subsection}{\numberline {7.8}Méthode \texttt {print\_message}}{9}{subsection.7.8}%
+\contentsline {section}{\numberline {8}Analyse de \texttt {EventType}}{9}{section.8}%
+\contentsline {subsection}{\numberline {8.1}Rôle}{9}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.2}Analyse des événements}{9}{subsection.8.2}%
+\contentsline {paragraph}{\texttt {SEND\_MSG}.}{9}{section*.8}%
+\contentsline {paragraph}{\texttt {RECV\_MSG}.}{9}{section*.9}%
+\contentsline {paragraph}{\texttt {MSG\_DEPT}.}{9}{section*.10}%
+\contentsline {subsection}{\numberline {8.3}Intérêt de l’énumération}{9}{subsection.8.3}%
+\contentsline {section}{\numberline {9}Analyse détaillée de \texttt {EventImpl}}{10}{section.9}%
+\contentsline {subsection}{\numberline {9.1}Rôle de la classe}{10}{subsection.9.1}%
+\contentsline {subsection}{\numberline {9.2}En-tête et documentation technique}{10}{subsection.9.2}%
+\contentsline {subsection}{\numberline {9.3}Imports standards}{10}{subsection.9.3}%
+\contentsline {subsection}{\numberline {9.4}Imports scientifiques}{10}{subsection.9.4}%
+\contentsline {subsection}{\numberline {9.5}Imports internes au projet}{10}{subsection.9.5}%
+\contentsline {subsection}{\numberline {9.6}Configuration du logging}{11}{subsection.9.6}%
+\contentsline {subsection}{\numberline {9.7}Déclaration de la classe}{11}{subsection.9.7}%
+\contentsline {subsection}{\numberline {9.8}Méthodes attendues}{11}{subsection.9.8}%
+\contentsline {subsection}{\numberline {9.9}Analyse critique}{12}{subsection.9.9}%
+\contentsline {section}{\numberline {10}Analyse détaillée de \texttt {SchedulerImpl}}{12}{section.10}%
+\contentsline {subsection}{\numberline {10.1}Rôle de l’ordonnanceur}{12}{subsection.10.1}%
+\contentsline {subsection}{\numberline {10.2}Méthode \texttt {add\_event}}{12}{subsection.10.2}%
+\contentsline {paragraph}{Analyse algorithmique.}{12}{section*.11}%
+\contentsline {subsection}{\numberline {10.3}Méthode \texttt {get\_event}}{12}{subsection.10.3}%
+\contentsline {subsection}{\numberline {10.4}Méthode \texttt {get\_current\_time}}{12}{subsection.10.4}%
+\contentsline {subsection}{\numberline {10.5}Méthode \texttt {has\_events}}{13}{subsection.10.5}%
+\contentsline {subsection}{\numberline {10.6}Validation par la trace}{13}{subsection.10.6}%
+\contentsline {section}{\numberline {11}Analyse de \texttt {Engine.py}}{13}{section.11}%
+\contentsline {subsection}{\numberline {11.1}Rôle général}{13}{subsection.11.1}%
+\contentsline {subsection}{\numberline {11.2}Chargement du logging}{13}{subsection.11.2}%
+\contentsline {subsection}{\numberline {11.3}Bloc principal}{14}{subsection.11.3}%
+\contentsline {section}{\numberline {12}Tests réalisés}{14}{section.12}%
+\contentsline {subsection}{\numberline {12.1}Test de \texttt {MessageImpl}}{14}{subsection.12.1}%
+\contentsline {subsection}{\numberline {12.2}Test de \texttt {EventImpl}}{14}{subsection.12.2}%
+\contentsline {subsection}{\numberline {12.3}Test avec mock}{14}{subsection.12.3}%
+\contentsline {paragraph}{Analyse.}{15}{section*.12}%
+\contentsline {subsection}{\numberline {12.4}Limites des tests actuels}{15}{subsection.12.4}%
+\contentsline {section}{\numberline {13}Journalisation et fichier \texttt {tp2.log}}{15}{section.13}%
+\contentsline {subsection}{\numberline {13.1}Rôle de la journalisation}{15}{subsection.13.1}%
+\contentsline {subsection}{\numberline {13.2}Configuration du fichier \texttt {logging\_config.cnf}}{15}{subsection.13.2}%
+\contentsline {subsection}{\numberline {13.3}Chemin du fichier \texttt {tp2.log}}{16}{subsection.13.3}%
+\contentsline {subsection}{\numberline {13.4}Capture d’écran du fichier \texttt {tp2.log}}{16}{subsection.13.4}%
+\contentsline {subsection}{\numberline {13.5}Analyse de la trace}{17}{subsection.13.5}%
+\contentsline {section}{\numberline {14}Analyse critique}{18}{section.14}%
+\contentsline {subsection}{\numberline {14.1}Points forts}{18}{subsection.14.1}%
+\contentsline {subsection}{\numberline {14.2}Limites}{18}{subsection.14.2}%
+\contentsline {subsection}{\numberline {14.3}Améliorations possibles}{18}{subsection.14.3}%
+\contentsline {section}{\numberline {15}Lien avec les séances suivantes}{18}{section.15}%
+\contentsline {subsection}{\numberline {15.1}Séance 2}{18}{subsection.15.1}%
+\contentsline {subsection}{\numberline {15.2}Séance 3}{19}{subsection.15.2}%
+\contentsline {section}{\numberline {16}Conclusion}{19}{section.16}%
+\contentsline {section}{\numberline {A}Annexe A -- Code de \texttt {MessageImpl.py}}{20}{section.A}%
+\contentsline {section}{\numberline {B}Annexe B -- Code de \texttt {Message.py}}{20}{section.B}%
+\contentsline {section}{\numberline {C}Annexe C -- Code de \texttt {EventType.py}}{21}{section.C}%
+\contentsline {section}{\numberline {D}Annexe D -- Code de \texttt {EventImpl.py}}{21}{section.D}%
+\contentsline {section}{\numberline {E}Annexe E -- Extrait de \texttt {SchedulerImpl.py}}{22}{section.E}%
+\contentsline {section}{\numberline {F}Annexe F -- Code de \texttt {Engine.py}}{23}{section.F}%
+\contentsline {section}{\numberline {G}Annexe G -- Code de \texttt {MessageImplTest.py}}{23}{section.G}%
+\contentsline {section}{\numberline {H}Annexe H -- Code de \texttt {EventImplTest.py}}{24}{section.H}%
+\contentsline {section}{\numberline {I}Annexe I -- Code de \texttt {EventImplMockTest.py}}{25}{section.I}%
+\contentsline {section}{\numberline {J}Annexe J -- Code de \texttt {logging\_config.cnf}}{25}{section.J}%
+\contentsline {section}{\numberline {K}Annexe K -- Extrait du fichier \texttt {tp2.log}}{26}{section.K}%

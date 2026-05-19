@@ -1,0 +1,115 @@
+\babel@toc {french}{}\relax 
+\contentsline {section}{\numberline {1}Introduction}{2}{section.1}%
+\contentsline {section}{\numberline {2}Objectifs de la séance 2}{2}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Objectifs fonctionnels}{2}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Objectifs logiciels}{2}{subsection.2.2}%
+\contentsline {section}{\numberline {3}Rappel du modèle simulé}{3}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Architecture générale}{3}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Événements manipulés}{3}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Variables importantes du modèle}{3}{subsection.3.3}%
+\contentsline {section}{\numberline {4}Organisation du projet}{3}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Arborescence logique}{3}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Commandes d’exécution}{4}{subsection.4.2}%
+\contentsline {section}{\numberline {5}Architecture orientée objet de la séance 2}{5}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Interfaces et implémentations}{5}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Relations entre les composants}{5}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Rôle de la configuration}{5}{subsection.5.3}%
+\contentsline {section}{\numberline {6}La classe \texttt {ConfigImpl}}{6}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Rôle général}{6}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Structure du fichier}{6}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}Test de configuration}{6}{subsection.6.3}%
+\contentsline {subsection}{\numberline {6.4}Intérêt dans le simulateur}{6}{subsection.6.4}%
+\contentsline {section}{\numberline {7}Génération aléatoire : \texttt {Distribution} et \texttt {Poisson}}{7}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Rôle des distributions}{7}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Classe \texttt {Distribution}}{7}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}Classe \texttt {Poisson}}{7}{subsection.7.3}%
+\contentsline {subsection}{\numberline {7.4}Lien avec les files d’attente}{7}{subsection.7.4}%
+\contentsline {section}{\numberline {8}La classe \texttt {ClientImpl}}{8}{section.8}%
+\contentsline {subsection}{\numberline {8.1}Rôle du client}{8}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.2}Dépendances de \texttt {ClientImpl}}{8}{subsection.8.2}%
+\contentsline {subsection}{\numberline {8.3}Interface \texttt {IClient}}{8}{subsection.8.3}%
+\contentsline {subsection}{\numberline {8.4}Configuration du logging}{8}{subsection.8.4}%
+\contentsline {subsection}{\numberline {8.5}Comportement attendu}{9}{subsection.8.5}%
+\contentsline {section}{\numberline {9}La classe \texttt {QueueImpl}}{9}{section.9}%
+\contentsline {subsection}{\numberline {9.1}Rôle de la file d’attente}{9}{subsection.9.1}%
+\contentsline {subsection}{\numberline {9.2}Dépendances de \texttt {QueueImpl}}{9}{subsection.9.2}%
+\contentsline {subsection}{\numberline {9.3}Interface \texttt {IQueue}}{10}{subsection.9.3}%
+\contentsline {subsection}{\numberline {9.4}Opérations attendues}{10}{subsection.9.4}%
+\contentsline {subsection}{\numberline {9.5}Lien avec les modèles M/M/1/K}{10}{subsection.9.5}%
+\contentsline {section}{\numberline {10}La classe \texttt {ServerImpl}}{11}{section.10}%
+\contentsline {subsection}{\numberline {10.1}Rôle du serveur}{11}{subsection.10.1}%
+\contentsline {subsection}{\numberline {10.2}Dépendances de \texttt {ServerImpl}}{11}{subsection.10.2}%
+\contentsline {subsection}{\numberline {10.3}Interface \texttt {IServer}}{11}{subsection.10.3}%
+\contentsline {subsection}{\numberline {10.4}Gestion du logging}{12}{subsection.10.4}%
+\contentsline {subsection}{\numberline {10.5}Comportement attendu}{12}{subsection.10.5}%
+\contentsline {section}{\numberline {11}Évolution de \texttt {MessageImpl}}{13}{section.11}%
+\contentsline {subsection}{\numberline {11.1}Rôle du message}{13}{subsection.11.1}%
+\contentsline {subsection}{\numberline {11.2}Destination typée par \texttt {IServer}}{13}{subsection.11.2}%
+\contentsline {subsection}{\numberline {11.3}Méthode \texttt {print\_message}}{13}{subsection.11.3}%
+\contentsline {section}{\numberline {12}Évolution du moteur \texttt {Engine.py}}{13}{section.12}%
+\contentsline {subsection}{\numberline {12.1}Rôle du moteur}{13}{subsection.12.1}%
+\contentsline {subsection}{\numberline {12.2}Imports du moteur}{13}{subsection.12.2}%
+\contentsline {subsection}{\numberline {12.3}Création des clients et des serveurs}{14}{subsection.12.3}%
+\contentsline {subsection}{\numberline {12.4}Méthodes attendues dans \texttt {Engine}}{14}{subsection.12.4}%
+\contentsline {section}{\numberline {13}Tests réalisés}{14}{section.13}%
+\contentsline {subsection}{\numberline {13.1}Méthodologie générale}{14}{subsection.13.1}%
+\contentsline {subsection}{\numberline {13.2}Test de \texttt {ConfigImpl}}{15}{subsection.13.2}%
+\contentsline {subsection}{\numberline {13.3}Test de \texttt {ClientImpl}}{15}{subsection.13.3}%
+\contentsline {subsection}{\numberline {13.4}Test de \texttt {QueueImpl}}{15}{subsection.13.4}%
+\contentsline {subsection}{\numberline {13.5}Test de \texttt {ServerImpl}}{16}{subsection.13.5}%
+\contentsline {subsection}{\numberline {13.6}Test de \texttt {MessageImpl}}{16}{subsection.13.6}%
+\contentsline {section}{\numberline {14}Journalisation}{16}{section.14}%
+\contentsline {subsection}{\numberline {14.1}Rôle du logging}{16}{subsection.14.1}%
+\contentsline {subsection}{\numberline {14.2}Chargement homogène de la configuration}{17}{subsection.14.2}%
+\contentsline {subsection}{\numberline {14.3}Exemple de mécanisme de secours}{17}{subsection.14.3}%
+\contentsline {section}{\numberline {15}Validation expérimentale par les traces d'exécution}{17}{section.15}%
+\contentsline {subsection}{\numberline {15.1}Objectif de la validation}{17}{subsection.15.1}%
+\contentsline {subsection}{\numberline {15.2}Rappel des formules théoriques M/M/1}{18}{subsection.15.2}%
+\contentsline {subsection}{\numberline {15.3}Méthode utilisée dans \texttt {Engine.py}}{18}{subsection.15.3}%
+\contentsline {subsection}{\numberline {15.4}Interprétation attendue des résultats}{19}{subsection.15.4}%
+\contentsline {subsection}{\numberline {15.5}Captures d'écran des logs et de l'affichage console}{19}{subsection.15.5}%
+\contentsline {subsection}{\numberline {15.6}Apport de cette validation}{20}{subsection.15.6}%
+\contentsline {section}{\numberline {16}Intégration avec le scheduler}{21}{section.16}%
+\contentsline {subsection}{\numberline {16.1}Rappel du rôle du scheduler}{21}{subsection.16.1}%
+\contentsline {subsection}{\numberline {16.2}Lien avec les nouveaux composants}{21}{subsection.16.2}%
+\contentsline {subsection}{\numberline {16.3}Scénario conceptuel}{21}{subsection.16.3}%
+\contentsline {section}{\numberline {17}Préparation des métriques}{21}{section.17}%
+\contentsline {subsection}{\numberline {17.1}Métriques attendues}{21}{subsection.17.1}%
+\contentsline {subsection}{\numberline {17.2}Temps de séjour}{22}{subsection.17.2}%
+\contentsline {subsection}{\numberline {17.3}Nombre moyen de messages}{22}{subsection.17.3}%
+\contentsline {subsection}{\numberline {17.4}Loi de Little}{22}{subsection.17.4}%
+\contentsline {section}{\numberline {18}Lien avec les modèles de file d’attente}{22}{section.18}%
+\contentsline {subsection}{\numberline {18.1}Modèle M/M/1}{22}{subsection.18.1}%
+\contentsline {subsection}{\numberline {18.2}Modèles M/M/1/K}{23}{subsection.18.2}%
+\contentsline {subsection}{\numberline {18.3}Modèle M/M/3/8}{23}{subsection.18.3}%
+\contentsline {section}{\numberline {19}Synthèse de la séance 2}{23}{section.19}%
+\contentsline {section}{\numberline {20}Conclusion}{23}{section.20}%
+\contentsline {section}{\numberline {A}Annexe A -- \texttt {ConfigImpl.py}}{24}{section.A}%
+\contentsline {section}{\numberline {B}Annexe B -- \texttt {ClientImpl.py}}{24}{section.B}%
+\contentsline {section}{\numberline {C}Annexe C -- \texttt {QueueImpl.py}}{26}{section.C}%
+\contentsline {section}{\numberline {D}Annexe D -- \texttt {ServerImpl.py}}{28}{section.D}%
+\contentsline {section}{\numberline {E}Annexe E -- \texttt {Distribution.py}}{29}{section.E}%
+\contentsline {section}{\numberline {F}Annexe F -- \texttt {Poisson.py}}{30}{section.F}%
+\contentsline {section}{\numberline {G}Annexe G -- Extrait de \texttt {Engine.py}}{30}{section.G}%
+\contentsline {section}{\numberline {H}Annexe H -- \texttt {ClientImplTest.py}}{34}{section.H}%
+\contentsline {section}{\numberline {I}Annexe I -- \texttt {QueueImplTest.py}}{35}{section.I}%
+\contentsline {section}{\numberline {J}Annexe J -- \texttt {ServerImplTest.py}}{36}{section.J}%
+\contentsline {section}{\numberline {K}Annexe K -- \texttt {ConfigImplTest.py}}{37}{section.K}%
+\contentsline {section}{\numberline {L}Annexe L -- \texttt {EventImpl.py}}{38}{section.L}%
+\contentsline {section}{\numberline {M}Annexe M -- \texttt {EventImplMockTest.py}}{40}{section.M}%
+\contentsline {section}{\numberline {N}Annexe N -- \texttt {EventImplTest.py}}{40}{section.N}%
+\contentsline {section}{\numberline {O}Annexe O -- \texttt {EventType.py}}{41}{section.O}%
+\contentsline {section}{\numberline {P}Annexe P -- \texttt {GatewayImpl.py}}{41}{section.P}%
+\contentsline {section}{\numberline {Q}Annexe R -- \texttt {IClient.py}}{42}{section.Q}%
+\contentsline {section}{\numberline {R}Annexe S -- \texttt {IConfig.py}}{43}{section.R}%
+\contentsline {section}{\numberline {S}Annexe T -- \texttt {IEvent.py}}{44}{section.S}%
+\contentsline {section}{\numberline {T}Annexe U -- \texttt {IGateway.py}}{44}{section.T}%
+\contentsline {section}{\numberline {U}Annexe V -- \texttt {IMessage.py}}{45}{section.U}%
+\contentsline {section}{\numberline {V}Annexe W -- \texttt {IQueue.py}}{46}{section.V}%
+\contentsline {section}{\numberline {W}Annexe X -- \texttt {IScheduler.py}}{46}{section.W}%
+\contentsline {section}{\numberline {X}Annexe Y -- \texttt {IServer.py}}{47}{section.X}%
+\contentsline {section}{\numberline {Y}Annexe Z -- \texttt {logging_config.cnf}}{47}{section.Y}%
+\contentsline {section}{\numberline {Z}Annexe AA -- \texttt {Message.py}}{48}{section.Z}%
+\contentsline {section}{\numberline {\GenericError { }{LaTeX Error: Counter too large}{See the LaTeX manual or LaTeX Companion for explanation.}{You've lost some text. Try typing <return> to proceed.\MessageBreak If that doesn't work, type X <return> to quit.}}Annexe AB -- \texttt {MessageImpl.py}}{49}{section.Alph27}%
+\contentsline {section}{\numberline {\GenericError { }{LaTeX Error: Counter too large}{See the LaTeX manual or LaTeX Companion for explanation.}{You've lost some text. Try typing <return> to proceed.\MessageBreak If that doesn't work, type X <return> to quit.}}Annexe AC -- \texttt {MessageImplTest.py}}{50}{section.Alph28}%
+\contentsline {section}{\numberline {\GenericError { }{LaTeX Error: Counter too large}{See the LaTeX manual or LaTeX Companion for explanation.}{You've lost some text. Try typing <return> to proceed.\MessageBreak If that doesn't work, type X <return> to quit.}}Annexe AD -- \texttt {SchedulerImpl.py}}{50}{section.Alph29}%

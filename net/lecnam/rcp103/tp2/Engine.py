@@ -1,98 +1,101 @@
 #!/usr/bin/python3
 
-# Commande pour lancer le programme : 
+# Commande pour lancer le programme :
 # PYTHONPATH=. python3 net/lecnam/rcp103/tp2/Engine.py
-# en Linux/WSL: python3 -m net.lecnam.rcp103.tp2.Engine
-# sous Windows/PowerShell: $env:PYTHONPATH="."; python net/lecnam/rcp103/tp2/Engine.py
 
-from net.lecnam.rcp103.tp2.MessageImpl import MessageImpl
 from net.lecnam.rcp103.tp2.EventImpl import EventImpl
 from net.lecnam.rcp103.tp2.SchedulerImpl import SchedulerImpl
 from net.lecnam.rcp103.tp2.IScheduler import IScheduler
 from net.lecnam.rcp103.tp2.IServer import IServer
 from net.lecnam.rcp103.tp2.IClient import IClient
 from net.lecnam.rcp103.tp2.IQueue import IQueue
+from net.lecnam.rcp103.tp2.MessageImpl import MessageImpl
 from net.lecnam.rcp103.tp2.ServerImpl import ServerImpl
 from net.lecnam.rcp103.tp2.ClientImpl import ClientImpl
 from net.lecnam.rcp103.tp2.QueueImpl import QueueImpl
-from net.lecnam.rcp103.tp2.Poisson import Poisson
-from net.lecnam.rcp103.tp2.Poisson import Distribution
+from net.lecnam.rcp103.tp2.GatewayImpl import GatewayImpl
+from net.lecnam.rcp103.tp2.Poisson import Poisson, Distribution
 from net.lecnam.rcp103.tp2.ConfigImpl import ConfigImpl
 
 import threading
 import numpy as np
-
 import logging
 import logging.config
 import os
-import platform
-import string
-import sys
 
-# Always load logging_config.py from the same directory as this file
 config_path = os.path.join(os.path.dirname(__file__), "logging_config.cnf")
 logging.config.fileConfig(config_path, defaults=None, disable_existing_loggers=False, encoding=None)
-
 logger = logging.getLogger(__name__)
-# https://docs.python.org/3/library/logging.html#logging-levels
+
+GATEWAY_ID: int = 0
 
 class Engine:
+
+    
 
     nb_clients: int
     nb_servers: int
     lambda_arrival_rate: list
     service_rate: int
     simulation_time: float
-    clients: list
+    clients: list[IClient]
     servers: list[IServer]
+    gateway: GatewayImpl
     scheduler: IScheduler
-    queue: IQueue
 
     def __init__(self):
-        logger.debug("+++ Engine : START __init__ ...")
+        logger.debug("+++ Engine : START __init__")
         self.scheduler = SchedulerImpl()
         self.nb_clients = 0
         self.nb_servers = 0
         self.service_rate = 8
-        self.lambda_arrival_rate = [4, 6, 8 , 12] # arrival rate (lambda) of the Poisson distribution
+        self.lambda_arrival_rate = [4, 6, 8, 12]
         self.simulation_time = 10.0
         self.clients = []
         self.servers = []
-        self.queue = QueueImpl()
-
-        logger.debug("+++ Engine : END __init__ ...")
-
-    def create_clients(self, n):
-        logger.debug("+++ Engine : START create_clients ...")
-        self.nb_clients = n
-        self.clients = []
-
-        logger.info(f"+++ Engine : n=" + str(n))
-        i=0
-        for i in range(1, n + 1):
-            logger.debug(f"+++ Engine : i=" + str(i))
-            client = ClientImpl(arrival_rate=self.lambda_arrival_rate[i-1], q=self.queue)
-            client.set_client_id(i)
-            client.set_destination(self.servers[0])
-            self.clients.append(client)
-            pretty_client = client.print_client()
-            logger.info("+++ Engine : Clients créés :" + str(pretty_client))
-            i+=1
-
-        logger.debug("+++ Engine : END create_clients ...")
+        self.gateway = None
+        # Métriques
+        self.total_messages = 0          # nombre total de messages
+        self.messages_in_system = 0      # nombre instantané dans le système
+        self.messages_in_queue = 0       # nombre instantané dans la queue
+        self.sum_messages_in_system = 0  # pour calculer la moyenne
+        self.sum_waiting_time = 0        # pour le temps d'attente moyen
+        self.last_event_time = 0.0       # temps du dernier événement
+        self.send_times = {}             # timestamp d'envoi par msgID
+        logger.debug("+++ Engine : END __init__")
         
+
     def create_servers(self, n):
-        logger.debug("+++ Engine : START create_servers ...")
+        """Crée n serveurs (id de 1 à n), chacun avec sa propre queue."""
+        logger.debug("+++ Engine : START create_servers")
         self.nb_servers = n
-        logger.debug("+++ Engine : START about to create n servers, n=" + str(n))
         self.servers = []
         for i in range(1, n + 1):
-            srv = ServerImpl(server_id=i, mu=self.service_rate, queue=self.queue)
+            # Chaque serveur a sa propre queue (pas de queue partagée)
+            srv = ServerImpl(server_id=i, mu=self.service_rate)
             self.servers.append(srv)
-            pretty_srv = srv.print_server()
-            logger.info("+++ Engine : Server created:" + str(pretty_srv))
+            logger.info(f"+++ Engine : Server created: {srv.print_server()}")
+        logger.debug("+++ Engine : END create_servers")
 
-        logger.debug("+++ Engine : END create_servers ...")
+    def create_gateway(self, max_queue_size: int = -1):
+        logger.debug("+++ Engine : START create_gateway")
+        gateway_queue = QueueImpl(max_size=max_queue_size)
+        self.gateway = GatewayImpl(queue=gateway_queue, servers=self.servers)
+        logger.info(f"+++ Engine : Gateway created: {self.gateway.print_gateway()}")
+        logger.debug("+++ Engine : END create_gateway")
+
+    def create_clients(self, n):
+        """Crée n clients pointant vers la gateway (destination = 0)."""
+        logger.debug("+++ Engine : START create_clients")
+        self.nb_clients = n
+        self.clients = []
+        for i in range(1, n + 1):
+            rate = self.lambda_arrival_rate[i - 1] if i - 1 < len(self.lambda_arrival_rate) else self.lambda_arrival_rate[-1]
+            client = ClientImpl(arrival_rate=rate, gateway=self.gateway)
+            client.set_client_id(i)
+            self.clients.append(client)
+            logger.info(f"+++ Engine : Client created: {client.print_client()}")
+        logger.debug("+++ Engine : END create_clients")
 
     def print_trace_header(self):
         print("\n--- TRACE ---")
@@ -101,160 +104,156 @@ class Engine:
 
     def generate_trace(self, event):
         msg = event.get_message()
-
         event_type = event.get_event_type()
+        t = event.get_event_time()
+
+        # Intégration temporelle
+        dt = t - self.last_event_time
+        self.sum_messages_in_system += self.messages_in_system * dt
+        self.last_event_time = t
 
         if event_type == "SEND_MSG":
             node = msg.get_source()
             event_name = "SEND"
+            dst = 0
+            self.total_messages += 1
+            self.messages_in_system += 1
+            self.messages_in_queue += 1
+            self.send_times[msg.get_message_id()] = t
+
         elif event_type == "RECV_MSG":
             node = 0
             event_name = "RECV"
+            dst = 0
+            self.messages_in_queue -= 1
+
         elif event_type == "MSG_DEPT":
-            node = 0
+            node = msg.get_destination()
             event_name = "DEPT"
+            dst = msg.get_destination()
+            self.messages_in_system -= 1
+            send_t = self.send_times.get(msg.get_message_id(), t)
+            self.sum_waiting_time += (t - send_t)
+
         else:
             node = 0
             event_name = event_type
+            dst = msg.get_destination()
 
-        print(
-            f"{event.get_event_time():<8.3f} "
+        logger.info(
+            f"{t:<8.4f} "
             f"{node:<5} "
             f"{event_name:<6} "
             f"{msg.get_source():<5} "
-            f"{msg.get_destination():<5} "
+            f"{dst:<5} "
             f"{msg.get_message_id():<5}"
         )
 
     def run(self):
         self.print_trace_header()
-
         while self.scheduler.has_events():
             event = self.scheduler.get_event()
             self.generate_trace(event)
-
-    def test_message(self):
-        print("\n--- TEST MESSAGE ---")
-        msg = MessageImpl(1, 1, 0, 0.0)
-        msg.print_message()
-
-    def test_event(self):
-        print("\n--- TEST EVENT ---")
-        msg = MessageImpl(1, 1, 0, 0.0)
-        event = EventImpl(1, msg, "SEND_MSG", 1.567)
-        prettyEvt = event.print_event()
-        print("+++ Pretty print = " + str(prettyEvt))
-
-    def test_scheduler(self):
-        print("\n--- TEST SCHEDULER ---")
-
-        msg1 = MessageImpl(1, 1, 0, 0.0)
-        msg2 = MessageImpl(2, 3, 0, 0.0)
-
-        e1 = EventImpl(1, msg1, "SEND_MSG", 1.202)
-        e2 = EventImpl(2, msg1, "RECV_MSG", 1.916)
-        e3 = EventImpl(3, msg2, "SEND_MSG", 2.320)
-        e4 = EventImpl(4, msg2, "RECV_MSG", 2.391)
-        e5 = EventImpl(5, msg1, "MSG_DEPT", 4.572)
-        e6 = EventImpl(6, msg2, "MSG_DEPT", 5.916)
-
-        self.scheduler.add_event(e5)
-        self.scheduler.add_event(e1)
-        self.scheduler.add_event(e3)
-        self.scheduler.add_event(e6)
-        self.scheduler.add_event(e2)
-        self.scheduler.add_event(e4)
-
-        self.scheduler.print_scheduler()
-        logger.debug("+++ Engine : print_scheduler ...")
-        logger.info(self.scheduler.print_scheduler())        
-
-    def run_tests(self):
-        logger.debug("+++ Engine : START run_tests ...")
-        # self.test_message()
-        # self.test_event()
-        # self.test_scheduler()
-        self.run_simulationMM1()
-        
-        print("\n--- RUN SIMULATION ---")
-        self.run()
-        logger.debug("+++ Engine : END run_tests ...")
+        self.print_metrics()
 
     def run_simulationMM1(self):
-        logger.debug("+++ Engine : START run_simulationMM1 ...")
-
+        """Lance un thread d'écoute par serveur."""
+        logger.debug("+++ Engine : START run_simulationMM1")
         threads = []
-        # Iterate on servers and trigget listen() method to process messages in the queue
         for server in self.servers:
-            pretty_srv = server.print_server()
-            logger.info("+++ Engine run_simulationMM1: server about to start listening:" + str(pretty_srv))            
-
-            # Create and start a thread for each server's listen method
-            thread = threading.Thread(target=server.listen(), daemon=True)
+            logger.info(f"+++ Engine : starting listener for {server.print_server()}")
+            thread = threading.Thread(target=server.listen, daemon=True)
             thread.start()
-            threads.append(thread)  # Keep track of the thread
-        
-            # server.listen()
-
-        logger.debug("+++ Engine : END run_simulationMM1 ...")
+            threads.append(thread)
+        logger.debug("+++ Engine : END run_simulationMM1")
 
     def calcul_MM1_rate(self):
-        logger.debug("+++ Engine : START calcul_MM1_rate ...")
-        print("\n--- TRACE ---")
-        print(f"{'Lambda'} \t \t {'Rho'} \t \t {'L'} \t \t {'W'}")
-
-        # Iterate lambda_arrival_rate and calculate L, W, rho for each lambda and print the results 
+        print("\n--- Métriques M/M/1 ---")
+        print(f"{'Lambda':<10} {'Rho':<10} {'L':<10} {'W':<10}")
+        print("-" * 45)
         for lam in self.lambda_arrival_rate:
             rho = lam / self.service_rate
             try:
-                # self.lambda_arrival_rate = [4, 6, 8 , 12] 
                 L = rho / (1 - rho)
                 W = 1 / (self.service_rate - lam)
-                print(f"{lam:<8.3f} \t {rho:<8.3f} \t {L:<8.3f} \t{W:<8.3f}")
-            except ZeroDivisionError as e:
-                print(f"{lam:<8.3f} \t {rho:<8.3f} \t {"INFINI"} \t {"INFINI"}")
-                logger.error("Division by zero error in calcul_MM1_rate")
+                print(f"{lam:<10.3f} {rho:<10.3f} {L:<10.3f} {W:<10.3f}")
+            except ZeroDivisionError:
+                print(f"{lam:<10.3f} {rho:<10.3f} {'INFINI':<10} {'INFINI':<10}")
         print("-" * 45)
-        logger.debug("+++ Engine : END calcul_MM1_rate ...")
+
+    def run_tests(self):
+        logger.debug("+++ Engine : START run_tests")
+        self.run()                # ← affiche la trace
+        self.run_simulationMM1()  # ← démarre les threads serveurs
+        logger.debug("+++ Engine : END run_tests")
+
+    def print_metrics(self):
+        print("\n--- Métriques simulées ---")
+        if self.total_messages == 0:
+            print("Aucun message traité.")
+            return
+        t_total = self.last_event_time
+        avg_in_system = self.sum_messages_in_system / t_total if t_total > 0 else 0
+        avg_waiting = self.sum_waiting_time / self.total_messages
+        dropped = self.gateway.get_queue().get_dropped_messages()
+        print(f"Total messages envoyés     : {self.total_messages}")
+        print(f"Messages dans le système   : {self.messages_in_system}")
+        print(f"Messages dans la queue     : {self.messages_in_queue}")
+        print(f"Moyenne dans le système(L) : {avg_in_system:.4f}")
+        print(f"Temps d'attente moyen  (W) : {avg_waiting:.4f}")
+        dropped = self.gateway.get_queue().get_dropped_messages()
+        print(f"Messages droppés           : {dropped}")
 
 if __name__ == "__main__":
-    logger.debug("+++ Engine : Main START ...")
+    logger.debug("+++ Engine : Main START")
 
-    # Slide 16
-    # src = client
-    # dst = 0 (gateway), 
-    # node = composant de l'archi: client=1, gateway=0, server=1, server2=2, etc.
+    # Architecture :
+    # client (id>=1) -> SEND -> gateway (id=0) -> RECV -> queue -> DEPT -> server (id>=1)
+
     nb_clients = int(input("Nombre de clients : ").strip())
-    nb_servers = int(input("Nombre de servers : ").strip())
+    nb_servers = int(input("Nombre de serveurs : ").strip())
 
-    logger.debug("+++ Engine : nb_clients=" + str(nb_clients))
-    logger.debug("+++ Engine : nb_servers=" + str(nb_servers))
+    logger.debug(f"+++ Engine : nb_clients={nb_clients}, nb_servers={nb_servers}")
 
     engine = Engine()
-    engine.create_servers(nb_servers) # TODO: servers as list of servers should be created in GatewayImpl
-    engine.create_clients(nb_clients)
+    engine.create_servers(nb_servers)   # serveurs créés en premier (la gateway en a besoin)
+    #engine.create_gateway()             # gateway créée après les serveurs
+
+    ### SI ON VEUT UNE QUEUE A FILE LIMITEE : 
+    engine.create_gateway(max_queue_size=4)             # gateway créée après les serveurs
+    # M/M/1/4 — file limitée à 4
+    #engine.create_gateway(max_queue_size=4)
+    # M/M/1/8 — file limitée à 8
+    #engine.create_gateway(max_queue_size=8)
+    engine.create_clients(nb_clients)   # clients pointent vers la gateway
 
     cfg = ConfigImpl()
     seed = cfg.get_seed()
     rng = np.random.default_rng(seed=seed)
-    
+
     engine.calcul_MM1_rate()
 
-    # Loop on each client to send a message to the server
-    i=1
+    # Génération des messages : chaque client envoie vers la gateway (dst=0)
+    engine.print_trace_header()
+    i = 1
     ts = 0.0
     for client in engine.clients:
         fish = Poisson(rng=rng, lam=client.get_arrival_rate())
-        for _ in range(5):
-            logger.debug("+++ Engine : i=" + str(i))
-            msg = MessageImpl(i, client.get_client_id(), client.get_destination(), ts+0.10)
-            message = msg.print_message()
-            logger.debug("+++ Engine : message = " , {message})
-            inter_arrival_time = fish.generate(1)[0] / 1000.0 # Convert ms to seconds
-            ts += inter_arrival_time
-            msg.set_timestamp(ts)
+        for _ in range(50):     ## ATTENTION A MODIFIER METTRE UN GROS NOMBRE POUR LES METRIQUES
+            inter_arrival = fish.generate(1)[0] / 1000.0
+            ts += inter_arrival
+            msg = MessageImpl(i, client.get_client_id(), GATEWAY_ID, ts)
+            t_send = ts
+            t_recv = ts + 0.10
+            t_dept = ts + 0.125
+            e_send = EventImpl(i*3-2, msg, "SEND_MSG", t_send)
+            e_recv = EventImpl(i*3-1, msg, "RECV_MSG", t_recv)
+            e_dept = EventImpl(i*3,   msg, "MSG_DEPT", t_dept)
+            engine.scheduler.add_event(e_send)
+            engine.scheduler.add_event(e_recv)
+            engine.scheduler.add_event(e_dept)
             client.send_message(msg)
-            i+=1
+            i += 1
 
     engine.run_tests()
-    logger.debug("+++ Engine : Main END ...")
+    logger.debug("+++ Engine : Main END")

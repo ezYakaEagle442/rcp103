@@ -1,61 +1,1389 @@
-2026-05-05 22:42:14 DEBUG __main__: +++ Engine : print_scheduler ...
-2026-05-05 22:42:14 INFO __main__: Event ID: 1, Type: SEND_MSG, Time: 1.202
-Event ID: 2, Type: RECV_MSG, Time: 1.916
-Event ID: 3, Type: SEND_MSG, Time: 2.32
-Event ID: 4, Type: RECV_MSG, Time: 2.391
-Event ID: 5, Type: MSG_DEPT, Time: 4.572
-Event ID: 6, Type: MSG_DEPT, Time: 5.916
-
-2026-05-06 11:21:00 DEBUG net.lecnam.rcp103.tp2.EventImpl: +++ EventImpl : START print_event msg=[Message] ID=1 | src=Alice | dst=Bob | timestamp=1.1300
-2026-05-06 11:21:12 DEBUG net.lecnam.rcp103.tp2.EventImpl: +++ EventImpl : START print_event msg=[Message] ID=1 | src=Alice | dst=Bob | timestamp=1.1300
-2026-05-06 11:24:18 ERROR net.lecnam.rcp103.tp2.EventImpl: Invalid event type: SEND_MSG_ZZZ. Must be one of: ['SEND_MSG', 'RECV_MSG', 'MSG_DEPT']
-2026-05-06 11:25:30 ERROR net.lecnam.rcp103.tp2.EventImpl: +++ EventImpl __init__  Invalid event type in Constructor: SEND_MSG_ZZZ. Must be one of: ['SEND_MSG', 'RECV_MSG', 'MSG_DEPT']
-2026-05-06 11:58:40 DEBUG __main__: +++ ConfigImplTest : START
-2026-05-06 11:58:40 INFO __main__: +++ ConfigImplTest : seed= 3
-2026-05-06 11:58:40 INFO __main__: +++ ConfigImplTest : out_dir= RCP103_TP2_OUTPUTS
-2026-05-06 11:58:40 INFO __main__: +++ ConfigImplTest : Config created: [Config] seed=3 | output_dir=RCP103_TP2_OUTPUTS
-2026-05-06 11:58:40 DEBUG __main__: +++ ConfigImplTest : END
-2026-05-06 12:09:04 DEBUG __main__: +++ ConfigImplTest : START
-2026-05-06 12:09:04 INFO __main__: +++ ConfigImplTest : seed= 3
-2026-05-06 12:09:04 INFO __main__: +++ ConfigImplTest : out_dir= RCP103_TP2_OUTPUTS
-2026-05-06 12:09:04 INFO __main__: +++ ConfigImplTest : log_cfg_file_path= logging_config.cnf
-2026-05-06 12:09:04 INFO __main__: +++ ConfigImplTest : Config created: [Config] seed=3 | output_dir=RCP103_TP2_OUTPUTS | log_cfg_file_path=logging_config.cnf
-2026-05-06 12:09:04 DEBUG __main__: +++ ConfigImplTest : END
-2026-05-06 12:16:52 DEBUG matplotlib: matplotlib data path: /usr/share/matplotlib/mpl-data
-2026-05-06 12:16:52 DEBUG matplotlib: CONFIGDIR=/home/pinpin/.config/matplotlib
-2026-05-06 12:16:52 DEBUG matplotlib: interactive is False
-2026-05-06 12:16:52 DEBUG matplotlib: platform is linux
-2026-05-06 12:16:52 DEBUG matplotlib: CACHEDIR=/home/pinpin/.cache/matplotlib
-2026-05-06 12:16:52 DEBUG matplotlib.font_manager: Using fontManager instance from /home/pinpin/.cache/matplotlib/fontlist-v330.json
-2026-05-06 12:16:52 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : START Constructor
-2026-05-06 12:16:52 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : END Constructor
-2026-05-06 12:16:52 DEBUG __main__: +++ ClientImplTest : START
-2026-05-06 12:16:52 ERROR __main__: Exception dans ClientImplTest/Main
-2026-05-06 12:28:55 DEBUG matplotlib: matplotlib data path: /usr/share/matplotlib/mpl-data
-2026-05-06 12:28:55 DEBUG matplotlib: CONFIGDIR=/home/pinpin/.config/matplotlib
-2026-05-06 12:28:55 DEBUG matplotlib: interactive is False
-2026-05-06 12:28:55 DEBUG matplotlib: platform is linux
-2026-05-06 12:28:55 DEBUG matplotlib: CACHEDIR=/home/pinpin/.cache/matplotlib
-2026-05-06 12:28:55 DEBUG matplotlib.font_manager: Using fontManager instance from /home/pinpin/.cache/matplotlib/fontlist-v330.json
-2026-05-06 12:28:56 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : START Constructor
-2026-05-06 12:28:56 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : END Constructor
-2026-05-06 12:28:56 DEBUG __main__: +++ QueueImplTest : START
-2026-05-06 12:28:56 ERROR __main__: Exception dans QueueImplTest/Main
-2026-05-06 12:30:33 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : START Constructor
-2026-05-06 12:30:33 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : END Constructor
-2026-05-06 12:30:48 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : START Constructor
-2026-05-06 12:30:48 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : END Constructor
-2026-05-06 12:30:48 DEBUG __main__: +++ QueueImplTest : START
-2026-05-06 12:30:48 ERROR __main__: Exception dans QueueImplTest/Main
-2026-05-06 12:33:05 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : START Constructor
-2026-05-06 12:33:05 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : END Constructor
-2026-05-06 12:33:05 DEBUG __main__: +++ QueueImplTest : START
-2026-05-06 12:33:05 ERROR __main__: Exception dans QueueImplTest/Main
-2026-05-06 12:33:39 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : START Constructor
-2026-05-06 12:33:39 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : END Constructor
-2026-05-06 12:33:39 DEBUG __main__: +++ ServerImplTest : START
-2026-05-06 12:33:39 ERROR __main__: Exception dans ServerImplTest/Main
-2026-05-06 12:34:21 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : START Constructor
-2026-05-06 12:34:21 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : END Constructor
-2026-05-06 12:34:21 DEBUG __main__: +++ ServerImplTest : START
-2026-05-06 12:34:21 ERROR __main__: Exception dans ServerImplTest/Main
+2026-05-13 21:32:41 INFO __main__: +++ Engine : Server created:[SERVER] ID=1 | Mu=8
+2026-05-13 21:32:41 INFO __main__: +++ Engine : Server created:[SERVER] ID=2 | Mu=8
+2026-05-13 21:32:41 INFO __main__: +++ Engine : n=4
+2026-05-13 21:32:41 INFO __main__: +++ Engine : Clients créés :ClientID=1 | ArrivalRate=4 | Queue=Empty | Destination=[SERVER] ID=1 | Mu=8
+2026-05-13 21:32:41 INFO __main__: +++ Engine : Clients créés :ClientID=2 | ArrivalRate=6 | Queue=Empty | Destination=[SERVER] ID=1 | Mu=8
+2026-05-13 21:32:41 INFO __main__: +++ Engine : Clients créés :ClientID=3 | ArrivalRate=8 | Queue=Empty | Destination=[SERVER] ID=1 | Mu=8
+2026-05-13 21:32:41 INFO __main__: +++ Engine : Clients créés :ClientID=4 | ArrivalRate=12 | Queue=Empty | Destination=[SERVER] ID=1 | Mu=8
+2026-05-13 21:32:41 INFO __main__: 4.000    	 0.500    	 1.000    	0.250   
+2026-05-13 21:32:41 INFO __main__: 6.000    	 0.750    	 3.000    	0.500   
+2026-05-13 21:32:41 ERROR __main__: Division by zero error in calcul_MM1_rate
+2026-05-13 21:32:41 INFO __main__: 12.000   	 1.500    	 -3.000   	-0.250  
+2026-05-13 21:32:41 INFO net.lecnam.rcp103.tp2.Poisson: +++ Poisson __init__ seed=3, lam=4
+2026-05-13 21:32:41 INFO net.lecnam.rcp103.tp2.Poisson: +++ Poisson __init__ seed=3, lam=6
+2026-05-13 21:32:41 INFO net.lecnam.rcp103.tp2.Poisson: +++ Poisson __init__ seed=3, lam=8
+2026-05-13 21:32:41 INFO net.lecnam.rcp103.tp2.Poisson: +++ Poisson __init__ seed=3, lam=12
+2026-05-13 21:32:41 INFO __main__: +++ Engine run_simulationMM1: server about to start listening:[SERVER] ID=1 | Mu=8
+2026-05-13 21:32:41 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=1
+2026-05-13 21:32:41 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=1 | src=1 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0020
+2026-05-13 21:32:41 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=2
+2026-05-13 21:32:41 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=2 | src=1 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0050
+2026-05-13 21:32:41 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=3
+2026-05-13 21:32:41 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=3 | src=1 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0070
+2026-05-13 21:32:41 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=4
+2026-05-13 21:32:41 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=4 | src=1 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0130
+2026-05-13 21:32:41 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=5
+2026-05-13 21:32:41 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=5 | src=1 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0160
+2026-05-13 21:32:41 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=6
+2026-05-13 21:32:41 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=6 | src=2 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0230
+2026-05-13 21:32:41 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=7
+2026-05-13 21:32:41 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=7 | src=2 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0290
+2026-05-13 21:32:41 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=8
+2026-05-13 21:32:41 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=8 | src=2 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0400
+2026-05-13 21:32:41 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=9
+2026-05-13 21:32:41 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=9 | src=2 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0470
+2026-05-13 21:32:41 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=10
+2026-05-13 21:32:41 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=10 | src=2 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0540
+2026-05-13 21:32:41 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=11
+2026-05-13 21:32:41 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=11 | src=3 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0640
+2026-05-13 21:32:41 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=12
+2026-05-13 21:32:41 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=12 | src=3 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0690
+2026-05-13 21:32:41 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=13
+2026-05-13 21:32:41 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=13 | src=3 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0780
+2026-05-13 21:32:41 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=14
+2026-05-13 21:32:41 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=14 | src=3 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0870
+2026-05-13 21:32:41 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=15
+2026-05-13 21:32:41 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=15 | src=3 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0930
+2026-05-13 21:32:41 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=16
+2026-05-13 21:32:41 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=16 | src=4 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.1040
+2026-05-13 21:32:41 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=17
+2026-05-13 21:32:41 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=17 | src=4 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.1220
+2026-05-13 21:32:41 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=18
+2026-05-13 21:32:41 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=18 | src=4 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.1320
+2026-05-13 21:32:41 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=19
+2026-05-13 21:32:41 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=19 | src=4 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.1440
+2026-05-13 21:32:41 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=20
+2026-05-13 21:32:41 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=20 | src=4 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.1560
+2026-05-13 21:33:17 INFO __main__: +++ Engine : Server created:[SERVER] ID=1 | Mu=8
+2026-05-13 21:33:17 INFO __main__: +++ Engine : Server created:[SERVER] ID=2 | Mu=8
+2026-05-13 21:33:17 INFO __main__: +++ Engine : n=4
+2026-05-13 21:33:17 INFO __main__: +++ Engine : Clients créés :ClientID=1 | ArrivalRate=4 | Queue=Empty | Destination=[SERVER] ID=1 | Mu=8
+2026-05-13 21:33:17 INFO __main__: +++ Engine : Clients créés :ClientID=2 | ArrivalRate=6 | Queue=Empty | Destination=[SERVER] ID=1 | Mu=8
+2026-05-13 21:33:17 INFO __main__: +++ Engine : Clients créés :ClientID=3 | ArrivalRate=8 | Queue=Empty | Destination=[SERVER] ID=1 | Mu=8
+2026-05-13 21:33:17 INFO __main__: +++ Engine : Clients créés :ClientID=4 | ArrivalRate=12 | Queue=Empty | Destination=[SERVER] ID=1 | Mu=8
+2026-05-13 21:33:17 ERROR __main__: Division by zero error in calcul_MM1_rate
+2026-05-13 21:33:17 INFO net.lecnam.rcp103.tp2.Poisson: +++ Poisson __init__ seed=3, lam=4
+2026-05-13 21:33:17 INFO net.lecnam.rcp103.tp2.Poisson: +++ Poisson __init__ seed=3, lam=6
+2026-05-13 21:33:17 INFO net.lecnam.rcp103.tp2.Poisson: +++ Poisson __init__ seed=3, lam=8
+2026-05-13 21:33:17 INFO net.lecnam.rcp103.tp2.Poisson: +++ Poisson __init__ seed=3, lam=12
+2026-05-13 21:33:17 INFO __main__: +++ Engine run_simulationMM1: server about to start listening:[SERVER] ID=1 | Mu=8
+2026-05-13 21:33:17 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=1
+2026-05-13 21:33:17 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=1 | src=1 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0020
+2026-05-13 21:33:17 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=2
+2026-05-13 21:33:17 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=2 | src=1 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0050
+2026-05-13 21:33:17 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=3
+2026-05-13 21:33:17 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=3 | src=1 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0070
+2026-05-13 21:33:17 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=4
+2026-05-13 21:33:17 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=4 | src=1 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0130
+2026-05-13 21:33:17 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=5
+2026-05-13 21:33:17 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=5 | src=1 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0160
+2026-05-13 21:33:17 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=6
+2026-05-13 21:33:17 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=6 | src=2 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0230
+2026-05-13 21:33:17 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=7
+2026-05-13 21:33:17 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=7 | src=2 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0290
+2026-05-13 21:33:17 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=8
+2026-05-13 21:33:17 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=8 | src=2 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0400
+2026-05-13 21:33:17 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=9
+2026-05-13 21:33:17 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=9 | src=2 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0470
+2026-05-13 21:33:17 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=10
+2026-05-13 21:33:17 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=10 | src=2 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0540
+2026-05-13 21:33:17 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=11
+2026-05-13 21:33:17 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=11 | src=3 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0640
+2026-05-13 21:33:17 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=12
+2026-05-13 21:33:17 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=12 | src=3 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0690
+2026-05-13 21:33:17 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=13
+2026-05-13 21:33:17 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=13 | src=3 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0780
+2026-05-13 21:33:17 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=14
+2026-05-13 21:33:17 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=14 | src=3 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0870
+2026-05-13 21:33:17 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=15
+2026-05-13 21:33:17 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=15 | src=3 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0930
+2026-05-13 21:33:17 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=16
+2026-05-13 21:33:17 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=16 | src=4 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.1040
+2026-05-13 21:33:17 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=17
+2026-05-13 21:33:17 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=17 | src=4 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.1220
+2026-05-13 21:33:17 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=18
+2026-05-13 21:33:17 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=18 | src=4 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.1320
+2026-05-13 21:33:17 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=19
+2026-05-13 21:33:17 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=19 | src=4 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.1440
+2026-05-13 21:33:17 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=20
+2026-05-13 21:33:17 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=20 | src=4 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.1560
+2026-05-14 12:58:53 INFO __main__: +++ Engine : Server created:[SERVER] ID=1 | Mu=8
+2026-05-14 12:58:53 INFO __main__: +++ Engine : Server created:[SERVER] ID=2 | Mu=8
+2026-05-14 12:58:53 INFO __main__: +++ Engine : n=4
+2026-05-14 12:58:53 INFO __main__: +++ Engine : Clients créés :ClientID=1 | ArrivalRate=4 | Queue=Empty | Destination=[SERVER] ID=1 | Mu=8
+2026-05-14 12:58:53 INFO __main__: +++ Engine : Clients créés :ClientID=2 | ArrivalRate=6 | Queue=Empty | Destination=[SERVER] ID=1 | Mu=8
+2026-05-14 12:58:53 INFO __main__: +++ Engine : Clients créés :ClientID=3 | ArrivalRate=8 | Queue=Empty | Destination=[SERVER] ID=1 | Mu=8
+2026-05-14 12:58:53 INFO __main__: +++ Engine : Clients créés :ClientID=4 | ArrivalRate=12 | Queue=Empty | Destination=[SERVER] ID=1 | Mu=8
+2026-05-14 12:58:53 ERROR __main__: Division by zero error in calcul_MM1_rate
+2026-05-14 12:58:53 INFO net.lecnam.rcp103.tp2.Poisson: +++ Poisson __init__ seed=3, lam=4
+2026-05-14 12:58:53 INFO net.lecnam.rcp103.tp2.Poisson: +++ Poisson __init__ seed=3, lam=6
+2026-05-14 12:58:53 INFO net.lecnam.rcp103.tp2.Poisson: +++ Poisson __init__ seed=3, lam=8
+2026-05-14 12:58:53 INFO net.lecnam.rcp103.tp2.Poisson: +++ Poisson __init__ seed=3, lam=12
+2026-05-14 12:58:53 INFO __main__: +++ Engine run_simulationMM1: server about to start listening:[SERVER] ID=1 | Mu=8
+2026-05-14 12:58:53 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=1
+2026-05-14 12:58:53 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=1 | src=1 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0020
+2026-05-14 12:58:53 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=2
+2026-05-14 12:58:53 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=2 | src=1 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0050
+2026-05-14 12:58:53 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=3
+2026-05-14 12:58:53 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=3 | src=1 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0070
+2026-05-14 12:58:53 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=4
+2026-05-14 12:58:53 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=4 | src=1 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0130
+2026-05-14 12:58:53 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=5
+2026-05-14 12:58:53 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=5 | src=1 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0160
+2026-05-14 12:58:53 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=6
+2026-05-14 12:58:53 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=6 | src=2 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0230
+2026-05-14 12:58:53 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=7
+2026-05-14 12:58:53 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=7 | src=2 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0290
+2026-05-14 12:58:53 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=8
+2026-05-14 12:58:53 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=8 | src=2 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0400
+2026-05-14 12:58:53 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=9
+2026-05-14 12:58:53 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=9 | src=2 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0470
+2026-05-14 12:58:53 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=10
+2026-05-14 12:58:53 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=10 | src=2 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0540
+2026-05-14 12:58:53 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=11
+2026-05-14 12:58:53 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=11 | src=3 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0640
+2026-05-14 12:58:53 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=12
+2026-05-14 12:58:53 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=12 | src=3 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0690
+2026-05-14 12:58:53 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=13
+2026-05-14 12:58:53 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=13 | src=3 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0780
+2026-05-14 12:58:53 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=14
+2026-05-14 12:58:53 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=14 | src=3 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0870
+2026-05-14 12:58:53 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=15
+2026-05-14 12:58:53 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=15 | src=3 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0930
+2026-05-14 12:58:53 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=16
+2026-05-14 12:58:53 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=16 | src=4 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.1040
+2026-05-14 12:58:53 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=17
+2026-05-14 12:58:53 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=17 | src=4 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.1220
+2026-05-14 12:58:53 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=18
+2026-05-14 12:58:53 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=18 | src=4 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.1320
+2026-05-14 12:58:53 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=19
+2026-05-14 12:58:53 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=19 | src=4 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.1440
+2026-05-14 12:58:53 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=20
+2026-05-14 12:58:53 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=20 | src=4 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.1560
+2026-05-19 19:43:58 INFO __main__: +++ Engine : Server created:[SERVER] ID=1 | Mu=8
+2026-05-19 19:43:58 INFO __main__: +++ Engine : Server created:[SERVER] ID=2 | Mu=8
+2026-05-19 19:43:58 INFO __main__: +++ Engine : Server created:[SERVER] ID=3 | Mu=8
+2026-05-19 19:43:58 INFO __main__: +++ Engine : n=4
+2026-05-19 19:43:58 INFO __main__: +++ Engine : Clients créés :ClientID=1 | ArrivalRate=4 | Queue=Empty | Destination=[SERVER] ID=1 | Mu=8
+2026-05-19 19:43:58 INFO __main__: +++ Engine : Clients créés :ClientID=2 | ArrivalRate=6 | Queue=Empty | Destination=[SERVER] ID=1 | Mu=8
+2026-05-19 19:43:58 INFO __main__: +++ Engine : Clients créés :ClientID=3 | ArrivalRate=8 | Queue=Empty | Destination=[SERVER] ID=1 | Mu=8
+2026-05-19 19:43:58 INFO __main__: +++ Engine : Clients créés :ClientID=4 | ArrivalRate=12 | Queue=Empty | Destination=[SERVER] ID=1 | Mu=8
+2026-05-19 19:43:58 ERROR __main__: Division by zero error in calcul_MM1_rate
+2026-05-19 19:43:58 INFO net.lecnam.rcp103.tp2.Poisson: +++ Poisson __init__ seed=3, lam=4
+2026-05-19 19:43:58 INFO net.lecnam.rcp103.tp2.Poisson: +++ Poisson __init__ seed=3, lam=6
+2026-05-19 19:43:58 INFO net.lecnam.rcp103.tp2.Poisson: +++ Poisson __init__ seed=3, lam=8
+2026-05-19 19:43:58 INFO net.lecnam.rcp103.tp2.Poisson: +++ Poisson __init__ seed=3, lam=12
+2026-05-19 19:43:58 INFO __main__: +++ Engine run_simulationMM1: server about to start listening:[SERVER] ID=1 | Mu=8
+2026-05-19 19:43:58 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=1
+2026-05-19 19:43:58 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=1 | src=1 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0020
+2026-05-19 19:43:58 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=2
+2026-05-19 19:43:58 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=2 | src=1 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0050
+2026-05-19 19:43:58 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=3
+2026-05-19 19:43:58 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=3 | src=1 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0070
+2026-05-19 19:43:58 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=4
+2026-05-19 19:43:58 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=4 | src=1 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0130
+2026-05-19 19:43:58 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=5
+2026-05-19 19:43:58 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=5 | src=1 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0160
+2026-05-19 19:43:58 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=6
+2026-05-19 19:43:58 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=6 | src=2 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0230
+2026-05-19 19:43:58 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=7
+2026-05-19 19:43:58 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=7 | src=2 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0290
+2026-05-19 19:43:58 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=8
+2026-05-19 19:43:58 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=8 | src=2 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0400
+2026-05-19 19:43:58 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=9
+2026-05-19 19:43:58 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=9 | src=2 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0470
+2026-05-19 19:43:58 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=10
+2026-05-19 19:43:58 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=10 | src=2 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0540
+2026-05-19 19:43:58 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=11
+2026-05-19 19:43:58 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=11 | src=3 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0640
+2026-05-19 19:43:58 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=12
+2026-05-19 19:43:58 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=12 | src=3 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0690
+2026-05-19 19:43:58 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=13
+2026-05-19 19:43:58 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=13 | src=3 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0780
+2026-05-19 19:43:58 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=14
+2026-05-19 19:43:58 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=14 | src=3 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0870
+2026-05-19 19:43:58 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=15
+2026-05-19 19:43:58 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=15 | src=3 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0930
+2026-05-19 19:43:58 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=16
+2026-05-19 19:43:58 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=16 | src=4 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.1040
+2026-05-19 19:43:58 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=17
+2026-05-19 19:43:58 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=17 | src=4 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.1220
+2026-05-19 19:43:58 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=18
+2026-05-19 19:43:58 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=18 | src=4 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.1320
+2026-05-19 19:43:58 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=19
+2026-05-19 19:43:58 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=19 | src=4 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.1440
+2026-05-19 19:43:58 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=20
+2026-05-19 19:43:58 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=20 | src=4 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.1560
+2026-05-19 19:45:04 INFO __main__: +++ Engine : Server created:[SERVER] ID=1 | Mu=8
+2026-05-19 19:45:04 INFO __main__: +++ Engine : Server created:[SERVER] ID=2 | Mu=8
+2026-05-19 19:45:04 INFO __main__: +++ Engine : Server created:[SERVER] ID=3 | Mu=8
+2026-05-19 19:45:04 INFO __main__: +++ Engine : n=4
+2026-05-19 19:45:04 INFO __main__: +++ Engine : Clients créés :ClientID=1 | ArrivalRate=4 | Queue=Empty | Destination=[SERVER] ID=1 | Mu=8
+2026-05-19 19:45:04 INFO __main__: +++ Engine : Clients créés :ClientID=2 | ArrivalRate=6 | Queue=Empty | Destination=[SERVER] ID=1 | Mu=8
+2026-05-19 19:45:04 INFO __main__: +++ Engine : Clients créés :ClientID=3 | ArrivalRate=8 | Queue=Empty | Destination=[SERVER] ID=1 | Mu=8
+2026-05-19 19:45:04 INFO __main__: +++ Engine : Clients créés :ClientID=4 | ArrivalRate=12 | Queue=Empty | Destination=[SERVER] ID=1 | Mu=8
+2026-05-19 19:45:04 ERROR __main__: Division by zero error in calcul_MM1_rate
+2026-05-19 19:45:04 INFO net.lecnam.rcp103.tp2.Poisson: +++ Poisson __init__ seed=3, lam=4
+2026-05-19 19:45:05 INFO net.lecnam.rcp103.tp2.Poisson: +++ Poisson __init__ seed=3, lam=6
+2026-05-19 19:45:05 INFO net.lecnam.rcp103.tp2.Poisson: +++ Poisson __init__ seed=3, lam=8
+2026-05-19 19:45:05 INFO net.lecnam.rcp103.tp2.Poisson: +++ Poisson __init__ seed=3, lam=12
+2026-05-19 19:45:05 INFO __main__: +++ Engine run_simulationMM1: server about to start listening:[SERVER] ID=1 | Mu=8
+2026-05-19 19:45:05 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=1
+2026-05-19 19:45:05 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=1 | src=1 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0020
+2026-05-19 19:45:05 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=2
+2026-05-19 19:45:05 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=2 | src=1 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0050
+2026-05-19 19:45:05 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=3
+2026-05-19 19:45:05 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=3 | src=1 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0070
+2026-05-19 19:45:05 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=4
+2026-05-19 19:45:05 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=4 | src=1 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0130
+2026-05-19 19:45:05 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=5
+2026-05-19 19:45:05 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=5 | src=1 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0160
+2026-05-19 19:45:05 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=6
+2026-05-19 19:45:05 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=6 | src=2 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0230
+2026-05-19 19:45:05 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=7
+2026-05-19 19:45:05 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=7 | src=2 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0290
+2026-05-19 19:45:05 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=8
+2026-05-19 19:45:05 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=8 | src=2 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0400
+2026-05-19 19:45:05 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=9
+2026-05-19 19:45:05 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=9 | src=2 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0470
+2026-05-19 19:45:05 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=10
+2026-05-19 19:45:05 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=10 | src=2 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0540
+2026-05-19 19:45:05 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=11
+2026-05-19 19:45:05 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=11 | src=3 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0640
+2026-05-19 19:45:05 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=12
+2026-05-19 19:45:05 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=12 | src=3 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0690
+2026-05-19 19:45:05 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=13
+2026-05-19 19:45:05 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=13 | src=3 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0780
+2026-05-19 19:45:05 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=14
+2026-05-19 19:45:05 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=14 | src=3 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0870
+2026-05-19 19:45:05 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=15
+2026-05-19 19:45:05 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=15 | src=3 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0930
+2026-05-19 19:45:05 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=16
+2026-05-19 19:45:05 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=16 | src=4 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.1040
+2026-05-19 19:45:05 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=17
+2026-05-19 19:45:05 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=17 | src=4 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.1220
+2026-05-19 19:45:05 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=18
+2026-05-19 19:45:05 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=18 | src=4 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.1320
+2026-05-19 19:45:05 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=19
+2026-05-19 19:45:05 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=19 | src=4 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.1440
+2026-05-19 19:45:05 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=20
+2026-05-19 19:45:05 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=20 | src=4 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.1560
+2026-05-19 20:06:38 INFO __main__: +++ Engine : Server created:[SERVER] ID=1 | Mu=8
+2026-05-19 20:06:38 INFO __main__: +++ Engine : Server created:[SERVER] ID=2 | Mu=8
+2026-05-19 20:06:38 INFO __main__: +++ Engine : Server created:[SERVER] ID=3 | Mu=8
+2026-05-19 20:06:38 INFO __main__: +++ Engine : n=4
+2026-05-19 20:06:38 INFO __main__: +++ Engine : Clients cr��s :ClientID=1 | ArrivalRate=4 | Queue=Empty | Destination=[SERVER] ID=1 | Mu=8
+2026-05-19 20:06:38 INFO __main__: +++ Engine : Clients cr��s :ClientID=2 | ArrivalRate=6 | Queue=Empty | Destination=[SERVER] ID=1 | Mu=8
+2026-05-19 20:06:38 INFO __main__: +++ Engine : Clients cr��s :ClientID=3 | ArrivalRate=8 | Queue=Empty | Destination=[SERVER] ID=1 | Mu=8
+2026-05-19 20:06:38 INFO __main__: +++ Engine : Clients cr��s :ClientID=4 | ArrivalRate=12 | Queue=Empty | Destination=[SERVER] ID=1 | Mu=8
+2026-05-19 20:06:38 ERROR __main__: Division by zero error in calcul_MM1_rate
+2026-05-19 20:06:38 INFO net.lecnam.rcp103.tp2.Poisson: +++ Poisson __init__ seed=3, lam=4
+2026-05-19 20:06:38 INFO net.lecnam.rcp103.tp2.Poisson: +++ Poisson __init__ seed=3, lam=6
+2026-05-19 20:06:38 INFO net.lecnam.rcp103.tp2.Poisson: +++ Poisson __init__ seed=3, lam=8
+2026-05-19 20:06:38 INFO net.lecnam.rcp103.tp2.Poisson: +++ Poisson __init__ seed=3, lam=12
+2026-05-19 20:06:38 INFO __main__: +++ Engine run_simulationMM1: server about to start listening:[SERVER] ID=1 | Mu=8
+2026-05-19 20:06:38 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=1
+2026-05-19 20:06:38 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=1 | src=1 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0020
+2026-05-19 20:06:38 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=2
+2026-05-19 20:06:38 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=2 | src=1 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0050
+2026-05-19 20:06:38 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=3
+2026-05-19 20:06:38 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=3 | src=1 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0070
+2026-05-19 20:06:38 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=4
+2026-05-19 20:06:38 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=4 | src=1 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0130
+2026-05-19 20:06:38 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=5
+2026-05-19 20:06:38 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=5 | src=1 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0160
+2026-05-19 20:06:38 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=6
+2026-05-19 20:06:38 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=6 | src=2 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0230
+2026-05-19 20:06:38 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=7
+2026-05-19 20:06:38 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=7 | src=2 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0290
+2026-05-19 20:06:38 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=8
+2026-05-19 20:06:38 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=8 | src=2 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0400
+2026-05-19 20:06:38 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=9
+2026-05-19 20:06:38 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=9 | src=2 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0470
+2026-05-19 20:06:38 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=10
+2026-05-19 20:06:38 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=10 | src=2 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0540
+2026-05-19 20:06:38 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=11
+2026-05-19 20:06:38 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=11 | src=3 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0640
+2026-05-19 20:06:38 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=12
+2026-05-19 20:06:38 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=12 | src=3 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0690
+2026-05-19 20:06:38 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=13
+2026-05-19 20:06:38 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=13 | src=3 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0780
+2026-05-19 20:06:38 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=14
+2026-05-19 20:06:38 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=14 | src=3 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0870
+2026-05-19 20:06:38 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=15
+2026-05-19 20:06:38 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=15 | src=3 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0930
+2026-05-19 20:06:38 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=16
+2026-05-19 20:06:38 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=16 | src=4 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.1040
+2026-05-19 20:06:38 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=17
+2026-05-19 20:06:38 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=17 | src=4 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.1220
+2026-05-19 20:06:38 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=18
+2026-05-19 20:06:38 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=18 | src=4 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.1320
+2026-05-19 20:06:38 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=19
+2026-05-19 20:06:38 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=19 | src=4 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.1440
+2026-05-19 20:06:38 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=20
+2026-05-19 20:06:38 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=20 | src=4 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.1560
+2026-05-19 20:09:44 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : START Constructor
+2026-05-19 20:09:44 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : END Constructor
+2026-05-19 20:09:44 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : START Constructor
+2026-05-19 20:09:44 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : END Constructor
+2026-05-19 20:09:44 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : START Constructor
+2026-05-19 20:09:44 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : END Constructor
+2026-05-19 20:09:44 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : START Constructor
+2026-05-19 20:09:44 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : END Constructor
+2026-05-19 20:09:44 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : START Constructor
+2026-05-19 20:09:44 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : END Constructor
+2026-05-19 20:09:44 DEBUG __main__: +++ Engine : Main START ...
+2026-05-19 20:09:48 DEBUG __main__: +++ Engine : nb_clients=4
+2026-05-19 20:09:48 DEBUG __main__: +++ Engine : nb_servers=3
+2026-05-19 20:09:48 DEBUG __main__: +++ Engine : START __init__ ...
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START Constructor
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END Constructor
+2026-05-19 20:09:48 DEBUG __main__: +++ Engine : END __init__ ...
+2026-05-19 20:09:48 DEBUG __main__: +++ Engine : START create_servers ...
+2026-05-19 20:09:48 DEBUG __main__: +++ Engine : START about to create n servers, n=3
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START Constructor
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END Constructor
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:09:48 INFO __main__: +++ Engine : Server created:[SERVER] ID=1 | Mu=8
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START Constructor
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END Constructor
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:09:48 INFO __main__: +++ Engine : Server created:[SERVER] ID=2 | Mu=8
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START Constructor
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END Constructor
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:09:48 INFO __main__: +++ Engine : Server created:[SERVER] ID=3 | Mu=8
+2026-05-19 20:09:48 DEBUG __main__: +++ Engine : END create_servers ...
+2026-05-19 20:09:48 DEBUG __main__: +++ Engine : START create_clients ...
+2026-05-19 20:09:48 INFO __main__: +++ Engine : n=4
+2026-05-19 20:09:48 DEBUG __main__: +++ Engine : i=1
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START Constructor
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : seed=3
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : arrival_rate=4
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END Constructor
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START print_client
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : Client ClientID=1 | ArrivalRate=4 | Queue=Empty | Destination=[SERVER] ID=1 | Mu=8
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END print_client
+2026-05-19 20:09:48 INFO __main__: +++ Engine : Clients créés :ClientID=1 | ArrivalRate=4 | Queue=Empty | Destination=[SERVER] ID=1 | Mu=8
+2026-05-19 20:09:48 DEBUG __main__: +++ Engine : i=2
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START Constructor
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : seed=3
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : arrival_rate=6
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END Constructor
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START print_client
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : Client ClientID=2 | ArrivalRate=6 | Queue=Empty | Destination=[SERVER] ID=1 | Mu=8
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END print_client
+2026-05-19 20:09:48 INFO __main__: +++ Engine : Clients créés :ClientID=2 | ArrivalRate=6 | Queue=Empty | Destination=[SERVER] ID=1 | Mu=8
+2026-05-19 20:09:48 DEBUG __main__: +++ Engine : i=3
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START Constructor
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : seed=3
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : arrival_rate=8
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END Constructor
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START print_client
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : Client ClientID=3 | ArrivalRate=8 | Queue=Empty | Destination=[SERVER] ID=1 | Mu=8
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END print_client
+2026-05-19 20:09:48 INFO __main__: +++ Engine : Clients créés :ClientID=3 | ArrivalRate=8 | Queue=Empty | Destination=[SERVER] ID=1 | Mu=8
+2026-05-19 20:09:48 DEBUG __main__: +++ Engine : i=4
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START Constructor
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : seed=3
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : arrival_rate=12
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END Constructor
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START print_client
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : Client ClientID=4 | ArrivalRate=12 | Queue=Empty | Destination=[SERVER] ID=1 | Mu=8
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END print_client
+2026-05-19 20:09:48 INFO __main__: +++ Engine : Clients créés :ClientID=4 | ArrivalRate=12 | Queue=Empty | Destination=[SERVER] ID=1 | Mu=8
+2026-05-19 20:09:48 DEBUG __main__: +++ Engine : END create_clients ...
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : START Constructor
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : END Constructor
+2026-05-19 20:09:48 DEBUG __main__: +++ Engine : START calcul_MM1_rate ...
+2026-05-19 20:09:48 ERROR __main__: Division by zero error in calcul_MM1_rate
+2026-05-19 20:09:48 DEBUG __main__: +++ Engine : END calcul_MM1_rate ...
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.Poisson: +++ Poisson __init__ : START
+2026-05-19 20:09:48 INFO net.lecnam.rcp103.tp2.Poisson: +++ Poisson __init__ seed=3, lam=4
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.Distribution: +++ Distribution __init__ : START
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.Distribution: +++ Distribution __init__ : END
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.Poisson: +++ Poisson __init__ : END
+2026-05-19 20:09:48 DEBUG __main__: +++ Engine : i=1
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START send_message
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START enqueue
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END enqueue
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END send_message
+2026-05-19 20:09:48 DEBUG __main__: +++ Engine : i=2
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START send_message
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START enqueue
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END enqueue
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END send_message
+2026-05-19 20:09:48 DEBUG __main__: +++ Engine : i=3
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START send_message
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START enqueue
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END enqueue
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END send_message
+2026-05-19 20:09:48 DEBUG __main__: +++ Engine : i=4
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START send_message
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START enqueue
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END enqueue
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END send_message
+2026-05-19 20:09:48 DEBUG __main__: +++ Engine : i=5
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START send_message
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START enqueue
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END enqueue
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END send_message
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.Poisson: +++ Poisson __init__ : START
+2026-05-19 20:09:48 INFO net.lecnam.rcp103.tp2.Poisson: +++ Poisson __init__ seed=3, lam=6
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.Distribution: +++ Distribution __init__ : START
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.Distribution: +++ Distribution __init__ : END
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.Poisson: +++ Poisson __init__ : END
+2026-05-19 20:09:48 DEBUG __main__: +++ Engine : i=6
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START send_message
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START enqueue
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END enqueue
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END send_message
+2026-05-19 20:09:48 DEBUG __main__: +++ Engine : i=7
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START send_message
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START enqueue
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END enqueue
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END send_message
+2026-05-19 20:09:48 DEBUG __main__: +++ Engine : i=8
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START send_message
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START enqueue
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END enqueue
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END send_message
+2026-05-19 20:09:48 DEBUG __main__: +++ Engine : i=9
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START send_message
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START enqueue
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END enqueue
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END send_message
+2026-05-19 20:09:48 DEBUG __main__: +++ Engine : i=10
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START send_message
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START enqueue
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END enqueue
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END send_message
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.Poisson: +++ Poisson __init__ : START
+2026-05-19 20:09:48 INFO net.lecnam.rcp103.tp2.Poisson: +++ Poisson __init__ seed=3, lam=8
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.Distribution: +++ Distribution __init__ : START
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.Distribution: +++ Distribution __init__ : END
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.Poisson: +++ Poisson __init__ : END
+2026-05-19 20:09:48 DEBUG __main__: +++ Engine : i=11
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START send_message
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START enqueue
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END enqueue
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END send_message
+2026-05-19 20:09:48 DEBUG __main__: +++ Engine : i=12
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START send_message
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START enqueue
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END enqueue
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END send_message
+2026-05-19 20:09:48 DEBUG __main__: +++ Engine : i=13
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START send_message
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START enqueue
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END enqueue
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END send_message
+2026-05-19 20:09:48 DEBUG __main__: +++ Engine : i=14
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START send_message
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START enqueue
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END enqueue
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END send_message
+2026-05-19 20:09:48 DEBUG __main__: +++ Engine : i=15
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START send_message
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START enqueue
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END enqueue
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END send_message
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.Poisson: +++ Poisson __init__ : START
+2026-05-19 20:09:48 INFO net.lecnam.rcp103.tp2.Poisson: +++ Poisson __init__ seed=3, lam=12
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.Distribution: +++ Distribution __init__ : START
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.Distribution: +++ Distribution __init__ : END
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.Poisson: +++ Poisson __init__ : END
+2026-05-19 20:09:48 DEBUG __main__: +++ Engine : i=16
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START send_message
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START enqueue
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END enqueue
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END send_message
+2026-05-19 20:09:48 DEBUG __main__: +++ Engine : i=17
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START send_message
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START enqueue
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END enqueue
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END send_message
+2026-05-19 20:09:48 DEBUG __main__: +++ Engine : i=18
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START send_message
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START enqueue
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END enqueue
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END send_message
+2026-05-19 20:09:48 DEBUG __main__: +++ Engine : i=19
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START send_message
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START enqueue
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END enqueue
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END send_message
+2026-05-19 20:09:48 DEBUG __main__: +++ Engine : i=20
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START send_message
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START enqueue
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END enqueue
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END send_message
+2026-05-19 20:09:48 DEBUG __main__: +++ Engine : START run_tests ...
+2026-05-19 20:09:48 DEBUG __main__: +++ Engine : START run_simulationMM1 ...
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:09:48 INFO __main__: +++ Engine run_simulationMM1: server about to start listening:[SERVER] ID=1 | Mu=8
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START dequeue
+2026-05-19 20:09:48 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=1
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END dequeue
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:09:48 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=1 | src=1 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0020
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START dequeue
+2026-05-19 20:09:48 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=2
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END dequeue
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:09:48 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=2 | src=1 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0050
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START dequeue
+2026-05-19 20:09:48 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=3
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END dequeue
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:09:48 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=3 | src=1 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0070
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START dequeue
+2026-05-19 20:09:48 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=4
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END dequeue
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:09:48 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=4 | src=1 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0130
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START dequeue
+2026-05-19 20:09:48 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=5
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END dequeue
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:09:48 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=5 | src=1 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0160
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START dequeue
+2026-05-19 20:09:48 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=6
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END dequeue
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:09:48 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=6 | src=2 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0230
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START dequeue
+2026-05-19 20:09:48 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=7
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END dequeue
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:09:48 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=7 | src=2 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0290
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START dequeue
+2026-05-19 20:09:48 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=8
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END dequeue
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:09:48 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=8 | src=2 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0400
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START dequeue
+2026-05-19 20:09:48 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=9
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END dequeue
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:09:48 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=9 | src=2 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0470
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START dequeue
+2026-05-19 20:09:48 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=10
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END dequeue
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:09:48 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=10 | src=2 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0540
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START dequeue
+2026-05-19 20:09:48 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=11
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END dequeue
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:09:48 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=11 | src=3 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0640
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START dequeue
+2026-05-19 20:09:48 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=12
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END dequeue
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:09:48 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=12 | src=3 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0690
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START dequeue
+2026-05-19 20:09:48 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=13
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END dequeue
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:09:48 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=13 | src=3 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0780
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START dequeue
+2026-05-19 20:09:48 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=14
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END dequeue
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:09:48 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=14 | src=3 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0870
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START dequeue
+2026-05-19 20:09:48 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=15
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END dequeue
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:09:48 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=15 | src=3 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0930
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START dequeue
+2026-05-19 20:09:48 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=16
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END dequeue
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:09:48 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=16 | src=4 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.1040
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START dequeue
+2026-05-19 20:09:48 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=17
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END dequeue
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:09:48 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=17 | src=4 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.1220
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START dequeue
+2026-05-19 20:09:48 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=18
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END dequeue
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:09:48 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=18 | src=4 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.1320
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START dequeue
+2026-05-19 20:09:48 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=19
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END dequeue
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:09:48 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=19 | src=4 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.1440
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START dequeue
+2026-05-19 20:09:48 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=20
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END dequeue
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:09:48 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:09:48 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=20 | src=4 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.1560
+2026-05-19 20:25:04 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : START Constructor
+2026-05-19 20:25:04 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : END Constructor
+2026-05-19 20:25:04 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : START Constructor
+2026-05-19 20:25:04 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : END Constructor
+2026-05-19 20:25:04 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : START Constructor
+2026-05-19 20:25:04 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : END Constructor
+2026-05-19 20:25:04 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : START Constructor
+2026-05-19 20:25:04 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : END Constructor
+2026-05-19 20:25:04 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : START Constructor
+2026-05-19 20:25:04 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : END Constructor
+2026-05-19 20:25:04 DEBUG __main__: +++ Engine : Main START ...
+2026-05-19 20:25:08 DEBUG __main__: +++ Engine : nb_clients=3
+2026-05-19 20:25:08 DEBUG __main__: +++ Engine : nb_servers=4
+2026-05-19 20:25:08 DEBUG __main__: +++ Engine : START __init__ ...
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START Constructor
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END Constructor
+2026-05-19 20:25:08 DEBUG __main__: +++ Engine : END __init__ ...
+2026-05-19 20:25:08 DEBUG __main__: +++ Engine : START create_servers ...
+2026-05-19 20:25:08 DEBUG __main__: +++ Engine : START about to create n servers, n=4
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START Constructor
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END Constructor
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:25:08 INFO __main__: +++ Engine : Server created:[SERVER] ID=1 | Mu=8
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START Constructor
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END Constructor
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:25:08 INFO __main__: +++ Engine : Server created:[SERVER] ID=2 | Mu=8
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START Constructor
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END Constructor
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:25:08 INFO __main__: +++ Engine : Server created:[SERVER] ID=3 | Mu=8
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START Constructor
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END Constructor
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:25:08 INFO __main__: +++ Engine : Server created:[SERVER] ID=4 | Mu=8
+2026-05-19 20:25:08 DEBUG __main__: +++ Engine : END create_servers ...
+2026-05-19 20:25:08 DEBUG __main__: +++ Engine : START create_clients ...
+2026-05-19 20:25:08 INFO __main__: +++ Engine : n=3
+2026-05-19 20:25:08 DEBUG __main__: +++ Engine : i=1
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START Constructor
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : seed=3
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : arrival_rate=4
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END Constructor
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START print_client
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : Client ClientID=1 | ArrivalRate=4 | Queue=Empty | Destination=[SERVER] ID=1 | Mu=8
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END print_client
+2026-05-19 20:25:08 INFO __main__: +++ Engine : Clients créés :ClientID=1 | ArrivalRate=4 | Queue=Empty | Destination=[SERVER] ID=1 | Mu=8
+2026-05-19 20:25:08 DEBUG __main__: +++ Engine : i=2
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START Constructor
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : seed=3
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : arrival_rate=6
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END Constructor
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START print_client
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : Client ClientID=2 | ArrivalRate=6 | Queue=Empty | Destination=[SERVER] ID=1 | Mu=8
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END print_client
+2026-05-19 20:25:08 INFO __main__: +++ Engine : Clients créés :ClientID=2 | ArrivalRate=6 | Queue=Empty | Destination=[SERVER] ID=1 | Mu=8
+2026-05-19 20:25:08 DEBUG __main__: +++ Engine : i=3
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START Constructor
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : seed=3
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : arrival_rate=8
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END Constructor
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START print_client
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : Client ClientID=3 | ArrivalRate=8 | Queue=Empty | Destination=[SERVER] ID=1 | Mu=8
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END print_client
+2026-05-19 20:25:08 INFO __main__: +++ Engine : Clients créés :ClientID=3 | ArrivalRate=8 | Queue=Empty | Destination=[SERVER] ID=1 | Mu=8
+2026-05-19 20:25:08 DEBUG __main__: +++ Engine : END create_clients ...
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : START Constructor
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : END Constructor
+2026-05-19 20:25:08 DEBUG __main__: +++ Engine : START calcul_MM1_rate ...
+2026-05-19 20:25:08 ERROR __main__: Division by zero error in calcul_MM1_rate
+2026-05-19 20:25:08 DEBUG __main__: +++ Engine : END calcul_MM1_rate ...
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.Poisson: +++ Poisson __init__ : START
+2026-05-19 20:25:08 INFO net.lecnam.rcp103.tp2.Poisson: +++ Poisson __init__ seed=3, lam=4
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.Distribution: +++ Distribution __init__ : START
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.Distribution: +++ Distribution __init__ : END
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.Poisson: +++ Poisson __init__ : END
+2026-05-19 20:25:08 DEBUG __main__: +++ Engine : i=1
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START send_message
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START enqueue
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END enqueue
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END send_message
+2026-05-19 20:25:08 DEBUG __main__: +++ Engine : i=2
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START send_message
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START enqueue
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END enqueue
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END send_message
+2026-05-19 20:25:08 DEBUG __main__: +++ Engine : i=3
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START send_message
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START enqueue
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END enqueue
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END send_message
+2026-05-19 20:25:08 DEBUG __main__: +++ Engine : i=4
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START send_message
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START enqueue
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END enqueue
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END send_message
+2026-05-19 20:25:08 DEBUG __main__: +++ Engine : i=5
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START send_message
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START enqueue
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END enqueue
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END send_message
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.Poisson: +++ Poisson __init__ : START
+2026-05-19 20:25:08 INFO net.lecnam.rcp103.tp2.Poisson: +++ Poisson __init__ seed=3, lam=6
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.Distribution: +++ Distribution __init__ : START
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.Distribution: +++ Distribution __init__ : END
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.Poisson: +++ Poisson __init__ : END
+2026-05-19 20:25:08 DEBUG __main__: +++ Engine : i=6
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START send_message
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START enqueue
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END enqueue
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END send_message
+2026-05-19 20:25:08 DEBUG __main__: +++ Engine : i=7
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START send_message
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START enqueue
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END enqueue
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END send_message
+2026-05-19 20:25:08 DEBUG __main__: +++ Engine : i=8
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START send_message
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START enqueue
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END enqueue
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END send_message
+2026-05-19 20:25:08 DEBUG __main__: +++ Engine : i=9
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START send_message
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START enqueue
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END enqueue
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END send_message
+2026-05-19 20:25:08 DEBUG __main__: +++ Engine : i=10
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START send_message
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START enqueue
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END enqueue
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END send_message
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.Poisson: +++ Poisson __init__ : START
+2026-05-19 20:25:08 INFO net.lecnam.rcp103.tp2.Poisson: +++ Poisson __init__ seed=3, lam=8
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.Distribution: +++ Distribution __init__ : START
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.Distribution: +++ Distribution __init__ : END
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.Poisson: +++ Poisson __init__ : END
+2026-05-19 20:25:08 DEBUG __main__: +++ Engine : i=11
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START send_message
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START enqueue
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END enqueue
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END send_message
+2026-05-19 20:25:08 DEBUG __main__: +++ Engine : i=12
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START send_message
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START enqueue
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END enqueue
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END send_message
+2026-05-19 20:25:08 DEBUG __main__: +++ Engine : i=13
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START send_message
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START enqueue
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END enqueue
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END send_message
+2026-05-19 20:25:08 DEBUG __main__: +++ Engine : i=14
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START send_message
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START enqueue
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END enqueue
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END send_message
+2026-05-19 20:25:08 DEBUG __main__: +++ Engine : i=15
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START send_message
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START enqueue
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END enqueue
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END send_message
+2026-05-19 20:25:08 DEBUG __main__: +++ Engine : START run_tests ...
+2026-05-19 20:25:08 DEBUG __main__: +++ Engine : START run_simulationMM1 ...
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:25:08 INFO __main__: +++ Engine run_simulationMM1: server about to start listening:[SERVER] ID=1 | Mu=8
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START dequeue
+2026-05-19 20:25:08 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=1
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END dequeue
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:25:08 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=1 | src=1 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0020
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START dequeue
+2026-05-19 20:25:08 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=2
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END dequeue
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:25:08 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=2 | src=1 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0050
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START dequeue
+2026-05-19 20:25:08 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=3
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END dequeue
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:25:08 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=3 | src=1 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0070
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START dequeue
+2026-05-19 20:25:08 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=4
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END dequeue
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:25:08 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=4 | src=1 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0130
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START dequeue
+2026-05-19 20:25:08 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=5
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END dequeue
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:25:08 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=5 | src=1 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0160
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START dequeue
+2026-05-19 20:25:08 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=6
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END dequeue
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:25:08 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=6 | src=2 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0230
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START dequeue
+2026-05-19 20:25:08 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=7
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END dequeue
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:25:08 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=7 | src=2 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0290
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START dequeue
+2026-05-19 20:25:08 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=8
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END dequeue
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:25:08 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=8 | src=2 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0400
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START dequeue
+2026-05-19 20:25:08 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=9
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END dequeue
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:25:08 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=9 | src=2 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0470
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START dequeue
+2026-05-19 20:25:08 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=10
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END dequeue
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:25:08 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=10 | src=2 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0540
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START dequeue
+2026-05-19 20:25:08 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=11
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END dequeue
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:25:08 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=11 | src=3 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0640
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START dequeue
+2026-05-19 20:25:08 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=12
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END dequeue
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:25:08 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=12 | src=3 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0690
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START dequeue
+2026-05-19 20:25:08 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=13
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END dequeue
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:25:08 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=13 | src=3 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0780
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START dequeue
+2026-05-19 20:25:08 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=14
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END dequeue
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:25:08 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=14 | src=3 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0870
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START dequeue
+2026-05-19 20:25:08 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=15
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END dequeue
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 20:25:08 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 20:25:08 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=15 | src=3 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0930
+2026-05-19 21:01:14 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : START Constructor
+2026-05-19 21:01:14 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : END Constructor
+2026-05-19 21:01:14 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : START Constructor
+2026-05-19 21:01:14 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : END Constructor
+2026-05-19 21:01:14 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : START Constructor
+2026-05-19 21:01:14 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : END Constructor
+2026-05-19 21:01:14 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : START Constructor
+2026-05-19 21:01:14 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : END Constructor
+2026-05-19 21:01:14 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : START Constructor
+2026-05-19 21:01:14 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : END Constructor
+2026-05-19 21:01:14 DEBUG __main__: +++ Engine : Main START ...
+2026-05-19 21:01:19 DEBUG __main__: +++ Engine : nb_clients=4
+2026-05-19 21:01:19 DEBUG __main__: +++ Engine : nb_servers=3
+2026-05-19 21:01:19 DEBUG __main__: +++ Engine : START __init__ ...
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START Constructor
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END Constructor
+2026-05-19 21:01:19 DEBUG __main__: +++ Engine : END __init__ ...
+2026-05-19 21:01:19 DEBUG __main__: +++ Engine : START create_servers ...
+2026-05-19 21:01:19 DEBUG __main__: +++ Engine : START about to create n servers, n=3
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START Constructor
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END Constructor
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 21:01:19 INFO __main__: +++ Engine : Server created:[SERVER] ID=1 | Mu=8
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START Constructor
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END Constructor
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 21:01:19 INFO __main__: +++ Engine : Server created:[SERVER] ID=2 | Mu=8
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START Constructor
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END Constructor
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 21:01:19 INFO __main__: +++ Engine : Server created:[SERVER] ID=3 | Mu=8
+2026-05-19 21:01:19 DEBUG __main__: +++ Engine : END create_servers ...
+2026-05-19 21:01:19 DEBUG __main__: +++ Engine : START create_clients ...
+2026-05-19 21:01:19 INFO __main__: +++ Engine : n=4
+2026-05-19 21:01:19 DEBUG __main__: +++ Engine : i=1
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START Constructor
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : seed=3
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : arrival_rate=4
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END Constructor
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START print_client
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : Client ClientID=1 | ArrivalRate=4 | Queue=Empty | Destination=[SERVER] ID=1 | Mu=8
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END print_client
+2026-05-19 21:01:19 INFO __main__: +++ Engine : Clients créés :ClientID=1 | ArrivalRate=4 | Queue=Empty | Destination=[SERVER] ID=1 | Mu=8
+2026-05-19 21:01:19 DEBUG __main__: +++ Engine : i=2
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START Constructor
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : seed=3
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : arrival_rate=6
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END Constructor
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START print_client
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : Client ClientID=2 | ArrivalRate=6 | Queue=Empty | Destination=[SERVER] ID=1 | Mu=8
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END print_client
+2026-05-19 21:01:19 INFO __main__: +++ Engine : Clients créés :ClientID=2 | ArrivalRate=6 | Queue=Empty | Destination=[SERVER] ID=1 | Mu=8
+2026-05-19 21:01:19 DEBUG __main__: +++ Engine : i=3
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START Constructor
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : seed=3
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : arrival_rate=8
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END Constructor
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START print_client
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : Client ClientID=3 | ArrivalRate=8 | Queue=Empty | Destination=[SERVER] ID=1 | Mu=8
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END print_client
+2026-05-19 21:01:19 INFO __main__: +++ Engine : Clients créés :ClientID=3 | ArrivalRate=8 | Queue=Empty | Destination=[SERVER] ID=1 | Mu=8
+2026-05-19 21:01:19 DEBUG __main__: +++ Engine : i=4
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START Constructor
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : seed=3
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : arrival_rate=12
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END Constructor
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START print_client
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : Client ClientID=4 | ArrivalRate=12 | Queue=Empty | Destination=[SERVER] ID=1 | Mu=8
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END print_client
+2026-05-19 21:01:19 INFO __main__: +++ Engine : Clients créés :ClientID=4 | ArrivalRate=12 | Queue=Empty | Destination=[SERVER] ID=1 | Mu=8
+2026-05-19 21:01:19 DEBUG __main__: +++ Engine : END create_clients ...
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : START Constructor
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : END Constructor
+2026-05-19 21:01:19 DEBUG __main__: +++ Engine : START calcul_MM1_rate ...
+2026-05-19 21:01:19 ERROR __main__: Division by zero error in calcul_MM1_rate
+2026-05-19 21:01:19 DEBUG __main__: +++ Engine : END calcul_MM1_rate ...
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.Poisson: +++ Poisson __init__ : START
+2026-05-19 21:01:19 INFO net.lecnam.rcp103.tp2.Poisson: +++ Poisson __init__ seed=3, lam=4
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.Distribution: +++ Distribution __init__ : START
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.Distribution: +++ Distribution __init__ : END
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.Poisson: +++ Poisson __init__ : END
+2026-05-19 21:01:19 DEBUG __main__: +++ Engine : i=1
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START send_message
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START enqueue
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END enqueue
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END send_message
+2026-05-19 21:01:19 DEBUG __main__: +++ Engine : i=2
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START send_message
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START enqueue
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END enqueue
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END send_message
+2026-05-19 21:01:19 DEBUG __main__: +++ Engine : i=3
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START send_message
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START enqueue
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END enqueue
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END send_message
+2026-05-19 21:01:19 DEBUG __main__: +++ Engine : i=4
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START send_message
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START enqueue
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END enqueue
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END send_message
+2026-05-19 21:01:19 DEBUG __main__: +++ Engine : i=5
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START send_message
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START enqueue
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END enqueue
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END send_message
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.Poisson: +++ Poisson __init__ : START
+2026-05-19 21:01:19 INFO net.lecnam.rcp103.tp2.Poisson: +++ Poisson __init__ seed=3, lam=6
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.Distribution: +++ Distribution __init__ : START
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.Distribution: +++ Distribution __init__ : END
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.Poisson: +++ Poisson __init__ : END
+2026-05-19 21:01:19 DEBUG __main__: +++ Engine : i=6
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START send_message
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START enqueue
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END enqueue
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END send_message
+2026-05-19 21:01:19 DEBUG __main__: +++ Engine : i=7
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START send_message
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START enqueue
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END enqueue
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END send_message
+2026-05-19 21:01:19 DEBUG __main__: +++ Engine : i=8
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START send_message
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START enqueue
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END enqueue
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END send_message
+2026-05-19 21:01:19 DEBUG __main__: +++ Engine : i=9
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START send_message
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START enqueue
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END enqueue
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END send_message
+2026-05-19 21:01:19 DEBUG __main__: +++ Engine : i=10
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START send_message
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START enqueue
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END enqueue
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END send_message
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.Poisson: +++ Poisson __init__ : START
+2026-05-19 21:01:19 INFO net.lecnam.rcp103.tp2.Poisson: +++ Poisson __init__ seed=3, lam=8
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.Distribution: +++ Distribution __init__ : START
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.Distribution: +++ Distribution __init__ : END
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.Poisson: +++ Poisson __init__ : END
+2026-05-19 21:01:19 DEBUG __main__: +++ Engine : i=11
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START send_message
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START enqueue
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END enqueue
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END send_message
+2026-05-19 21:01:19 DEBUG __main__: +++ Engine : i=12
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START send_message
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START enqueue
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END enqueue
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END send_message
+2026-05-19 21:01:19 DEBUG __main__: +++ Engine : i=13
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START send_message
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START enqueue
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END enqueue
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END send_message
+2026-05-19 21:01:19 DEBUG __main__: +++ Engine : i=14
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START send_message
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START enqueue
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END enqueue
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END send_message
+2026-05-19 21:01:19 DEBUG __main__: +++ Engine : i=15
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START send_message
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START enqueue
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END enqueue
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END send_message
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.Poisson: +++ Poisson __init__ : START
+2026-05-19 21:01:19 INFO net.lecnam.rcp103.tp2.Poisson: +++ Poisson __init__ seed=3, lam=12
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.Distribution: +++ Distribution __init__ : START
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.Distribution: +++ Distribution __init__ : END
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.Poisson: +++ Poisson __init__ : END
+2026-05-19 21:01:19 DEBUG __main__: +++ Engine : i=16
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START send_message
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START enqueue
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END enqueue
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END send_message
+2026-05-19 21:01:19 DEBUG __main__: +++ Engine : i=17
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START send_message
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START enqueue
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END enqueue
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END send_message
+2026-05-19 21:01:19 DEBUG __main__: +++ Engine : i=18
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START send_message
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START enqueue
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END enqueue
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END send_message
+2026-05-19 21:01:19 DEBUG __main__: +++ Engine : i=19
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START send_message
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START enqueue
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END enqueue
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END send_message
+2026-05-19 21:01:19 DEBUG __main__: +++ Engine : i=20
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : START send_message
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START enqueue
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END enqueue
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ClientImpl: +++ ClientImpl : END send_message
+2026-05-19 21:01:19 DEBUG __main__: +++ Engine : START run_tests ...
+2026-05-19 21:01:19 DEBUG __main__: +++ Engine : START run_simulationMM1 ...
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 21:01:19 INFO __main__: +++ Engine run_simulationMM1: server about to start listening:[SERVER] ID=1 | Mu=8
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START dequeue
+2026-05-19 21:01:19 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=1
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END dequeue
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 21:01:19 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=1 | src=1 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0020
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START dequeue
+2026-05-19 21:01:19 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=2
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END dequeue
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 21:01:19 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=2 | src=1 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0050
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START dequeue
+2026-05-19 21:01:19 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=3
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END dequeue
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 21:01:19 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=3 | src=1 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0070
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START dequeue
+2026-05-19 21:01:19 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=4
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END dequeue
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 21:01:19 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=4 | src=1 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0130
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START dequeue
+2026-05-19 21:01:19 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=5
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END dequeue
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 21:01:19 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=5 | src=1 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0160
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START dequeue
+2026-05-19 21:01:19 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=6
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END dequeue
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 21:01:19 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=6 | src=2 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0230
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START dequeue
+2026-05-19 21:01:19 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=7
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END dequeue
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 21:01:19 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=7 | src=2 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0290
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START dequeue
+2026-05-19 21:01:19 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=8
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END dequeue
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 21:01:19 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=8 | src=2 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0400
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START dequeue
+2026-05-19 21:01:19 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=9
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END dequeue
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 21:01:19 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=9 | src=2 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0470
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START dequeue
+2026-05-19 21:01:19 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=10
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END dequeue
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 21:01:19 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=10 | src=2 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0540
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START dequeue
+2026-05-19 21:01:19 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=11
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END dequeue
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 21:01:19 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=11 | src=3 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0640
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START dequeue
+2026-05-19 21:01:19 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=12
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END dequeue
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 21:01:19 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=12 | src=3 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0690
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START dequeue
+2026-05-19 21:01:19 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=13
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END dequeue
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 21:01:19 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=13 | src=3 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0780
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START dequeue
+2026-05-19 21:01:19 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=14
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END dequeue
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 21:01:19 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=14 | src=3 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0870
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START dequeue
+2026-05-19 21:01:19 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=15
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END dequeue
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 21:01:19 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=15 | src=3 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.0930
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START dequeue
+2026-05-19 21:01:19 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=16
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END dequeue
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 21:01:19 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=16 | src=4 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.1040
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START dequeue
+2026-05-19 21:01:19 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=17
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END dequeue
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 21:01:19 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=17 | src=4 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.1220
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START dequeue
+2026-05-19 21:01:19 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=18
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END dequeue
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 21:01:19 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=18 | src=4 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.1320
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START dequeue
+2026-05-19 21:01:19 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=19
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END dequeue
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 21:01:19 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=19 | src=4 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.1440
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : START dequeue
+2026-05-19 21:01:19 INFO net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : Dequeued message with id=20
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.QueueImpl: +++ QueueImpl : END dequeue
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : START listen
+2026-05-19 21:01:19 DEBUG net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : END listen
+2026-05-19 21:01:19 INFO net.lecnam.rcp103.tp2.ServerImpl: +++ ServerImpl : Message dequeued : [Message] ID=20 | src=4 | dst=[SERVER] ID=1 | Mu=8 | timestamp=0.1560
+2026-05-19 21:38:21 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : START Constructor
+2026-05-19 21:38:21 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : END Constructor
+2026-05-19 21:38:21 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : START Constructor
+2026-05-19 21:38:21 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : END Constructor
+2026-05-19 21:38:21 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : START Constructor
+2026-05-19 21:38:21 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : END Constructor
+2026-05-19 21:38:21 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : START Constructor
+2026-05-19 21:38:21 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : END Constructor
+2026-05-19 21:38:21 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : START Constructor
+2026-05-19 21:38:21 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : END Constructor
+2026-05-19 21:38:21 DEBUG __main__: +++ Engine : Main START ...
+2026-05-19 21:38:48 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : START Constructor
+2026-05-19 21:38:48 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : END Constructor
+2026-05-19 21:38:48 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : START Constructor
+2026-05-19 21:38:48 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : END Constructor
+2026-05-19 21:38:48 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : START Constructor
+2026-05-19 21:38:48 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : END Constructor
+2026-05-19 21:38:48 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : START Constructor
+2026-05-19 21:38:48 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : END Constructor
+2026-05-19 21:38:48 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : START Constructor
+2026-05-19 21:38:48 DEBUG net.lecnam.rcp103.tp2.ConfigImpl: +++ ConfigImpl : END Constructor
+2026-05-19 21:38:48 DEBUG __main__: +++ Engine : Main START ...
