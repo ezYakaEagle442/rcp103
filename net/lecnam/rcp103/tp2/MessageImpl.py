@@ -4,12 +4,14 @@ from net.lecnam.rcp103.tp2.IServer import IServer
 class MessageImpl(IMessage):
     """ Message envoyé vers la passerelle (gateway id=0) """
 
+    GATEWAY_ID: int = 0
+
     message_id: int
     source: int      # node id du client (>= 1)
     destination: int # node id de la destination : 0 = gateway
     timestamp: float
 
-    def __init__(self, message_id, source, destination: int = 0, timestamp=0.0):
+    def __init__(self, message_id, source, destination: int = GATEWAY_ID, timestamp=0.0):
         self._message_id = message_id
         self._source = source
         self._destination = destination  # 0 = gateway par défaut
