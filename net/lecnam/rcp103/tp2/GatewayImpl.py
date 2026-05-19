@@ -16,7 +16,6 @@ import traceback
 
 import logging
 import logging.config
-import os
 
 from net.lecnam.rcp103.tp2.IEvent import IEvent
 from net.lecnam.rcp103.tp2.IMessage import IMessage
