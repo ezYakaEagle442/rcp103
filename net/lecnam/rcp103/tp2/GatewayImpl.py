@@ -41,6 +41,13 @@ class GatewayImpl(IGateway):
 
     queue: IQueue
     server: IServer
+    gw_id: int
+
+    def get_gw_id(self) ->  int:
+        return self.gw_id
+
+    def set_gw_id(self, id: int):
+        self.gw_id = id
 
     def get_queue(self) ->  IQueue:
         return self.queue
@@ -55,8 +62,9 @@ class GatewayImpl(IGateway):
         self.server = server
 
     # TODO:  server as list of servers
-    def __init__(self, queue: IQueue, server: IServer):
+    def __init__(self, id:int, queue: IQueue, server: IServer):
         logger.debug(f"+++ GatewayImpl : START Constructor")
+        self.gw_id = id
         self.queue = queue
         self.server = server
         logger.debug(f"+++ GatewayImpl : END Constructor")
@@ -64,9 +72,9 @@ class GatewayImpl(IGateway):
     # --- Affichage ---
     def print_gateway(self):
         logger.debug(f"+++ GatewayImpl : START print_gateway")
-        all_msg = self.get_queue().print_messages()
-        logger.debug(f"+++ GatewayImpl : Queue messages = {all_msg}")
+        # all_msg = self.get_queue().print_messages()
+        # logger.debug(f"+++ GatewayImpl : Queue messages = {all_msg}")
         srv = self.server.print_server()
         logger.debug(f"+++ GatewayImpl : SERVER = {srv}")
         logger.debug(f"+++ GatewayImpl : END print_gateway")
-        return(f"Server: {srv}, ALL Messages: {all_msg}\n")
+        return(f"[Gateway] ID={self.get_gw_id()} | Server= {srv} | Queue= {self.get_queue().print_messages()}\n")
