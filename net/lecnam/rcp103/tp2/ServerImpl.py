@@ -4,20 +4,12 @@
 #
 # PYTHONPATH=. /usr/bin/python3 net/lecnam/rcp103/tp2/ServerImpl.py
 #
-# #####################################################################
-
-import datetime
-import os
-import platform
-import string
-import sys
-import secrets
-import traceback
+#####################################################################
 
 import logging
 import logging.config
-
-from time import time, sleep
+import os
+from time import sleep
 
 import numpy as np
 
@@ -27,6 +19,7 @@ from net.lecnam.rcp103.tp2.EventType import EventType
 from net.lecnam.rcp103.tp2.IClient import IClient
 from net.lecnam.rcp103.tp2.IQueue import IQueue
 from net.lecnam.rcp103.tp2.IServer import IServer
+from net.lecnam.rcp103.tp2.QueueImpl import QueueImpl
 from net.lecnam.rcp103.tp2.ConfigImpl import ConfigImpl
 from net.lecnam.rcp103.SimulateurException import SimulateurException
 
@@ -49,21 +42,23 @@ except Exception as e:
 
 # Class d'Implémentation
 class ServerImpl(IServer):
+    """
+    Serveur avec sa propre queue privée.
+    La gateway dispatch les messages dans cette queue (server_id >= 1).
+    """
 
-    mu: int # service rate (mu) of the M/M/1 queue
-    server_id: int
+    mu: int        # taux de service (mu)
+    server_id: int # identifiant du serveur (>= 1)
+    queue: IQueue  # queue privée du serveur
 
-    queue: IQueue
-    
-    def __init__(self, mu: int, server_id: int, queue: IQueue):
-        logger.debug(f"+++ ServerImpl : START Constructor")
-
+    def __init__(self, mu: int, server_id: int, queue: IQueue = None):
+        logger.debug("+++ ServerImpl : START Constructor")
         self.mu = mu
         self.server_id = server_id
-        self.queue = queue
+        self.queue = queue if queue is not None else QueueImpl()
+        logger.debug(f"+++ ServerImpl : server_id={server_id}, mu={mu}")
+        logger.debug("+++ ServerImpl : END Constructor")
 
-        logger.debug(f"+++ ServerImpl : END Constructor")
-    
     def get_queue(self) -> IQueue:
         return self.queue
 
@@ -76,30 +71,29 @@ class ServerImpl(IServer):
     def set_server_id(self, server_id: int):
         self.server_id = server_id
 
+    def get_mu(self):
+        return self.mu
+
     def listen(self):
-        logger.debug(f"+++ ServerImpl : START listen")
-
-        # TODO: check if the server is busy or idle before processing messages
-
-        # Loop on Queue messages to dequeue and process them
+        """
+        Boucle de traitement : défile et traite les messages
+        reçus depuis la gateway.
+        """
+        logger.debug(f"+++ ServerImpl Server [{self.server_id}] LISTENS ...")
         while True:
             if not self.queue.is_empty():
                 msg = self.queue.dequeue()
-                logger.info(f"+++ ServerImpl : Message dequeued : {msg.print_message()}")
-                # Process the message (e.g., simulate service time, send response, etc.)
-                # For simplicity, we just print the message here
+                logger.info(
+                    f"+++ ServerImpl [{self.server_id}] : DEPT "
+                    f"msg id={msg.get_message_id()} "
+                    f"src={msg.get_source()} @ t={msg.get_timestamp():.4f}"
+                )
+                # Simulation du temps de service (optionnel)
+                # service_time = np.random.exponential(1.0 / self.mu)
+                # sleep(service_time)
             else:
-                #logger.debug(f"+++ ServerImpl : Queue is empty, waiting for messages...")
-                # Optionally, add a sleep here to avoid busy waiting
-                sleep(0.1)
-
-        logger.debug(f"+++ ServerImpl : END listen")
-
-        def get_server_id():
-            return self.server_id
-    
-        def set_server_id(self, server_id: int):
-            self.server_id = server_id
+                sleep(0.01)  # évite le busy-wait
+        logger.debug(f"+++ ServerImpl [{self.server_id}] : END listen")
 
     # --- Affichage ---
     def print_server(self):
