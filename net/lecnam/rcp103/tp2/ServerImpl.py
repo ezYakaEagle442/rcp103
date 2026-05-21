@@ -50,12 +50,13 @@ class ServerImpl(IServer):
     mu: int        # taux de service (mu)
     server_id: int # identifiant du serveur (>= 1)
     queue: IQueue  # queue privée du serveur
+    service_rate: int
 
-    def __init__(self, mu: int, server_id: int, queue: IQueue = None):
+    def __init__(self, mu: int, server_id: int, queue: IQueue):
         logger.debug("+++ ServerImpl : START Constructor")
         self.mu = mu
         self.server_id = server_id
-        self.queue = queue if queue is not None else QueueImpl()
+        self.queue = queue
         logger.debug(f"+++ ServerImpl : server_id={server_id}, mu={mu}")
         logger.debug("+++ ServerImpl : END Constructor")
 
