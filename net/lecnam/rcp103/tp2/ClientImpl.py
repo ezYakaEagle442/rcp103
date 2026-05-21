@@ -6,6 +6,12 @@
 #
 #####################################################################
 
+
+# Slide 16
+# src = client
+# dst = 0 (gateway), 
+# node = composant de l'archi: client=1, gateway=0, server=1, server2=2, etc.
+    
 from abc import abstractmethod
 import datetime
 import os
@@ -63,7 +69,7 @@ class ClientImpl(IClient):
         self.arrival_rate = arrival_rate
         self.gateway = gateway
         self.destination_id = self.GATEWAY_ID  # gateway id
-        logger.debug(f"+++ ClientImpl : arrival_rate={arrival_rate}, destination=gateway(0)")
+        logger.debug(f"+++ ClientImpl : arrival_rate={arrival_rate}, destination=gateway({gateway})")
         logger.debug("+++ ClientImpl : END Constructor")
 
     def send_message(self, msg: IMessage):
