@@ -6,6 +6,12 @@
 #
 # #####################################################################
 
+
+# Slide 16
+# src = client
+# dst = 0 (gateway), 
+# node = composant de l'archi: client=1, gateway=0, server=1, server2=2, etc.
+
 import datetime
 import os
 import platform
@@ -17,16 +23,16 @@ import traceback
 import logging
 import logging.config
 
+from net.lecnam.rcp103.tp2.EventType import EventType
 from net.lecnam.rcp103.tp2.IEvent import IEvent
 from net.lecnam.rcp103.tp2.IMessage import IMessage
-from net.lecnam.rcp103.tp2.EventType import EventType
 from net.lecnam.rcp103.tp2.IClient import IClient
 from net.lecnam.rcp103.tp2.IQueue import IQueue
 from net.lecnam.rcp103.tp2.IServer import IServer
+from net.lecnam.rcp103.tp2.ServerImpl import ServerImpl
 from net.lecnam.rcp103.tp2.IGateway import IGateway
 from net.lecnam.rcp103.tp2.ConfigImpl import ConfigImpl
 from net.lecnam.rcp103.SimulateurException import SimulateurException
-from net.lecnam.rcp103.tp2.ServerImpl import ServerImpl
 
 cfg = ConfigImpl()
 log_path = cfg.get_log_cfg_file_path()
@@ -60,7 +66,12 @@ class GatewayImpl(IGateway):
         self.queue = queue
         # self.servers = servers
         self.create_servers(nb_servers)
-        logger.debug(f"+++ GatewayImpl : {len(self.servers)} server(s) enregistré(s)")
+        logger.info(f"+++ GatewayImpl : {len(self.servers)} server(s) enregistré(s)")
+
+        logger.debug(f"+++ GatewayImpl : max_queue_size={queue.get_queue_size()}")    
+        nb_msg = self.queue.count_messages()
+        logger.debug(f"+++ GatewayImpl : current_nb_msg_in_queue={nb_msg}")
+
         logger.debug("+++ GatewayImpl : END Constructor")
 
     # --- Accesseurs queue ---
@@ -83,7 +94,7 @@ class GatewayImpl(IGateway):
         self.nb_servers = n
         self.servers = []
         for i in range(1, n + 1):
-            srv = ServerImpl(server_id=i, mu=self.service_rate)
+            srv = ServerImpl(server_id=i, mu=self.service_rate, queue=self.queue)
             self.servers.append(srv)
             logger.info(f"+++ GatewayImpl : Server created: {srv.print_server()}")
         logger.debug("+++ GatewayImpl : END create_servers")
@@ -120,17 +131,20 @@ class GatewayImpl(IGateway):
     def dispatch(self):
         """Défile le premier message et l'envoie au prochain serveur disponible."""
         if self.queue.is_empty():
-            logger.debug("+++ GatewayImpl : dispatch appelé mais queue vide")
+            logger.debug("+++ GatewayImpl : dispatch appelé mais Queue vide")
             return
         msg = self.queue.dequeue()
         srv = self._next_server()
         srv_id = srv.get_server_id()
+        logger.debug(f"+++ GatewayImpl : Dispatching msg {msg.get_message_id()} to server id={srv_id}")
+
         # Met à jour la destination dans le message
         msg.set_destination(srv_id)
         logger.info(f"+++ GatewayImpl : DEPT msg {msg.get_message_id()} "
                     f"-> server id={srv_id} @ t={msg.get_timestamp():.4f}")
+
         # Confie le message à la queue du serveur (ou directement)
-        srv.get_queue().enqueue(msg)
+        srv.get_queue().enqueue(msg=msg)
 
     # --- Affichage ---
     def print_gateway(self):
