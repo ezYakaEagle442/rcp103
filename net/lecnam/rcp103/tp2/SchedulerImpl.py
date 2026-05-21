@@ -5,13 +5,15 @@ import datetime
 from net.lecnam.rcp103.tp2.IEvent import IEvent
 from net.lecnam.rcp103.tp2.IScheduler import IScheduler
 
+from collections import deque # pour implémenter une queue thread-safe avec FIFO
+
 class SchedulerImpl(IScheduler):
 
-    events: list
+    events: deque[IEvent]
     current_time: float
 
     def __init__(self):
-        self.events = []
+        self.events = deque() # Use deque for efficient FIFO
         self.current_time = 0.0
 
     def add_event(self, event):
@@ -22,7 +24,7 @@ class SchedulerImpl(IScheduler):
                 return
         self.events.append(event)
 
-    def get_events(self) -> list:
+    def get_events(self) -> deque[IEvent]:
         return self.events
 
     def count_events(self) -> int:
@@ -31,7 +33,7 @@ class SchedulerImpl(IScheduler):
     def get_event(self):
         if not self.events:
             return None
-        event = self.events.pop(0)
+        event = self.events.popleft()
         self.current_time = event.get_event_time()
         return event
 
