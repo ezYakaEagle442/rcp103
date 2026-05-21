@@ -69,7 +69,7 @@ class ClientImpl(IClient):
         self.arrival_rate = arrival_rate
         self.gateway = gateway
         self.destination_id = self.GATEWAY_ID  # gateway id
-        logger.debug(f"+++ ClientImpl : arrival_rate={arrival_rate}, destination=gateway({gateway})")
+        logger.debug(f"+++ ClientImpl : arrival_rate={arrival_rate}, destination=gateway({gateway.print_gateway()})")
         logger.debug("+++ ClientImpl : END Constructor")
 
     def send_message(self, msg: IMessage):
