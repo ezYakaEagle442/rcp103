@@ -3,6 +3,14 @@
 # Commande pour lancer le programme :
 # PYTHONPATH=. python3 net/lecnam/rcp103/tp2/Engine.py
 
+
+# Slide 16
+# src = client
+# dst = 0 (gateway), 
+# node = composant de l'archi: client=1, gateway=0, server=1, server2=2, etc.
+
+from net.lecnam.rcp103.tp2.EventType import EventType
+from net.lecnam.rcp103.tp2.IEvent import IEvent
 from net.lecnam.rcp103.tp2.EventImpl import EventImpl
 from net.lecnam.rcp103.tp2.SchedulerImpl import SchedulerImpl
 from net.lecnam.rcp103.tp2.IScheduler import IScheduler
@@ -14,7 +22,11 @@ from net.lecnam.rcp103.tp2.ServerImpl import ServerImpl
 from net.lecnam.rcp103.tp2.ClientImpl import ClientImpl
 from net.lecnam.rcp103.tp2.QueueImpl import QueueImpl
 from net.lecnam.rcp103.tp2.GatewayImpl import GatewayImpl
+from net.lecnam.rcp103.tp2.IGateway import IGateway
+
 from net.lecnam.rcp103.tp2.Poisson import Poisson, Distribution
+from net.lecnam.rcp103.tp2.Exponentielle import Exponentielle
+
 from net.lecnam.rcp103.tp2.ConfigImpl import ConfigImpl
 
 import threading
@@ -22,8 +34,6 @@ import numpy as np
 import logging
 import logging.config
 import os
-
-from net.lecnam.rcp103.tp2.IGateway import IGateway
 
 config_path = os.path.join(os.path.dirname(__file__), "logging_config.cnf")
 logging.config.fileConfig(config_path, defaults=None, disable_existing_loggers=False, encoding=None)
@@ -56,16 +66,16 @@ class Engine:
         self.gateway = None
         # Métriques
         self.total_messages = 0          # nombre total de messages
-        self.messages_in_system = 0      # nombre instantané dans le système
         self.messages_in_queue = 0       # nombre instantané dans la queue
+        self.messages_in_system = 0      # nombre instantané dans le système
         self.sum_messages_in_system = 0  # pour calculer la moyenne
         self.sum_waiting_time = 0        # pour le temps d'attente moyen
         self.last_event_time = 0.0       # temps du dernier événement
         self.send_times = {}             # timestamp d'envoi par msgID
         logger.debug("+++ Engine : END __init__")
 
-    def create_gateway(self, max_queue_size: int = -1, nb_servers: int = 4):
-        logger.debug("+++ Engine : START create_gateway")
+    def create_gateway(self, max_queue_size, nb_servers):
+        logger.debug(f"+++ Engine : START create_gateway with max_queue_size={max_queue_size}, nb_servers={nb_servers}")
         gateway_queue = QueueImpl(max_size=max_queue_size)
         self.gateway = GatewayImpl(queue=gateway_queue, nb_servers=nb_servers)
         logger.info(f"+++ Engine : Gateway created: {self.gateway.print_gateway()}")
@@ -102,16 +112,16 @@ class Engine:
         if event_type == "SEND_MSG":
             node = msg.get_source()
             event_name = "SEND"
-            dst = 0
+            dst = GATEWAY_ID
             self.total_messages += 1
             self.messages_in_system += 1
             self.messages_in_queue += 1
             self.send_times[msg.get_message_id()] = t
 
         elif event_type == "RECV_MSG":
-            node = 0
+            node = GATEWAY_ID
             event_name = "RECV"
-            dst = 0
+            dst = GATEWAY_ID
             self.messages_in_queue -= 1
 
         elif event_type == "MSG_DEPT":
@@ -123,7 +133,8 @@ class Engine:
             self.sum_waiting_time += (t - send_t)
 
         else:
-            node = 0
+            logger.error(f"+++ Engine : Unknown event type: {event_type}")
+            node = -1
             event_name = event_type
             dst = msg.get_destination()
 
@@ -215,8 +226,7 @@ if __name__ == "__main__":
     mm1k = int(input("Pécisez 4|8 pour M/M/1/K, M/M/1/4 — file limitée à 4 | M/M/1/8 — file limitée à 8: ").strip())
     logger.debug(f"+++ Engine : M/M/1/K={mm1k}")
     engine.create_gateway(max_queue_size=mm1k, nb_servers=nb_servers)
-    #engine.create_gateway(max_queue_size=8)
-    engine.create_clients(nb_clients)   # clients pointent vers la gateway
+    engine.create_clients(nb_clients) # clients pointent vers la gateway
 
     cfg = ConfigImpl()
     seed = cfg.get_seed()
@@ -228,23 +238,38 @@ if __name__ == "__main__":
     engine.print_trace_header()
     i = 1
     ts = 0.0
+
+    # 1. Générer les événements SEND, RECV, DEPT pour chaque message
     for client in engine.clients:
-        fish = Poisson(rng=rng, lam=client.get_arrival_rate())
+        fish = Exponentielle(rng=rng, lam=client.get_arrival_rate())
         for _ in range(50):     ## ATTENTION A MODIFIER METTRE UN GROS NOMBRE POUR LES METRIQUES
             inter_arrival = fish.generate(1)[0] / 1000.0
             ts += inter_arrival
             msg = MessageImpl(i, client.get_client_id(), GATEWAY_ID, ts)
             t_send = ts
-            t_recv = ts + 0.10
-            t_dept = ts + 0.125
-            e_send = EventImpl(i*3-2, msg, "SEND_MSG", t_send)
-            e_recv = EventImpl(i*3-1, msg, "RECV_MSG", t_recv)
-            e_dept = EventImpl(i*3,   msg, "MSG_DEPT", t_dept)
+            t_recv = ts + 1.0 # EN slide 10:latence de transmission client->gateway es tde 1s
+            t_dept = t_recv + 0.125 # latence totale client->gateway->server (service instantané côté serveur)
+
+            e_send = EventImpl(i*(EventType.SEND_MSG.value), msg, "SEND_MSG", t_send)
+            e_recv = EventImpl(i*(EventType.RECV_MSG.value), msg, "RECV_MSG", t_recv)
+            e_dept = EventImpl(i*(EventType.MSG_DEPT.value), msg, "MSG_DEPT", t_dept)
+
+            # 2. Enregistrer les événements dans le scheduler 
             engine.scheduler.add_event(e_send)
             engine.scheduler.add_event(e_recv)
             engine.scheduler.add_event(e_dept)
-            client.send_message(msg)
+            
             i += 1
+
+    logger.info(f"+++ Engine : {engine.scheduler.count_events()} messages générés et événements programmés dans le scheduler")
+    
+    for event in engine.scheduler.get_events():
+        logger.debug(f"+++ Engine : Event scheduled: {event.print_event()}")
+        msg_to_handle = event.get_message()
+        logger.debug(f"+++ Engine : Event message: {msg_to_handle.print_message()}")
+        client.send_message(msg)
+
+    # 3. Enregistrer et les messages dans la gateway
 
     engine.run_tests()
     logger.debug("+++ Engine : Main END")
