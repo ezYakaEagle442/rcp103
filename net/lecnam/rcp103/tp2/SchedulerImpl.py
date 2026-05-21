@@ -22,6 +22,12 @@ class SchedulerImpl(IScheduler):
                 return
         self.events.append(event)
 
+    def get_events(self) -> list:
+        return self.events
+
+    def count_events(self) -> int:
+        return len(self.events)
+
     def get_event(self):
         if not self.events:
             return None

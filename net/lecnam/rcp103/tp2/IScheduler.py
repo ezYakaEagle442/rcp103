@@ -14,6 +14,14 @@ class IScheduler(ABC):
     def get_event(self):
         pass
 
+
+    @abstractmethod
+    def get_events(self) -> list:
+        pass
+
+    def count_events(self) -> int:
+        pass
+
     @abstractmethod
     def get_current_time(self):
         pass
