@@ -9,6 +9,7 @@
 # dst = 0 (gateway), 
 # node = composant de l'archi: client=1, gateway=0, server=1, server2=2, etc.
 
+from net.lecnam.rcp103.tp2.ConfigImpl import ConfigImpl
 from net.lecnam.rcp103.tp2.EventType import EventType
 from net.lecnam.rcp103.tp2.IEvent import IEvent
 from net.lecnam.rcp103.tp2.EventImpl import EventImpl
@@ -16,10 +17,10 @@ from net.lecnam.rcp103.tp2.SchedulerImpl import SchedulerImpl
 from net.lecnam.rcp103.tp2.IScheduler import IScheduler
 from net.lecnam.rcp103.tp2.IServer import IServer
 from net.lecnam.rcp103.tp2.IClient import IClient
-from net.lecnam.rcp103.tp2.IQueue import IQueue
+from net.lecnam.rcp103.tp2.ClientImpl import ClientImpl
 from net.lecnam.rcp103.tp2.MessageImpl import MessageImpl
 from net.lecnam.rcp103.tp2.ServerImpl import ServerImpl
-from net.lecnam.rcp103.tp2.ClientImpl import ClientImpl
+from net.lecnam.rcp103.tp2.IQueue import IQueue
 from net.lecnam.rcp103.tp2.QueueImpl import QueueImpl
 from net.lecnam.rcp103.tp2.GatewayImpl import GatewayImpl
 from net.lecnam.rcp103.tp2.IGateway import IGateway
@@ -27,7 +28,9 @@ from net.lecnam.rcp103.tp2.IGateway import IGateway
 from net.lecnam.rcp103.tp2.Poisson import Poisson, Distribution
 from net.lecnam.rcp103.tp2.Exponentielle import Exponentielle
 
-from net.lecnam.rcp103.tp2.ConfigImpl import ConfigImpl
+
+from collections import deque # pour implémenter une queue thread-safe avec FIFO
+
 
 import threading
 import numpy as np
@@ -267,9 +270,8 @@ if __name__ == "__main__":
         logger.debug(f"+++ Engine : Event scheduled: {event.print_event()}")
         msg_to_handle = event.get_message()
         logger.debug(f"+++ Engine : Event message: {msg_to_handle.print_message()}")
-        client.send_message(msg)
-
-    # 3. Enregistrer et les messages dans la gateway
+        # 3. Enregistrer et les messages dans la gateway
+        client.send_message(msg_to_handle)
 
     engine.run_tests()
     logger.debug("+++ Engine : Main END")
