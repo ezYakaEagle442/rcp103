@@ -29,7 +29,6 @@ from net.lecnam.rcp103.tp2.ConfigImpl import ConfigImpl
 from net.lecnam.rcp103.SimulateurException import SimulateurException
 from net.lecnam.rcp103.tp2.IMessage import IMessage
 
-import queue
 import numpy as np
 
 from collections import deque # pour implémenter une queue thread-safe avec FIFO
@@ -66,7 +65,7 @@ class QueueImpl(IQueue):
         logger.debug("+++ QueueImpl : START enqueue")
         logger.debug(f"+++ QueueImpl : max_queue_size={self.queue_size}")
     
-        nb_msg = len(self.queue)
+        nb_msg = self.count_messages()
         logger.debug(f"+++ QueueImpl : current_queue_size={nb_msg}")
 
         with self._lock:
@@ -80,12 +79,16 @@ class QueueImpl(IQueue):
 
     def dequeue(self):
         logger.debug(f"+++ QueueImpl : START dequeue")
+        nb_msg = self.count_messages()
+        logger.debug(f"+++ QueueImpl : dequeue current_queue_size={nb_msg}")
         with self._lock:  # ← ajout
-            if len(self.queue) == 0:
+            if self.is_empty():
                 logger.error(f"+++ QueueImpl : dequeue called on an empty queue")
                 return None
             msg = self.queue.popleft()  # FIFO
             logger.info(f"+++ QueueImpl : Dequeued message with id={msg.get_message_id()}")
+            nb_msg = self.count_messages()
+            logger.info(f"+++ QueueImpl : current_queue_size={nb_msg}")
         logger.debug(f"+++ QueueImpl : END dequeue")
         return msg
     
@@ -111,7 +114,7 @@ class QueueImpl(IQueue):
     def print_messages(self):
         logger.debug(f"+++ QueueImpl : START print_messages")
         with self._lock:  # ← ajout
-            if len(self.queue) == 0:
+            if self.is_empty():
                 logger.info(f"+++ QueueImpl : No messages in the queue to print.")
                 return None
             all_messages = ""
