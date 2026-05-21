@@ -6,6 +6,11 @@ from net.lecnam.rcp103.tp2 import IMessage
 
 class IQueue(ABC):
 
+
+    @abstractmethod
+    def get_queue_size(self) -> int:
+        pass
+
     @abstractmethod
     def is_empty(self) -> bool:
         pass
