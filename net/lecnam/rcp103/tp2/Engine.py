@@ -231,7 +231,7 @@ if __name__ == "__main__":
     engine.create_gateway(max_queue_size=mm1k, nb_servers=nb_servers)
 
     logger.debug("+++ Engine : Engine instantiated, about to trigger servers to listen ...")
-    engine.run_simulationMM1()  # ← démarre les threads serveurs
+    # engine.run_simulationMM1()  # GateWayImpl.init démarre les threads serveurs
     logger.debug("+++ Engine : Engine instantiated, now Servers are listening.")
     
     engine.create_clients(nb_clients) # clients pointent vers la gateway
