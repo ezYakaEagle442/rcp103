@@ -7,8 +7,8 @@ const path = require('path');
  * usage :
  * node ./mermaid/mermaid_class.js
  * mmdc --version
- * mmdc -i ./mermaid/mermaid_class.mmd -o ./mermaid/mermaid_class.svg
  * mmdc -i ./mermaid/mermaid_class.mmd -o ./mermaid/mermaid_class.png
+ * mmdc -i ./mermaid/mermaid_class.mmd -o ./mermaid/mermaid_class.svg
  * start ./mermaid/mermaid_class.svg
  * 
  ***************************************************************
@@ -86,11 +86,21 @@ module.exports = {
 const mermaid = `%%{init: {"theme":"default"}}%%
 
 classDiagram
-    %% Entities / data view (UML style) %%
     class Engine {
-        +create_gateway()
+        +main()
+        +generate_trace()
+        +print_metrics()
+        +run_tests()
         +create_clients()
-        +run()
+        +create_gateway(max_queue_size, nb_servers)
+    }
+
+    class GatewayImpl {
+        +create_servers()
+        +create_queue()
+        +receive_message()
+        +dispatch()
+        +_next_server()
     }
 
     class ClientImpl {
@@ -100,40 +110,44 @@ classDiagram
     class EventImpl {
         +get_event_type()
         +get_message()
-    }
-
-    class GatewayImpl {
-        +receive_message()
-        +dispatch()
+        +read_message()
     }
 
     class MessageImpl {
-        +get_message_id()
+        +get_destination()
+        +get_timestamp()
         +get_source()
+        +get_message_id()
     }
 
     class QueueImpl {
         +enqueue()
         +dequeue()
         +count_messages()
+        +read_messages()
     }
 
     class SchedulerImpl {
         +add_event()
         +get_events()
+        +insert_event()
     }
 
     class ServerImpl {
         +listen()
+        +process_message()
     }
 
-    Engine --> GatewayImpl : uses
-    Engine --> ClientImpl : creates
-    Engine --> SchedulerImpl : manages
-    GatewayImpl --> QueueImpl : manages
-    GatewayImpl --> ServerImpl : dispatches to
-    ServerImpl --> MessageImpl : processes
-    EventImpl --> MessageImpl : contains 
+    %% Relations
+    Engine --> "1" QueueImpl: instantiates
+    GatewayImpl --> "1..*" ServerImpl : creates
+    GatewayImpl --> "1" QueueImpl : manages
+    Engine --> GatewayImpl : instantiates
+    Engine --> "1..*" ClientImpl : creates
+    EventImpl --> "1" MessageImpl : has
+    QueueImpl --> "1..*" MessageImpl : reads
+    SchedulerImpl --> EventImpl : insert_event
+    ServerImpl --> QueueImpl : accesses
 
     `;
 
