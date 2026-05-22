@@ -22,6 +22,7 @@ import traceback
 
 import logging
 import logging.config
+import threading
 
 from net.lecnam.rcp103.tp2.EventType import EventType
 from net.lecnam.rcp103.tp2.IEvent import IEvent
@@ -64,13 +65,22 @@ class GatewayImpl(IGateway):
         self._rr_index = 0
         self.service_rate = 8
         self.queue = queue
-        # self.servers = servers
-        self.create_servers(nb_servers)
-        logger.info(f"+++ GatewayImpl : {len(self.servers)} server(s) enregistré(s)")
 
         logger.debug(f"+++ GatewayImpl : max_queue_size={queue.get_queue_size()}")    
         nb_msg = self.queue.count_messages()
         logger.debug(f"+++ GatewayImpl : current_nb_msg_in_queue={nb_msg}")
+
+        self.create_servers(nb_servers)
+        logger.info(f"+++ GatewayImpl : {len(self.servers)} server(s) enregistré(s)")
+
+        logger.debug("+++ GatewayImpl : about to trigger servers to listen ...")
+        threads = []
+        for server in self.servers:
+            logger.debug(f"+++ GatewayImpl : starting listener for {server.print_server()}")
+            thread = threading.Thread(target=server.listen, daemon=True,name=f"ServerListener-{server.get_server_id()}")
+            thread.start()
+            logger.info(f"+++ GatewayImpl : listener started for {server.print_server()} in thread {thread.name}")
+            threads.append(thread)
 
         logger.debug("+++ GatewayImpl : END Constructor")
 
@@ -102,7 +112,18 @@ class GatewayImpl(IGateway):
     # Compatibilité ancienne interface (un seul serveur)
 
     def is_empty(self) -> bool:
-        return self.queue.is_empty()
+        logger.debug("+++ GatewayImpl : START is_empty")
+        try:            
+            if not self.queue._lock.acquire(timeout=0.1):
+                logger.warning("+++ GatewayImpl : Lock non disponible, échec de is_empty")
+                return None
+            else:
+                logger.debug("+++ GatewayImpl : Lock bien disponible !")
+                return self.queue.is_empty()
+        finally:
+            self.queue._lock.release()  # ← ajout
+            logger.debug("+++ GatewayImpl : Lock released in is_empty()")
+            logger.debug("+++ GatewayImpl : END is_empty")
 
     def _next_server(self) -> IServer:
         """Sélectionne le prochain serveur en round-robin."""
@@ -124,37 +145,28 @@ class GatewayImpl(IGateway):
         # Enfile dans la queue partagée
         accepted = self.queue.enqueue(msg)
         if accepted:
-            logger.info(f"+++ GatewayImpl : msg {msg.get_message_id()} mis en queue "
+            logger.info(f"+++ GatewayImpl : msg {msg.print_message()} mis en queue "
                         f"(taille={self.queue.count_messages()})")
-            self.dispatch()
+            self.dispatch(msg)
         else:
             logger.warning(f"+++ GatewayImpl : msg {msg.get_message_id()} DROPPED")
 
-    def dispatch(self):
+    def dispatch(self, msg: IMessage):
         logger.debug("+++ GatewayImpl : START dispatch")
         """Défile le premier message et l'envoie au prochain serveur disponible."""
         if self.queue.is_empty():
             logger.debug("+++ GatewayImpl : dispatch appelé mais Queue vide")
             return
-        msg = self.queue.dequeue()
         srv = self._next_server()
         srv_id = srv.get_server_id()
 
-        if msg is None:
-            logger.error("+++ GatewayImpl : dispatch failed, no message has been dequeued ...")
-            return
-        
         logger.debug(f"+++ GatewayImpl : Dispatching msg {msg.get_message_id()} to server id={srv_id}")
 
         # Met à jour la destination dans le message
         msg.set_destination(srv_id)
-        logger.info(f"+++ GatewayImpl : DEPT msg {msg.get_message_id()} "
-                    f"-> server id={srv_id} @ t={msg.get_timestamp():.4f}")
-
-        # Confie le message à la queue du serveur (ou directement)
-        srv.get_queue().enqueue(msg=msg)
+        # to be studied: self.servers[srv_id - 1].get_queue().dequeue(msg)  # server_id starts at 1, list index starts at 0
         logger.debug("+++ GatewayImpl : END dispatch")
-        
+
     # --- Affichage ---
     def print_gateway(self):
         logger.debug("+++ GatewayImpl : START print_gateway")
