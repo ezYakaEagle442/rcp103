@@ -191,7 +191,7 @@ class Engine:
     def run_tests(self):
         logger.debug("+++ Engine : START run_tests")
         self.run()                # ← affiche la trace
-        self.run_simulationMM1()  # ← démarre les threads serveurs
+        # self.run_simulationMM1()  # ← démarre les threads serveurs
         logger.debug("+++ Engine : END run_tests")
 
     def print_metrics(self):
@@ -229,6 +229,11 @@ if __name__ == "__main__":
     mm1k = int(input("Pécisez 4|8 pour M/M/1/K, M/M/1/4 — file limitée à 4 | M/M/1/8 — file limitée à 8: ").strip())
     logger.debug(f"+++ Engine : M/M/1/K={mm1k}")
     engine.create_gateway(max_queue_size=mm1k, nb_servers=nb_servers)
+
+    logger.debug("+++ Engine : Engine instantiated, about to trigger servers to listen ...")
+    engine.run_simulationMM1()  # ← démarre les threads serveurs
+    logger.debug("+++ Engine : Engine instantiated, now Servers are listening.")
+    
     engine.create_clients(nb_clients) # clients pointent vers la gateway
 
     cfg = ConfigImpl()
@@ -274,4 +279,5 @@ if __name__ == "__main__":
         client.send_message(msg_to_handle)
 
     engine.run_tests()
+
     logger.debug("+++ Engine : Main END")
