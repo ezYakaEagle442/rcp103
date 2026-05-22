@@ -1,0 +1,25 @@
+%%{init: {"theme":"default"}}%%
+sequenceDiagram
+    participant Engine
+    participant GatewayImpl
+    participant ClientImpl
+    participant SchedulerImpl
+    participant QueueImpl
+    participant ServerImpl
+    participant EventImpl
+    participant MessageImpl
+    
+    Engine->>Engine: main()
+    Engine->>Engine: create_gateway()
+    Engine->>GatewayImpl: create_servers()
+    Engine->>Engine: run_simulationMM1()
+    Engine->>Engine: calcul_MM1_rate()
+    Engine->>Engine: create_clients()
+    Engine->>ClientImpl: send_message(msg)
+    ClientImpl->>GatewayImpl: receive_message(msg)
+    GatewayImpl->>QueueImpl: enqueue(msg)
+    GatewayImpl->>ServerImpl: dispatch()
+    ServerImpl->>QueueImpl: dequeue()
+    ServerImpl->>MessageImpl: process(msg)
+
+    

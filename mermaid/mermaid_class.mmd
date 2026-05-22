@@ -1,0 +1,53 @@
+%%{init: {"theme":"default"}}%%
+
+classDiagram
+    %% Entities / data view (UML style) %%
+    class Engine {
+        +create_gateway()
+        +create_clients()
+        +run()
+    }
+
+    class ClientImpl {
+        +send_message()
+    }
+
+    class EventImpl {
+        +get_event_type()
+        +get_message()
+    }
+
+    class GatewayImpl {
+        +receive_message()
+        +dispatch()
+    }
+
+    class MessageImpl {
+        +get_message_id()
+        +get_source()
+    }
+
+    class QueueImpl {
+        +enqueue()
+        +dequeue()
+        +count_messages()
+    }
+
+    class SchedulerImpl {
+        +add_event()
+        +get_events()
+    }
+
+    class ServerImpl {
+        +listen()
+    }
+
+    Engine --> GatewayImpl : uses
+    Engine --> ClientImpl : creates
+    Engine --> SchedulerImpl : manages
+    GatewayImpl --> QueueImpl : manages
+    GatewayImpl --> ServerImpl : dispatches to
+    ServerImpl --> MessageImpl : processes
+    EventImpl --> MessageImpl : contains 
+
+    
