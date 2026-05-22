@@ -59,7 +59,7 @@ class QueueImpl(IQueue):
         self._lock = threading.Lock()  # ← ajout
         self.queue_size = max_size  # -1 = infini
         self.dropped_messages = 0
-        logger.debug(f"+++ QueueImpl : check if Constructor got a lock {self._lock.locked()}") # locked() Returns True if the lock is currently acquired by any thread (no owner info for Lock).
+        logger.info(f"+++ QueueImpl : check if Constructor got a lock {self._lock.locked()}") # locked() Returns True if the lock is currently acquired by any thread (no owner info for Lock).
         logger.debug(f"+++ QueueImpl : END Constructor")
 
     def enqueue(self, msg: IMessage):
@@ -91,19 +91,21 @@ class QueueImpl(IQueue):
     def dequeue(self):
         logger.debug(f"+++ QueueImpl : START dequeue")
         try:
+            locked_down = self._lock.locked() # just to check if lock is acquired            
             if not self._lock.acquire(timeout=0.1):
-                logger.warning("+++ QueueImpl : Lock non disponible, échec de dequeue")
+                logger.warning(f"+++ QueueImpl : Lock non disponible pour la queue, échec de dequeue | Lock status: {locked_down}")
                 return None
             else:
+                logger.debug(f"+++ QueueImpl dequeue: Lock bien disponible pourr la Queue  ! Lock status: {locked_down}")
                 if self.is_empty():
-                    logger.error(f"+++ QueueImpl : dequeue called on an empty queue")
+                    logger.error(f"+++ QueueImpl dequeue : dequeue called on an empty queue")
                     return None
 
                 nb_msg =self.count_messages()
                 logger.debug(f"+++ QueueImpl : dequeue current_queue_size={nb_msg}")
 
                 msg = self.queue.popleft()  # FIFO
-                logger.info(f"+++ QueueImpl : Dequeued message with id={msg.get_message_id()}")
+                logger.info(f"+++ QueueImpl : Dequeued message with id={msg.get_message_id()} from Queue {self.queue}")
                 nb_msg = self.count_messages()
                 logger.info(f"+++ QueueImpl : current_queue_size={nb_msg}")
 
@@ -123,21 +125,36 @@ class QueueImpl(IQueue):
 
     def get_queue_size(self) -> int:
         logger.debug(f"+++ QueueImpl : START get_queue_size")
-        logger.debug(f"+++ QueueImpl : END get_queue_size")        
-        return len(self.queue)
 
+        try:
+            if not self._lock.acquire(timeout=0.1):
+                logger.warning("+++ QueueImpl : Lock non disponible, échec de get_queue_size")
+                return None
+            else:
+                nb_msg = len(self.queue)
+                logger.debug(f"+++ QueueImpl : get_queue_size={nb_msg}")
+                return nb_msg                
+        except Exception as e:
+            logger.error(f"+++ QueueImpl : Error occurred while getting queue size: {e}")
+            return None
+        finally:
+            self._lock.release()  # ← ajout
+            logger.debug("+++ QueueImpl : Lock released in get_queue_size()")
+            logger.debug(f"+++ QueueImpl : END get_queue_size")        
+  
     def count_messages(self):
         logger.debug(f"+++ QueueImpl : START count_messages")
         nb_msg = 0
         try:
-            if not self._lock.acquire(timeout=0.1):
+            if not self._lock.acquire(timeout=0.42):
                 logger.warning("+++ QueueImpl : Lock non disponible, échec de count_messages")
                 return None
             else:
                 logger.debug(f"+++ QueueImpl : count_messages get a lock {self._lock.locked()}") # locked() Returns True if the lock is currently acquired by any thread (no owner info for Lock).
-                with self._lock:  # ← ajout
-                    nb_msg = len(self.queue)
+                # with self._lock:  # ← ajout
+                nb_msg = len(self.queue)
                 logger.debug(f"+++ QueueImpl : count_messages = {nb_msg}")
+                return nb_msg
         except Exception as e:
             logger.error(f"+++ QueueImpl : Error occurred while counting messages: {e}")
         except RuntimeError as error:
@@ -154,13 +171,20 @@ class QueueImpl(IQueue):
     def is_empty(self):
         logger.debug(f"+++ QueueImpl : START is_empty")
         try:
-            with self._lock:  # ← ajout
-                return len(self.queue) == 0
+            if not self._lock.acquire(timeout=0.42):
+                logger.warning("+++ QueueImpl : Lock non disponible, échec de is_empty")
+                return None
+            else:
+                #with self._lock:
+                is_empty = len(self.queue) == 0  # Vérifie l'état de la queue
+                logger.debug(f"+++ QueueImpl : Queue is empty={is_empty}")
+                return is_empty
         except Exception as e:
             logger.error(f"+++ QueueImpl : Error occurred while checking if queue is empty: {e}")
             return False
         finally:
-            self._lock.release()  # ← ajout
+            logger.debug(f"+++ QueueImpl : About to release lock in is_empty() ...")
+            self._lock.release()
             logger.debug(f"+++ QueueImpl : Lock released in is_empty()")
             logger.debug(f"+++ QueueImpl : END is_empty")
 
