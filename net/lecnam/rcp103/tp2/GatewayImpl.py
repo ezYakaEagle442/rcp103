@@ -106,10 +106,12 @@ class GatewayImpl(IGateway):
 
     def _next_server(self) -> IServer:
         """Sélectionne le prochain serveur en round-robin."""
+        logger.debug("+++ GatewayImpl : START _next_server")
         if not self.servers:
             raise RuntimeError("GatewayImpl : aucun serveur enregistré")
         srv = self.servers[self._rr_index % len(self.servers)]
         self._rr_index += 1
+        logger.debug("+++ GatewayImpl : END _next_server")
         return srv
 
     def receive_message(self, msg: IMessage):
@@ -129,6 +131,7 @@ class GatewayImpl(IGateway):
             logger.warning(f"+++ GatewayImpl : msg {msg.get_message_id()} DROPPED")
 
     def dispatch(self):
+        logger.debug("+++ GatewayImpl : START dispatch")
         """Défile le premier message et l'envoie au prochain serveur disponible."""
         if self.queue.is_empty():
             logger.debug("+++ GatewayImpl : dispatch appelé mais Queue vide")
@@ -136,6 +139,11 @@ class GatewayImpl(IGateway):
         msg = self.queue.dequeue()
         srv = self._next_server()
         srv_id = srv.get_server_id()
+
+        if msg is None:
+            logger.error("+++ GatewayImpl : dispatch failed, no message has been dequeued ...")
+            return
+        
         logger.debug(f"+++ GatewayImpl : Dispatching msg {msg.get_message_id()} to server id={srv_id}")
 
         # Met à jour la destination dans le message
@@ -145,7 +153,8 @@ class GatewayImpl(IGateway):
 
         # Confie le message à la queue du serveur (ou directement)
         srv.get_queue().enqueue(msg=msg)
-
+        logger.debug("+++ GatewayImpl : END dispatch")
+        
     # --- Affichage ---
     def print_gateway(self):
         logger.debug("+++ GatewayImpl : START print_gateway")
@@ -153,7 +162,7 @@ class GatewayImpl(IGateway):
         srvs = ", ".join(str(s.print_server()) for s in self.servers)
         result = (f"[GATEWAY] ID={self.GATEWAY_ID} | "
                   f"Queue size={q_size} | Servers=[{srvs}]")
-        logger.debug(f"+++ GatewayImpl : {result}")
+        logger.info(f"+++ GatewayImpl : {result}")
         logger.debug("+++ GatewayImpl : END print_gateway")
         return result
 
