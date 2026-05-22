@@ -2,7 +2,7 @@
 
 # Commande pour lancer le programme :
 # PYTHONPATH=. python3 net/lecnam/rcp103/tp2/Engine.py
-
+# to debug in WSL2: PYTHONPATH=. python3 -m pdb -m net/lecnam/rcp103/tp2/Engine
 
 # Slide 16
 # src = client
