@@ -83,19 +83,33 @@ class ServerImpl(IServer):
         """
         logger.debug(f"+++ ServerImpl Server [{self.server_id}] LISTENS ...")
         while True:
-            if not self.queue.is_empty():
-                msg = self.queue.dequeue()
-                logger.info(
-                    f"+++ ServerImpl [{self.server_id}] : DEPT "
-                    f"msg id={msg.get_message_id()} "
-                    f"src={msg.get_source()} @ t={msg.get_timestamp():.4f}"
-                )
-                # Simulation du temps de service (optionnel)
-                # service_time = np.random.exponential(1.0 / self.mu)
-                # sleep(service_time)
-            else:
-                sleep(0.01)  # évite le busy-wait
-        
+            try:
+                if not self.queue._lock.acquire(timeout=0.1):
+                    logger.warning("+++ ServerImpl : Lock non disponible, échec de count_messages")
+                    return None
+                else:       
+                    if not self.queue.is_empty():
+                        msg = self.queue.dequeue()
+                        logger.info(
+                            f"+++ ServerImpl [{self.server_id}] : DEPT "
+                            f"msg id={msg.get_message_id()} "
+                            f"src={msg.get_source()} @ t={msg.get_timestamp():.4f}"
+                        )
+                        # Simulation du temps de service (optionnel)
+                        # service_time = np.random.exponential(1.0 / self.mu)
+                        # sleep(service_time)
+                    else:
+                        sleep(0.01)  # évite le busy-wait
+            except Exception as e:
+                logger.error(f"+++ ServerImpl : Error occurred while listening ...")
+            except RuntimeError as error:
+                print("+++ ServerImpl : Erreur au Runtime while listening ...")
+                print(f"A {type(error).__name__} has occurred.")
+                #exit(42)
+            finally:    
+                self.queue._lock.release()  # ← ajout
+                logger.debug(f"+++ ServerImpl : Lock released in listen()")
+                
         logger.debug(f"+++ ServerImpl [{self.server_id}] : END listen")
         logger.debug(f"+++ ServerImpl : END listen")
 
