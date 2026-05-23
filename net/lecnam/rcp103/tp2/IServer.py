@@ -8,6 +8,14 @@ from net.lecnam.rcp103.tp2 import IMessage
 class IServer(ABC):
         
     @abstractmethod
+    def get_srv_proc() -> int:
+        pass
+
+    @abstractmethod
+    def set_srv_proc(srv_proc: int):
+        pass
+
+    @abstractmethod
     def get_queue() -> IQueue:
         pass
 
