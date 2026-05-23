@@ -1,4 +1,3 @@
-
 # Interface
 from abc import ABC, abstractmethod
 
@@ -6,6 +5,13 @@ from net.lecnam.rcp103.tp2 import IMessage
 
 class IQueue(ABC):
 
+    @abstractmethod
+    def get_srv_caller_id(self) -> int:
+        pass
+
+    @abstractmethod
+    def set_srv_caller_id(self, srv_caller_id: int):
+        pass
 
     @abstractmethod
     def get_queue_size(self) -> int:
