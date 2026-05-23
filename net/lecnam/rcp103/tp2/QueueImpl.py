@@ -51,6 +51,10 @@ class QueueImpl(IQueue):
     # mu: int # service rate (mu) of the M/M/1 queue
     # lam: int # arrival rate (lambda) of the Poisson distribution
     dropped_messages: int
+    q_name: str
+    q_id: int
+    # _lock: threading.Lock  # ← ajout
+    srv_caller_id: int # id du serveur qui appelle la queue (pour les logs)
 
     def __init__(self,  max_size:int):
         logger.debug(f"+++ QueueImpl : START Constructor")
@@ -58,29 +62,44 @@ class QueueImpl(IQueue):
         self.queue = deque() # Use deque for efficient FIFO
         self._lock = threading.Lock()  # ← ajout
         self.queue_size = max_size  # -1 = infini
+        self.q_id = 42
+        self.q_name = "qRCP103-42"
         self.dropped_messages = 0
-        logger.info(f"+++ QueueImpl : check if Constructor got a lock {self._lock.locked()}") # locked() Returns True if the lock is currently acquired by any thread (no owner info for Lock).
+        self.srv_caller_id = -999
+        logger.debug(f"+++ QueueImpl : check if Constructor got a lock {self._lock.locked()}") # locked() Returns True if the lock is currently acquired by any thread (no owner info for Lock).
         logger.debug(f"+++ QueueImpl : END Constructor")
+
+    def get_srv_caller_id(self):
+        return self.srv_caller_id
+    
+    def set_srv_caller_id(self, srv_caller_id: int):
+        logger.debug(f"+++ QueueImpl : START set_srv_caller_id")
+        self.srv_caller_id = srv_caller_id
+        logger.debug(f"+++ QueueImpl : END set_srv_caller_id")
 
     def enqueue(self, msg: IMessage):
         logger.debug("+++ QueueImpl : START enqueue")
-        logger.debug(f"+++ QueueImpl : max_queue_size={self.queue_size}")
+        logger.info(f"+++ QueueImpl enqueue: SERVER {self.get_srv_caller_id()} is trying to enqueue a message {msg.get_message_id()} to Queue {self.print_queue()} | max_queue_size={self.queue_size}")
         nb_msg = 0
         try:
-            nb_msg = self.count_messages()
-            logger.debug(f"+++ QueueImpl : current_queue_size={nb_msg}")
 
             if not self._lock.acquire(timeout=0.1):
-                logger.warning("+++ QueueImpl : Lock non disponible, échec de enqueue")
+                logger.warning("+++ QueueImpl enqueue: Lock non disponible, échec de enqueue")
                 return None
             else:
+                nb_msg = self.count_messages()
+                logger.info(f"+++ QueueImpl | enqueue : current_queue_size={nb_msg}")
+
                 if self.queue_size > 0 and nb_msg >= self.queue_size:
                     self.dropped_messages += 1
-                    logger.warning(f"+++ QueueImpl : msg {msg.get_message_id()} DROPPED (queue pleine, taille={self.queue_size})")
+                    logger.warning(f"+++ QueueImpl enqueue: msg {msg.get_message_id()} DROPPED by GATEWAY (queue pleine, taille={self.queue_size})")
                     return False  # message droppé
-                self.queue.append(msg)
+                else:
+                    self.queue.append(msg)
+                logger.info(f"+++ QueueImpl | enqueue SERVER {self.get_srv_caller_id()} : msg {msg.get_message_id()} SUCCESSFULLY enqueued in Queue (current_queue_size={len(self.queue)})")
+
         except Exception as e:
-            logger.error(f"+++ QueueImpl : Error occurred while enqueuing message: {e}")
+            logger.error(f"+++ QueueImpl enqueue: Error occurred while enqueuing message: {e}")
         finally:
             self._lock.release()  # ← ajout
             logger.debug("+++ QueueImpl : Lock released in enqueue()")
@@ -90,29 +109,31 @@ class QueueImpl(IQueue):
 
     def dequeue(self):
         logger.debug(f"+++ QueueImpl : START dequeue")
+        logger.info(f"+++ QueueImpl dequeue: SERVER {self.get_srv_caller_id()} is trying to dequeue a message from Queue {self.print_queue()}")
+
         try:
             locked_down = self._lock.locked() # just to check if lock is acquired            
-            if not self._lock.acquire(timeout=0.1):
-                logger.warning(f"+++ QueueImpl : Lock non disponible pour la queue, échec de dequeue | Lock status: {locked_down}")
-                return None
-            else:
+            # logger.warning(f"+++ QueueImpl : Lock non disponible pour la queue, échec de dequeue | Lock status: {locked_down}")
+             
+            with self._lock:  # ← ajout
                 logger.debug(f"+++ QueueImpl dequeue: Lock bien disponible pourr la Queue  ! Lock status: {locked_down}")
                 if self.is_empty():
-                    logger.error(f"+++ QueueImpl dequeue : dequeue called on an empty queue")
+                    logger.error(f"+++ QueueImpl dequeue: dequeue called on an empty queue")
                     return None
 
                 nb_msg =self.count_messages()
-                logger.debug(f"+++ QueueImpl : dequeue current_queue_size={nb_msg}")
+                logger.debug(f"+++ QueueImpl dequeue : check nb_msg from dequeue / count_messages  = {nb_msg}")
+                logger.debug(f"+++ QueueImpl dequeue: dequeue current_queue_size={nb_msg}")
 
                 msg = self.queue.popleft()  # FIFO
-                logger.info(f"+++ QueueImpl : Dequeued message with id={msg.get_message_id()} from Queue {self.queue}")
+                logger.info(f"+++ QueueImpl dequeue :  SERVER {self.get_srv_caller_id()} Dequeued message with id={msg.get_message_id()} from Queue {self.print_queue()} by SERVER {self.get_srv_caller_id()}")
                 nb_msg = self.count_messages()
-                logger.info(f"+++ QueueImpl : current_queue_size={nb_msg}")
+                logger.debug(f"+++ QueueImpl dequeue : current_queue_size={nb_msg}")
 
         except Exception as e:
             logger.error(f"+++ QueueImpl : Error occurred while dequeuing message: {e}")
         finally:
-            self._lock.release()  # ← ajout
+            # self._lock.release()  # ← ajout
             logger.debug("+++ QueueImpl : Lock released in dequeue()")
 
         logger.debug(f"+++ QueueImpl : END dequeue")
@@ -125,36 +146,19 @@ class QueueImpl(IQueue):
 
     def get_queue_size(self) -> int:
         logger.debug(f"+++ QueueImpl : START get_queue_size")
-
-        try:
-            if not self._lock.acquire(timeout=0.1):
-                logger.warning("+++ QueueImpl : Lock non disponible, échec de get_queue_size")
-                return None
-            else:
-                nb_msg = len(self.queue)
-                logger.debug(f"+++ QueueImpl : get_queue_size={nb_msg}")
-                return nb_msg                
-        except Exception as e:
-            logger.error(f"+++ QueueImpl : Error occurred while getting queue size: {e}")
-            return None
-        finally:
-            self._lock.release()  # ← ajout
-            logger.debug("+++ QueueImpl : Lock released in get_queue_size()")
-            logger.debug(f"+++ QueueImpl : END get_queue_size")        
+        nb_msg = len(self.queue)
+        logger.debug(f"+++ QueueImpl : get_queue_size={nb_msg}")
+        logger.debug(f"+++ QueueImpl : END get_queue_size")
+        return nb_msg                
+      
   
     def count_messages(self):
         logger.debug(f"+++ QueueImpl : START count_messages")
         nb_msg = 0
         try:
-            if not self._lock.acquire(timeout=0.42):
-                logger.warning("+++ QueueImpl : Lock non disponible, échec de count_messages")
-                return None
-            else:
-                logger.debug(f"+++ QueueImpl : count_messages get a lock {self._lock.locked()}") # locked() Returns True if the lock is currently acquired by any thread (no owner info for Lock).
-                # with self._lock:  # ← ajout
-                nb_msg = len(self.queue)
-                logger.debug(f"+++ QueueImpl : count_messages = {nb_msg}")
-                return nb_msg
+            nb_msg = len(self.queue)
+            logger.debug(f"+++ QueueImpl : count_messages = {nb_msg}")
+            return nb_msg
         except Exception as e:
             logger.error(f"+++ QueueImpl : Error occurred while counting messages: {e}")
         except RuntimeError as error:
@@ -162,49 +166,36 @@ class QueueImpl(IQueue):
             logger.error(f"A {type(error).__name__} has occurred.")
             exit(42)
         finally:    
-            self._lock.release()  # ← ajout
-            logger.debug(f"+++ QueueImpl : Lock released in count_messages()")
-
-        logger.debug(f"+++ QueueImpl : END count_messages")
-        return nb_msg
+            # self._lock.release()  # ← ajout
+            #logger.debug(f"+++ QueueImpl : Lock released in count_messages()")
+            logger.debug(f"+++ QueueImpl : END count_messages")
 
     def is_empty(self):
         logger.debug(f"+++ QueueImpl : START is_empty")
-        try:
-            if not self._lock.acquire(timeout=0.42):
-                logger.warning("+++ QueueImpl : Lock non disponible, échec de is_empty")
-                return None
-            else:
-                #with self._lock:
-                is_empty = len(self.queue) == 0  # Vérifie l'état de la queue
-                logger.debug(f"+++ QueueImpl : Queue is empty={is_empty}")
-                return is_empty
-        except Exception as e:
-            logger.error(f"+++ QueueImpl : Error occurred while checking if queue is empty: {e}")
-            return False
-        finally:
-            logger.debug(f"+++ QueueImpl : About to release lock in is_empty() ...")
-            self._lock.release()
-            logger.debug(f"+++ QueueImpl : Lock released in is_empty()")
-            logger.debug(f"+++ QueueImpl : END is_empty")
+        #with self._lock:
+        is_empty = len(self.queue) == 0  # Vérifie l'état de la queue
+        logger.debug(f"+++ QueueImpl : Queue is empty={is_empty}")
+        logger.debug(f"+++ QueueImpl : END is_empty")
+        return is_empty
+
+    def print_queue(self):
+        logger.debug(f"+++ QueueImpl : START print_queue")
+        q = f"[QUEUE] ID={self.q_id} | SRV CALLER ID={self.srv_caller_id} | Name={self.q_name} | Current size={len(self.queue)} | Dropped messages={self.dropped_messages}" 
+        logger.debug(f"+++ QueueImpl : END print_queue")     
+        return q
 
     """ --- Affichage de TOUS les messages --- """
     def print_messages(self):
         logger.debug(f"+++ QueueImpl : START print_messages")
-        try:
-            with self._lock:  # ← ajout
-                if self.is_empty():
-                    logger.info(f"+++ QueueImpl : No messages in the queue to print.")
-                    return None
-                all_messages = ""
-                for msg in self.queue:
-                    all_messages += msg.print_message()
-            logger.info(all_messages)
-        except Exception as e:
-            logger.error(f"+++ QueueImpl : Error occurred while printing messages: {e}")
-        finally:
-            self._lock.release()  # ← ajout
-            logger.debug(f"+++ QueueImpl : Lock released in print_messages()")
+
+        if self.is_empty():
+            logger.debug(f"+++ QueueImpl : No messages in the queue to print.")
+            return None
+        
+        all_messages = ""
+        for msg in self.queue:
+            all_messages += msg.print_message()
+        logger.debug(f"+++ QueueImpl : Lock released in print_messages()")
 
         logger.debug(f"+++ QueueImpl : END print_messages")
         return all_messages
