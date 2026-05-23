@@ -126,12 +126,17 @@ class GatewayImpl(IGateway):
             logger.debug("+++ GatewayImpl : END is_empty")
 
     def _next_server(self) -> IServer:
+
         """Sélectionne le prochain serveur en round-robin."""
         logger.debug("+++ GatewayImpl : START _next_server")
+        
         if not self.servers:
-            raise RuntimeError("GatewayImpl : aucun serveur enregistré")
-        srv = self.servers[self._rr_index % len(self.servers)]
-        self._rr_index += 1
+            raise RuntimeError("GatewayImpl _next_server: aucun serveur enregistré")
+        
+        with self.queue._lock:  # ← ajout
+            srv = self.servers[self._rr_index % len(self.servers)]
+            self._rr_index += 1
+        
         logger.debug("+++ GatewayImpl : END _next_server")
         return srv
 
@@ -140,16 +145,22 @@ class GatewayImpl(IGateway):
         Appelé par le client : enfile le message (destination = 0 = gateway).
         Génère l'événement RECV côté gateway, puis dispatche vers un serveur.
         """
-        logger.debug(f"+++ GatewayImpl : RECV msg id={msg.get_message_id()} "
+        logger.debug(f"+++ GatewayImpl receive_message: RECV msg id={msg.get_message_id()} "
                      f"src={msg.get_source()} @ t={msg.get_timestamp():.4f}")
+
+        srv = self._next_server()
+        srv_id = srv.get_server_id()
+        msg.set_destination(srv_id)
+
         # Enfile dans la queue partagée
         accepted = self.queue.enqueue(msg)
         if accepted:
-            logger.info(f"+++ GatewayImpl : msg {msg.print_message()} mis en queue "
-                        f"(taille={self.queue.count_messages()})")
-            self.dispatch(msg)
+            logger.info(f"+++ GatewayImpl receive_message: msg {msg.print_message()} mis en queue "
+                        f"(taille={self.queue.count_messages()}) et dispacthé vers SERVER {srv_id} ")
+            self.servers[srv_id - 1].set_srv_proc(srv_id) # server_id starts at 1, list index starts at 0
+            # self.dispatch(msg)
         else:
-            logger.warning(f"+++ GatewayImpl : msg {msg.get_message_id()} DROPPED")
+            logger.warning(f"+++ GatewayImpl receive_message: msg {msg.get_message_id()} DROPPED")
 
     def dispatch(self, msg: IMessage):
         logger.debug("+++ GatewayImpl : START dispatch")
@@ -157,14 +168,15 @@ class GatewayImpl(IGateway):
         if self.queue.is_empty():
             logger.debug("+++ GatewayImpl : dispatch appelé mais Queue vide")
             return
+        
         srv = self._next_server()
         srv_id = srv.get_server_id()
 
-        logger.debug(f"+++ GatewayImpl : Dispatching msg {msg.get_message_id()} to server id={srv_id}")
-
         # Met à jour la destination dans le message
         msg.set_destination(srv_id)
-        # to be studied: self.servers[srv_id - 1].get_queue().dequeue(msg)  # server_id starts at 1, list index starts at 0
+        self.servers[srv_id - 1].set_srv_proc(srv_id) # server_id starts at 1, list index starts at 0
+
+        logger.debug(f"+++ GatewayImpl : Dispatching msg {msg.get_message_id()} to server id={srv_id} | srv_proc set to {srv_id} ")
         logger.debug("+++ GatewayImpl : END dispatch")
 
     # --- Affichage ---
@@ -174,7 +186,7 @@ class GatewayImpl(IGateway):
         srvs = ", ".join(str(s.print_server()) for s in self.servers)
         result = (f"[GATEWAY] ID={self.GATEWAY_ID} | "
                   f"Queue size={q_size} | Servers=[{srvs}]")
-        logger.info(f"+++ GatewayImpl : {result}")
+        logger.debug(f"+++ GatewayImpl : {result}")
         logger.debug("+++ GatewayImpl : END print_gateway")
         return result
 
