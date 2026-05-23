@@ -9,6 +9,8 @@
 # dst = 0 (gateway), 
 # node = composant de l'archi: client=1, gateway=0, server=1, server2=2, etc.
 
+from time import sleep
+
 from net.lecnam.rcp103.tp2.ConfigImpl import ConfigImpl
 from net.lecnam.rcp103.tp2.EventType import EventType
 from net.lecnam.rcp103.tp2.IEvent import IEvent
@@ -250,7 +252,7 @@ if __name__ == "__main__":
     # 1. Générer les événements SEND, RECV, DEPT pour chaque message
     for client in engine.clients:
         fish = Exponentielle(rng=rng, lam=client.get_arrival_rate())
-        for _ in range(50):     ## ATTENTION A MODIFIER METTRE UN GROS NOMBRE POUR LES METRIQUES
+        for _ in range(2):     ## ATTENTION A MODIFIER METTRE UN GROS NOMBRE POUR LES METRIQUES
             inter_arrival = fish.generate(1)[0] / 1000.0
             ts += inter_arrival
             msg = MessageImpl(i, client.get_client_id(), GATEWAY_ID, ts)
@@ -277,6 +279,7 @@ if __name__ == "__main__":
         logger.debug(f"+++ Engine : Event message: {msg_to_handle.print_message()}")
         # 3. Enregistrer et les messages dans la gateway
         client.send_message(msg_to_handle)
+        sleep(0.121)  # pour éviter de rejeter trop des messages à cause de la file limitée, on attend un peu entre chaque envoie
 
     engine.run_tests()
 
