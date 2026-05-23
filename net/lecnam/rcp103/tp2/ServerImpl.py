@@ -6,6 +6,7 @@
 #
 #####################################################################
 
+import datetime
 import logging
 import logging.config
 import os
@@ -117,6 +118,11 @@ class ServerImpl(IServer):
                         logger.debug(f"+++ ServerImpl listen : Message dequeued, checking destination ... {destination_dispatched_by_gw} vs Server ID {srv_id}")
                         # self.queue._lock.release() # ← ajout : release du lock après le dequeue, avant de traiter le message
                         if srv_id == destination_dispatched_by_gw:
+                            logger.info(f"+++ ServerImpl listen : srv_id = {srv_id} does match with message destination {destination_dispatched_by_gw} ! Server ID {srv_id} will process the message with id={msg.get_message_id()} ...")
+                            # TODO: MSG_DEPT event should be set here with the correct timestamp (after the service time simulation) and not in the gateway when the message is enqueued, because the actual departure time from the server is what matters for the performance metrics calculation, not the time when the message is enqueued in the gateway
+                            tfinal = datetime.datetime.now().timestamp()
+                            msg.set_timestamp(tfinal)
+                            logger.error(f"+++ ServerImpl listen SERVER {self.server_id} msg.get_timestamp()={tfinal:.4f} | Message with id={msg.get_message_id()} is being processed by SERVER {srv_id} ...")
                             logger.info(
                                 f"+++ ServerImpl listen SERVER {self.server_id}] listen has SUCCESSFULLY serverd  "
                                 f"msg id={msg.get_message_id()} "
