@@ -7,6 +7,22 @@ from net.lecnam.rcp103.tp2.IServer import IServer
 class IMessage(ABC):
 
     @abstractmethod
+    def get_timestamp():
+        pass
+
+    @abstractmethod
+    def set_timestamp(temps: float):
+        pass
+
+    @abstractmethod
+    def get_init_timestamp():
+        pass
+
+    @abstractmethod
+    def set_init_timestamp(temps: float):
+        pass
+
+    @abstractmethod
     def get_source():
         pass
 

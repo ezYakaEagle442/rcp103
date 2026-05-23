@@ -10,6 +10,7 @@ class MessageImpl(IMessage):
     source: int      # node id du client (>= 1)
     destination: int # node id de la destination : 0 = gateway
     timestamp: float
+    init_timestamp: float
 
     def __init__(self, message_id, source, destination: int = GATEWAY_ID, timestamp=0.0):
         self._message_id = message_id
@@ -17,31 +18,37 @@ class MessageImpl(IMessage):
         self._destination = destination  # 0 = gateway par défaut
         self._timestamp = timestamp
 
+    def get_init_timestamp(self):
+        return self.init_timestamp
+    
+    def set_init_timestamp(self, temps: float):
+        self.init_timestamp = temps
+
     ### getters du message ###
     def get_message_id(self):
         return self._message_id
 
-    def get_source(self):
-        return self._source
-
-    def get_destination(self):
-        return self._destination
-
-    def get_timestamp(self):
-        return self._timestamp
-
     def set_message_id(self, message_id):
         self._message_id = message_id
+
+    def get_source(self):
+        return self._source
 
     def set_source(self, source):
         self._source = source
 
-    def set_destination(self, destination: int):
-        self._destination = destination
+    def get_timestamp(self):
+        return self._timestamp
 
     ### setters du message ###
     def set_timestamp(self, temps):
         self._timestamp = temps
+
+    def get_destination(self):
+        return self._destination
+
+    def set_destination(self, destination: int):
+        self._destination = destination
 
     # --- Affichage ---
     def print_message(self):
