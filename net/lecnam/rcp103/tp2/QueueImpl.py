@@ -96,7 +96,7 @@ class QueueImpl(IQueue):
                     return False  # message droppé
                 else:
                     self.queue.append(msg)
-                logger.info(f"+++ QueueImpl | enqueue SERVER {self.get_srv_caller_id()} : msg {msg.get_message_id()} SUCCESSFULLY enqueued in Queue (current_queue_size={len(self.queue)})")
+                    logger.info(f"+++ QueueImpl | enqueue SERVER {self.get_srv_caller_id()} : msg {msg.get_message_id()} SUCCESSFULLY enqueued in Queue (current_queue_size={len(self.queue)})")
 
         except Exception as e:
             logger.error(f"+++ QueueImpl enqueue: Error occurred while enqueuing message: {e}")
