@@ -51,14 +51,22 @@ class ServerImpl(IServer):
     server_id: int # identifiant du serveur (>= 1)
     queue: IQueue  # queue privée du serveur
     service_rate: int
+    srv_proc: int
 
     def __init__(self, mu: int, server_id: int, queue: IQueue):
         logger.debug("+++ ServerImpl : START Constructor")
         self.mu = mu
         self.server_id = server_id
         self.queue = queue
+        self.srv_proc = 42
         logger.debug(f"+++ ServerImpl : server_id={server_id}, mu={mu}")
         logger.debug("+++ ServerImpl : END Constructor")
+
+    def get_srv_proc(self) -> int:
+        return self.srv_proc
+
+    def set_srv_proc(self, srv_proc: int):
+        self.srv_proc = srv_proc
 
     def get_queue(self) -> IQueue:
         return self.queue
@@ -84,48 +92,70 @@ class ServerImpl(IServer):
         logger.debug(f"+++ ServerImpl Server [{self.server_id}] LISTENS ...")
         while True:
             try:
-                if not self.queue._lock.acquire(timeout=0.42):
-                    logger.warning(f"+++ ServerImpl : Lock non disponible, échec de listen for Server ID {self.server_id}")
-                    return None
-                else:
-                    locked_down = self.queue._lock.locked() # just to check if lock is acquired
-                    logger.debug(f"+++ ServerImpl : Lock bien disponible le Server va pouvoir écouter ! Lock status: {locked_down}")
-                    srv_id = self.get_server_id()
-                    # logger.debug(f"+++ ServerImpl : srv_id = {srv_id}")
-                    file_vide = self.queue.is_empty()
-                    logger.debug(f"+++ ServerImpl  srv_id = {srv_id} | file_vide = {file_vide}")
+                srv_id = self.get_server_id()
+                srv_proc = self.get_srv_proc()
+                locked_down = self.queue._lock.locked() # just to check if lock is acquired
+                logger.info(f"+++ ServerImpl listen : srv_id = {srv_id} | Lock bien disponible le Server va pouvoir écouter ! Lock status: {locked_down}")
+                logger.info(f"+++ ServerImpl : srv_proc = {srv_proc}")
+                file_vide = self.queue.is_empty()
+                logger.debug(f"+++ ServerImpl listen : srv_id = {srv_id} | file_vide = {file_vide}")
+
+                if srv_proc == srv_id:
+                    logger.info(f"+++ ServerImpl listen : srv_id={srv_id} does match srv_proc={srv_proc}")
+
                     if not file_vide:
-                        logger.info(f"+++ ServerImpl : srv_id = {srv_id} | Queue is NOT empty ! Server ID {srv_id} can dequeue a message.")
+                        logger.info(f"+++ ServerImpl listen : srv_id = {srv_id} | Queue is NOT empty ! Server ID {srv_id} can dequeue a message.")
+                        self.get_queue().set_srv_caller_id(srv_id) # set the caller id for logging purposes
+
                         msg = self.queue.dequeue()
+                        if (msg is None):
+                            logger.warning(f"+++ ServerImpl : srv_id = {srv_id} | Failed to dequeue a message due to lock acquisition failure. Will retry in the next iteration.")
+                            sleep(0.42)  # évite le busy-wait si le message n'est pas destiné à ce serveur
+                            continue
+
                         destination_dispatched_by_gw = msg.get_destination() # check if destination does match wit hcurrent Server ID
-                        logger.debug(f"+++ ServerImpl : Message dequeued, checking destination ... {destination_dispatched_by_gw} vs Server ID {srv_id}")
-                        self.queue._lock.release() # ← ajout : release du lock après le dequeue, avant de traiter le message
+                        logger.debug(f"+++ ServerImpl listen : Message dequeued, checking destination ... {destination_dispatched_by_gw} vs Server ID {srv_id}")
+                        # self.queue._lock.release() # ← ajout : release du lock après le dequeue, avant de traiter le message
                         if srv_id == destination_dispatched_by_gw:
                             logger.info(
-                                f"+++ ServerImpl [{self.server_id}] : DEPT "
+                                f"+++ ServerImpl listen SERVER {self.server_id}] listen has SUCCESSFULLY serverd  "
                                 f"msg id={msg.get_message_id()} "
-                                f"src={msg.get_source()} @ t={msg.get_timestamp():.4f}"
+                                f"src-client ID={msg.get_source()} "
+                                f"@ t={msg.get_timestamp():.4f}"
                             )
                             # Simulation du temps de service (optionnel)
                             service_time = np.random.exponential(1.0 / self.mu)
                             sleep(service_time)
+
                         else:
-                            logger.debug(f"+++ ServerImpl : Message destination {destination_dispatched_by_gw} does not match Server ID {srv_id}, leave it in the queue")
+                            logger.warning(f"+++ ServerImpl listen : Message destination {destination_dispatched_by_gw} does not match Server ID {srv_id}, leave it in the queue")
+                            # this message should be put back in the queue or handled by the next server, but since we are using a simple queue without peeking, we just let it be and the next server will handle it in the next iteration
+                            #enqueued_back = self.queue.enqueue(msg)  # re-enqueue the message if it's not for this server
+                            #logger.debug(f"+++ ServerImpl : Enqueue success: {enqueued_back} | Message with id={msg.get_message_id()} re-enqueued back to the queue for the next server to handle it")
+                            #if (enqueued_back == False):
+                            #    logger.warning(f"+++ ServerImpl listen : Failed to re-enqueue message with id={msg.get_message_id()} back to the queue after dequeueing it because it was not for this server. Message is DROPPED.")
                             sleep(0.01)  # évite le busy-wait si le message n'est pas destiné à ce serveur
                     else:
-                        logger.debug(f"+++ ServerImpl : else file_vide = {file_vide}")
+                        logger.debug(f"+++ ServerImpl listen : else file_vide = {file_vide}")
                         sleep(0.01)  # évite le busy-wait
+
+                    # reset to default value after processing the message for this server
+                    self.set_srv_proc(42)
+
+                else:
+                    logger.warning(f"+++ ServerImpl : srv_id = {srv_id} | srv_proc = {srv_proc} | Message is not for this server, skipping ...")
+                    sleep(0.01)  # évite le busy-wait si le message n'est pas destiné à ce serveur
+
             except Exception as e:
-                logger.error(f"+++ ServerImpl : Error occurred while listening ...")
+                logger.error(f"+++ ServerImpl : Error occurred while listening ... {e}")
             except RuntimeError as error:
-                print("+++ ServerImpl : Erreur au Runtime while listening ...")
+                print("+++ ServerImpl listen : Erreur au Runtime while listening ...")
                 print(f"A {type(error).__name__} has occurred.")
                 #exit(42)
             finally:    
-                self.queue._lock.release()  # ← ajout
-                logger.debug(f"+++ ServerImpl : Lock released in listen()")
+                # self.queue._lock.release()  # ← ajout
+                #logger.debug(f"+++ ServerImpl : Lock released in listen()")
                 logger.debug(f"+++ ServerImpl [{self.server_id}] : END listen")
-                logger.debug(f"+++ ServerImpl : END listen")
 
     # --- Affichage ---
     def print_server(self):
