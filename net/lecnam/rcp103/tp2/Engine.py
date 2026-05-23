@@ -9,6 +9,7 @@
 # dst = 0 (gateway), 
 # node = composant de l'archi: client=1, gateway=0, server=1, server2=2, etc.
 
+import datetime
 from time import sleep
 
 from net.lecnam.rcp103.tp2.ConfigImpl import ConfigImpl
@@ -216,6 +217,9 @@ class Engine:
 if __name__ == "__main__":
     logger.debug("+++ Engine : Main START")
 
+    a_time = datetime.datetime.now().timestamp()
+    logger.info(f"+++ Engine : Simulation started at {a_time:.4f}")
+
     # Architecture :
     # client (id>=1) -> SEND -> gateway (id=0) -> RECV -> queue -> DEPT -> server (id>=1)
 
@@ -249,37 +253,53 @@ if __name__ == "__main__":
     i = 1
     ts = 0.0
 
-    # 1. Générer les événements SEND, RECV, DEPT pour chaque message
+    # 1. Générer les événements SEND, RECV pour chaque message
     for client in engine.clients:
         fish = Exponentielle(rng=rng, lam=client.get_arrival_rate())
-        for _ in range(2):     ## ATTENTION A MODIFIER METTRE UN GROS NOMBRE POUR LES METRIQUES
+        for _ in range(10):     ## ATTENTION A MODIFIER METTRE UN GROS NOMBRE POUR LES METRIQUES
             inter_arrival = fish.generate(1)[0] / 1000.0
             ts += inter_arrival
             msg = MessageImpl(i, client.get_client_id(), GATEWAY_ID, ts)
+            t0 = datetime.datetime.now().timestamp()
+            msg.set_init_timestamp(t0)
+            logger.info(f"+++ Engine : Event LOOP t_init={t0:.4f}, msg_id={msg.get_message_id()}")
             t_send = ts
             t_recv = ts + 1.0 # EN slide 10:latence de transmission client->gateway es tde 1s
-            t_dept = t_recv + 0.125 # latence totale client->gateway->server (service instantané côté serveur)
+            t_dept = -0.42 # t_recv + 0.125 # latence totale client->gateway->server (service instantané côté serveur)
 
             e_send = EventImpl(i*(EventType.SEND_MSG.value), msg, "SEND_MSG", t_send)
-            e_recv = EventImpl(i*(EventType.RECV_MSG.value), msg, "RECV_MSG", t_recv)
-            e_dept = EventImpl(i*(EventType.MSG_DEPT.value), msg, "MSG_DEPT", t_dept)
-
             # 2. Enregistrer les événements dans le scheduler 
             engine.scheduler.add_event(e_send)
+
+            # Evoyer les messages dans la gateway et les enregistrer dans le scheduler
+            e_recv = EventImpl(i*(EventType.RECV_MSG.value), msg, "RECV_MSG", t_recv)
             engine.scheduler.add_event(e_recv)
+            client.send_message(msg)
+            sleep(0.121)  # pour éviter de rejeter trop des messages à cause de la file limitée, on attend un peu entre chaque envoie
+
+            # Générer l' événement DEPT pour chaque message une fois traité par le Server
+            t_final = msg.get_timestamp()
+            t_dept = ts + (t_final - msg.get_init_timestamp()) # latence totale client->gateway->server (service instantané côté serveur)  
+
+            e_dept = EventImpl(i*(EventType.MSG_DEPT.value), msg, "MSG_DEPT", t_dept)
             engine.scheduler.add_event(e_dept)
+            logger.error(f"+++ Engine : Event = {e_dept.print_event()} created for msg_id={msg.get_message_id()} with t_dept={t_dept:.4f}")
+            logger.info(f"+++ Engine : Event SEND_MSG created, t_init={msg.get_init_timestamp():.4f}, msg_id={msg.get_message_id()}")
+            logger.info(f"+++ Engine : Event SEND_MSG created, t_send={t_send:.4f}, msg_id={msg.get_message_id()}")
+            logger.info(f"+++ Engine : Event RECV_MSG created, t_recv={t_recv:.4f}, msg_id={msg.get_message_id()}")
+            logger.info(f"+++ Engine : Event MSG_DEPT created, t_dept={t_dept:.4f}, msg_id={msg.get_message_id()}")
             
             i += 1
 
     logger.info(f"+++ Engine : {engine.scheduler.count_events()} messages générés et événements programmés dans le scheduler")
     
-    for event in engine.scheduler.get_events():
-        logger.debug(f"+++ Engine : Event scheduled: {event.print_event()}")
-        msg_to_handle = event.get_message()
-        logger.debug(f"+++ Engine : Event message: {msg_to_handle.print_message()}")
-        # 3. Enregistrer et les messages dans la gateway
-        client.send_message(msg_to_handle)
-        sleep(0.121)  # pour éviter de rejeter trop des messages à cause de la file limitée, on attend un peu entre chaque envoie
+#    for event in engine.scheduler.get_events():
+#        logger.debug(f"+++ Engine : Event scheduled: {event.print_event()}")
+#        msg_to_handle = event.get_message()
+#        logger.debug(f"+++ Engine : Event message: {msg_to_handle.print_message()}")
+#        # 3. Enregistrer et les messages dans la gateway
+#        client.send_message(msg_to_handle)
+#        sleep(0.121)  # pour éviter de rejeter trop des messages à cause de la file limitée, on attend un peu entre chaque envoie
 
     engine.run_tests()
 
