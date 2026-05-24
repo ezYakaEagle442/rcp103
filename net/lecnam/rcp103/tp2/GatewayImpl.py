@@ -72,16 +72,6 @@ class GatewayImpl(IGateway):
 
         self.create_servers(nb_servers)
         logger.info(f"+++ GatewayImpl : {len(self.servers)} server(s) enregistré(s)")
-
-        logger.debug("+++ GatewayImpl : about to trigger servers to listen ...")
-        threads = []
-        for server in self.servers:
-            logger.debug(f"+++ GatewayImpl : starting listener for {server.print_server()}")
-            thread = threading.Thread(target=server.listen, daemon=True,name=f"ServerListener-{server.get_server_id()}")
-            thread.start()
-            logger.info(f"+++ GatewayImpl : listener started for {server.print_server()} in thread {thread.name}")
-            threads.append(thread)
-
         logger.debug("+++ GatewayImpl : END Constructor")
 
     # --- Accesseurs queue ---
