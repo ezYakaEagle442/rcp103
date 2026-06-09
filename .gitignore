@@ -7,6 +7,12 @@ __pycache__/
 net/lecnam/__pycache__/
 net/lecnam/rcp103/__pycache__/
 
+*.aux
+*.fls
+*.fdb_latexmk
+*.gz
+*.log
+
 # Maven
 target/
 !.mvn/wrapper/maven-wrapper.jar
