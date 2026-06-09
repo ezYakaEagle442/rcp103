@@ -318,8 +318,10 @@ if __name__ == "__main__":
             # 1. Générer les événements SEND, RECV, DEPT pour chaque message
             for client in engine.clients:
                 ts = 0.0
-                fish = Exponentielle(rng=rng, lam=lam)
-                for _ in range(442):     ## ATTENTION A MODIFIER METTRE UN GROS NOMBRE POUR LES METRIQUES
+                # inter-arrival times selon une loi exponentielle de paramètre lambda
+                fish = Poisson(rng=rng, lam=lam)
+                #fish = Exponentielle(rng=rng, scale=1.0/lam)
+                for _ in range(100):     ## ATTENTION A MODIFIER METTRE UN GROS NOMBRE POUR LES METRIQUES
                     inter_arrival = fish.generate(1)[0]
                     ts += inter_arrival
                     msg = MessageImpl(i, client.get_client_id(), GATEWAY_ID, ts)
@@ -349,7 +351,7 @@ if __name__ == "__main__":
 
     lambdas = [4, 6, 8, 12]
     L_theo = [1.0, 3.0]
-    W_theo = [0.25, 0.5]
+    W_theo = [0.25, 0.75]
     lambdas_theo = [4, 6]  # seulement pour λ<μ
     logging.getLogger('matplotlib').setLevel(logging.WARNING)
     plt.figure(figsize=(10, 4))
