@@ -12,6 +12,14 @@ net/lecnam/rcp103/__pycache__/
 *.fdb_latexmk
 *.gz
 *.log
+*.out
+
+rapport/*.aux
+rapport/*.fls
+rapport/*.fdb_latexmk
+rapport/*.gz
+rapport/*.log
+rapport/*.out
 
 # Maven
 target/
